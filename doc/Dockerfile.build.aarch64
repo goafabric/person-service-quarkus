@@ -1,0 +1,8 @@
+FROM ghcr.io/graalvm/graalvm-ce:java11-21.0.0.2 AS build
+RUN gu install native-image
+WORKDIR /project
+VOLUME ["/project"]
+ENTRYPOINT ["native-image"]
+
+#https://dev.to/nevernull/building-a-native-java-application-for-arm64-with-quarkus-2n9m
+#docker build -f Dockerfile.build.aarch64 -t goafabric/quarkus-build-aarch64:java11-21.0.0.2 .
