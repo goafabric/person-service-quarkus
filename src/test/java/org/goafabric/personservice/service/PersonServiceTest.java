@@ -13,7 +13,7 @@ public class PersonServiceTest {
         given()
           .when().get("/persons/findAll")
           .then()
-             .statusCode(204);
+             .statusCode(200);
                 //.body(is("true"));
     }
 
