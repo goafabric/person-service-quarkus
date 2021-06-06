@@ -11,9 +11,9 @@ services:
       - 50800:50800
     healthcheck:
       test: "curl -f http://localhost:50800/actuator/health || exit 1"
-      interval: 10s
+      interval: 5s
       timeout: 10s
-      retries: 10
+      retries: 5
     volumes:
       - tmp:/tmp
       - applogs:/usr/share/logs
