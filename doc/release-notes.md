@@ -1,4 +1,5 @@
 #1.0.2
+- DurationLog added
 
 #1.0.1
 - Flyway added
