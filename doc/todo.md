@@ -1,2 +1,2 @@
-- Working compile for Postgres
 - Working Integration Tests with H2
+- Compose File Normalisation
