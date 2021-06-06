@@ -5,7 +5,7 @@ services:
     depends_on:
       - postgres
     container_name: person-service-${STACK_NAME}
-    image: goafabric/person-service-quarkus:1.0.1-SNAPSHOT
+    image: goafabric/person-service-quarkus${ARCH_SUFFIX}:1.0.1-SNAPSHOT
     restart: 'no'
     ports:
       - 50800:50800
