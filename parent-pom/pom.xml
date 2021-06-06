@@ -137,6 +137,8 @@
                 <quarkus.container-image.push>false</quarkus.container-image.push>
                 <quarkus.container-image.build>true</quarkus.container-image.build>
                 <quarkus.container-image.image>${docker.registry}/${project.artifactId}:${project.version}</quarkus.container-image.image>
+
+                <quarkus.native.native-image-xmx>4096m</quarkus.native.native-image-xmx>
             </properties>
             <dependencies>
                 <dependency>
