@@ -3,6 +3,7 @@ package org.goafabric.personservice.service;
 import org.goafabric.personservice.logic.PersonLogic;
 
 import javax.inject.Inject;
+import javax.validation.Valid;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -47,7 +48,7 @@ public class PersonService {
     @POST
     @Path("save")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Person save(Person person) {
+    public Person save(@Valid Person person) {
         return personLogic.save(person);
     }
 
