@@ -1,5 +1,7 @@
 package org.goafabric.personservice.logic;
 
+import io.quarkus.cache.CacheInvalidateAll;
+import io.quarkus.cache.CacheResult;
 import org.goafabric.personservice.persistence.PersonRepository;
 import org.goafabric.personservice.service.Person;
 
@@ -12,10 +14,10 @@ import java.util.List;
 @Transactional
 public class PersonLogic {
     @Inject
-    private PersonMapper personMapper;
+    PersonMapper personMapper;
 
     @Inject
-    private PersonRepository personRepository;
+    PersonRepository personRepository;
 
     public Person getById(String id) {
         return personMapper.map(
@@ -27,16 +29,19 @@ public class PersonLogic {
                 personRepository.findAll().list());
     }
 
+    @CacheResult(cacheName = "persons")
     public List<Person> findByFirstName(String firstName) {
         return personMapper.map(
                 personRepository.findByFirstName(firstName));
     }
 
+    @CacheResult(cacheName = "persons")
     public List<Person> findByLastName(String lastName) {
         return personMapper.map(
                 personRepository.findByLastName(lastName));
     }
 
+    @CacheInvalidateAll(cacheName = "persons")
     public Person save(Person person) {
         return personMapper.map(
                 personRepository.save(personMapper.map(person)));

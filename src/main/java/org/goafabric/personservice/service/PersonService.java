@@ -18,7 +18,7 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 public class PersonService {
     @Inject
-    private PersonLogic personLogic;
+    PersonLogic personLogic;
 
     @GET
     @Path("getById/{id}")

@@ -9,7 +9,7 @@ import javax.transaction.Transactional;
 public class DemoDataInitializer {
 
     @Inject
-    private PersonRepository personRepository;
+    PersonRepository personRepository;
 
     public void run() {
         //if (!personRepository.findAll().iterator().hasNext()) {

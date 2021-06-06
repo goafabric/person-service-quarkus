@@ -19,7 +19,7 @@ public class Application {
     public static class MyApp implements QuarkusApplication {
 
         @Inject
-        private DemoDataInitializer demoDataInitializer;
+        DemoDataInitializer demoDataInitializer;
 
         @Override
         public int run(String... args) throws Exception {
