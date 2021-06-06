@@ -29,8 +29,7 @@ public class PersonService {
     @GET
     @Path("findAll")
     public List<Person> findAll() {
-        throw new IllegalStateException("yo");
-        //return personLogic.findAll();
+        return personLogic.findAll();
     }
 
     @GET
