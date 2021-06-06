@@ -26,8 +26,8 @@ services:
       - management.database.monitoring.enabled=true
       - security.authentication.enabled=false
       # Datasource
+      #- quarkus.datasource.jdbc.driver=org.postgresql.Driver
       - quarkus.datasource.db-kind=postgresql
-      - quarkus.datasource.jdbc.driver=org.postgresql.Driver
       - quarkus.datasource.jdbc.url=jdbc:postgresql://postgres_${STACK_NAME}:5432/persondb
       - quarkus.datasource.username=person-service
       - quarkus.datasource.password=person-service
