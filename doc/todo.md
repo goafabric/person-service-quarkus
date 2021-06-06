@@ -2,3 +2,6 @@
 - Compose File Normalisation
 
 - CacheKey with Multi Tenancy Id and own Key Generator
+
+- Security, Resilience, Tracing
+- Intecerceptor/Aroundinvoke, Jasypt, Multi Tenancy
