@@ -1,3 +1,4 @@
+/*
 package org.goafabric.personservice.service;
 
 import io.quarkus.test.junit.NativeImageTest;
@@ -8,3 +9,5 @@ public class NativePersonServiceIT extends PersonServiceTest {
 
     // Execute the same tests but in native mode.
 }
+
+ */
