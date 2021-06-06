@@ -32,6 +32,7 @@ services:
       - quarkus.datasource.jdbc.url=jdbc:postgresql://postgres_${STACK_NAME}:5432/persondb
       - quarkus.datasource.username=person-service
       - quarkus.datasource.password=person-service
+      - quarkus.log.category."org.hibernate".level=INFO
 
   postgres:
     container_name: postgres_${STACK_NAME}
