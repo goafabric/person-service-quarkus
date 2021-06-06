@@ -2,8 +2,10 @@ package org.goafabric.personservice.persistence;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 
 @ApplicationScoped
+@Transactional
 public class DemoDataInitializer {
 
     @Inject
