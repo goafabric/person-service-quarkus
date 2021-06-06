@@ -2,6 +2,8 @@ version: "3.7"
 
 services:
   person-service:
+    depends_on:
+      - postgres
     container_name: person-service-${STACK_NAME}
     image: goafabric/person-service-quarkus${ARCH_SUFFIX}:1.0.0-SNAPSHOT
 #    image: goafabric/person-service${ARCH_SUFFIX}:1.0.3-SNAPSHOT
