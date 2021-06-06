@@ -2,6 +2,7 @@ package org.goafabric.personservice.logic;
 
 import io.quarkus.cache.CacheInvalidateAll;
 import io.quarkus.cache.CacheResult;
+import org.goafabric.personservice.crossfunctional.DurationLog;
 import org.goafabric.personservice.persistence.PersonRepository;
 import org.goafabric.personservice.service.Person;
 
@@ -12,6 +13,7 @@ import java.util.List;
 
 @ApplicationScoped
 @Transactional
+@DurationLog
 public class PersonLogic {
     @Inject
     PersonMapper personMapper;
