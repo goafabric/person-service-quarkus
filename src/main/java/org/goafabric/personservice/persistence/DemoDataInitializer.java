@@ -12,7 +12,7 @@ public class DemoDataInitializer {
     PersonRepository personRepository;
 
     public void run() {
-        //if (!personRepository.findAll().iterator().hasNext()) {
+        if (personRepository.findAll().list().isEmpty()) {
             personRepository.save(PersonBo.builder()
                     .firstName("Homer").lastName("Simpson")
                     .build());
@@ -24,6 +24,6 @@ public class DemoDataInitializer {
             personRepository.save(PersonBo.builder()
                     .firstName("Monty").lastName("Burns")
                     .build());
-        //}
+        }
     }
 }
