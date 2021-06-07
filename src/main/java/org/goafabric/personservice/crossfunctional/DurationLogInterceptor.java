@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 @Priority(2020)
 @Interceptor
 @Slf4j
-public class LoggingInterceptor {
+public class DurationLogInterceptor {
     
     @AroundInvoke
     Object logInvocation(InvocationContext context) throws Exception {
