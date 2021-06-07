@@ -1,10 +1,10 @@
 #Working
 - Tomcat, Actuator, Prometheus, Lombok, Mapstruct, Exceptionhandler
+
 - Swagger
 - JPA, Flyway, Annotations (e.g. @Transactional)
 - Bean Validation
 - Cache
-
 
 #Not Tested
 - Security
