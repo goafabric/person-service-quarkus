@@ -45,13 +45,7 @@
             <artifactId>quarkus-micrometer-registry-prometheus</artifactId>
         </dependency>
 
-        <!-- Swagger -->
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-smallrye-openapi</artifactId>
-        </dependency>
-
-        <!-- 3rd party -->
+        <!-- Code Generation -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -62,8 +56,13 @@
             <artifactId>mapstruct</artifactId>
         </dependency>
 
-        <!-- Crosscutting -->
+        <!-- Swagger -->
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-smallrye-openapi</artifactId>
+        </dependency>
 
+        <!-- Crosscutting -->
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-hibernate-validator</artifactId>
@@ -74,9 +73,7 @@
             <artifactId>quarkus-cache</artifactId>
         </dependency>
 
-
         <!-- Persistence -->
-
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-hibernate-orm-panache</artifactId>
@@ -103,9 +100,7 @@
             <artifactId>h2</artifactId>
             <scope>runtime</scope>
         </dependency>
-
-
-
+        
         <!-- Test -->
         <dependency>
             <groupId>io.quarkus</groupId>
