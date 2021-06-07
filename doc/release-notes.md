@@ -1,3 +1,5 @@
+#1.0.4
+
 #1.0.3
 - sync with quarkus variant
 - DurationLog added
