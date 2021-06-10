@@ -1,0 +1,74 @@
+version: "3.7"
+
+services:
+  person-service:
+    container_name: ${_Values_root_name}-application
+    image:  ${_Values_image_repository}${_Values_server_arch}:${_Values_image_tag}
+#    image: ${_Values_image_repository}-native:${_Values_image_tag}
+    restart: 'no'
+    ports:
+      - "${_Values_service_port}:${_Values_service_port}"
+    entrypoint: ["java","-Xms${_Values_resources_requests_memory}","-Xmx${_Values_resources_requests_memory}","-cp","/app/resources:/app/classes:/app/libs/*","org.goafabric.personservice.Application"]
+#    command: ["-Xmx${_Values_resources_requests_memory}"]
+
+#    we cannot active the healthcheck because base native images does not have curl
+#    healthcheck:
+#      test: "curl -f http://localhost:${_Values_service_port}/actuator/health || exit 1"
+#      interval: 10s
+#      timeout: 10s
+#      retries: 5
+    volumes:
+      - tmp:/tmp
+      - applogs:/usr/share/logs
+    networks:
+      - ${_Values_root_name}-net
+    environment:
+      #application
+      - TZ=Europe/Berlin
+      - server.port=${_Values_service_port}
+      - tomcat.max-threads=20
+      - security.authentication.enabled=true
+      #monitoring
+      - management.endpoint.health.show-details=always
+      - management.endpoints.web.exposure.include=health,prometheus,heapdump
+      #persistence
+      - spring.datasource.url=jdbc:postgresql://${_Values_root_name}-postgres:5432/persondb
+      - spring.datasource.username=person-service
+      - spring.datasource.password=person-service
+      #adapter
+      - adapter.calleeservice.url=http://host.docker.internal:50900
+      #logging
+      - logging.level.root=WARN
+      - logging.level.org.springframework=INFO
+      - logging.level.org.goafabric=INFO
+      - logging.level.org.flywaydb.core="INFO"
+      - logging.level.org.hibernate.SQL="INFO"
+      - logging.file.max-size=10MB
+      - logging.file.name=/usr/share/logs/application.log
+
+  postgres:
+    container_name: ${_Values_root_name}-postgres
+    image: postgres:13.2
+    restart: 'no'
+    ports:
+      - 50810:5432
+    environment:
+      - TZ=Europe/Berlin
+      - POSTGRES_USER=person-service
+      - POSTGRES_PASSWORD=person-service
+      - POSTGRES_DB=persondb
+    command: postgres -c 'shared_buffers=128MB' -c 'max_connections=30' -c 'shared_preload_libraries=pg_stat_statements'
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+#      - ../config/postgres/initdb/00_pg_statements.sql:/docker-entrypoint-initdb.d/00_pg_statements.sql
+    networks:
+      - ${_Values_root_name}-net
+
+volumes:
+    tmp:
+    applogs:
+    pgdata:
+
+networks:
+  person-service-net:
+    driver: bridge

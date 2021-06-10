@@ -1,0 +1,5 @@
+#!/bin/bash
+export STACK_NAME="person-service-stack-1"
+export SERVICE_MEM="64m"
+[[ "$(uname -m)" == "arm64" || "$(uname -m)" == "aarch64" ]] && export ARCH_SUFFIX="-arm64v8"
+./stack_util ${STACK_NAME} $1
