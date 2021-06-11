@@ -30,6 +30,7 @@ services:
       - quarkus.datasource.jdbc.url=jdbc:postgresql://${_Values_root_name}-postgres:5432/persondb
       - quarkus.datasource.username=person-service
       - quarkus.datasource.password=person-service
+      - quarkus.datasource.jdbc.max-size=10
       #adapter
       - adapter.calleeservice.url=http://host.docker.internal:50900
       #logging
