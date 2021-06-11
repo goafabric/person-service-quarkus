@@ -3,6 +3,7 @@
 
 - Swagger
 - JPA, Flyway, Annotations (e.g. @Transactional)
+- Aspects / Interceptor
 - Bean Validation
 - Cache
 
