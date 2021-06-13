@@ -30,6 +30,7 @@ Jasypt Properties
     https://github.com/chrisgleissner/microprofile-config-jasypt
     https://quarkus.io/guides/credentials-provider#custom-credentials-provider
     https://www.baeldung.com/java-base64-encode-and-decode
+    str.substring(str.indexOf("[") + 1, str.indexOf("]"));
 
 CircuitBreaker
     https://quarkus.io/guides/smallrye-fault-tolerance#adding-resiliency-timeouts
