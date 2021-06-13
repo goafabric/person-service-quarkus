@@ -22,6 +22,9 @@ Security
 https://quarkus.io/guides/security-properties
 
 Multi Tenancy
+    Interceptor: https://quarkus.io/guides/rest-json#http-filters-and-interceptors
+    TenantResolver: https://quarkus.io/guides/hibernate-orm#multitenanc
+
     Statement Inspector: https://github.com/quarkusio/quarkus/issues/12724
     https://quarkus.io/guides/hibernate-orm#setting-up-and-configuring-hibernate-orm-with-a-persistence-xml
 	Cache Key Generator: https://github.com/quarkusio/quarkus/issues/17879
