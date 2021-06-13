@@ -9,6 +9,9 @@
 
 
 -- Solutions
+                        
+CDI - Produces
+    https://quarkus.io/guides/cdi-reference#default_beans
 
 Configuration Props
     https://quarkus.io/guides/config
