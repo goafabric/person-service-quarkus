@@ -32,12 +32,15 @@ services:
       - quarkus.datasource.password=person-service
       - quarkus.datasource.jdbc.max-size=10
       #adapter
-      - org.goafabric.personservice.adapter.CalleeClient/mp-rest/url=http://host.docker.internal:50900
+      - org.goafabric.personservice.adapter.CalleeAdapter/mp-rest/url=http://host.docker.internal:50900
       #logging
       - quarkus.log.level=INFO
       - quarkus.log.category."org.goafabric".level=INFO
       - quarkus.log.category."org.flywaydb.core".level=INFO
       - quarkus.log.category."org.hibernate".level=INFO
+
+    depends_on:
+      - postgres
 
   postgres:
     container_name: ${_Values_root_name}-postgres
