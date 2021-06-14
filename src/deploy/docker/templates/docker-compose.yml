@@ -32,7 +32,7 @@ services:
       - quarkus.datasource.password=person-service
       - quarkus.datasource.jdbc.max-size=10
       #adapter
-      - adapter.calleeservice.url=http://host.docker.internal:50900
+      - org.goafabric.personservice.adapter.CalleeClient/mp-rest/url=http://host.docker.internal:50900
       #logging
       - quarkus.log.level=INFO
       - quarkus.log.category."org.goafabric".level=INFO
