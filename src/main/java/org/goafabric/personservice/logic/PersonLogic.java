@@ -2,6 +2,8 @@ package org.goafabric.personservice.logic;
 
 import io.quarkus.cache.CacheInvalidateAll;
 import io.quarkus.cache.CacheResult;
+import org.eclipse.microprofile.rest.client.inject.RestClient;
+import org.goafabric.personservice.adapter.CalleeAdapter;
 import org.goafabric.personservice.crossfunctional.DurationLog;
 import org.goafabric.personservice.persistence.PersonRepository;
 import org.goafabric.personservice.service.Person;
@@ -20,6 +22,10 @@ public class PersonLogic {
 
     @Inject
     PersonRepository personRepository;
+
+    @Inject
+    @RestClient
+    CalleeAdapter calleeAdapter;
 
     public Person getById(String id) {
         return personMapper.map(
@@ -49,4 +55,7 @@ public class PersonLogic {
                 personRepository.save(personMapper.map(person)));
     }
 
+    public Boolean isAlive() {
+        return calleeAdapter.isAlive();
+    }
 }

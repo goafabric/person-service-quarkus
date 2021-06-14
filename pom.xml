@@ -73,6 +73,16 @@
             <artifactId>quarkus-cache</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-rest-client</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-rest-client-jackson</artifactId>
+        </dependency>
+
         <!-- Persistence -->
         <dependency>
             <groupId>io.quarkus</groupId>

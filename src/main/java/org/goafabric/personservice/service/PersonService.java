@@ -44,7 +44,6 @@ public class PersonService {
         return personLogic.findByLastName(lastName);
     }
 
-
     @POST
     @Path("save")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -52,4 +51,10 @@ public class PersonService {
         return personLogic.save(person);
     }
 
+    @GET
+    @Path("isAlive")
+        //Produces APPLICATION_JSON not allowed here
+    public Boolean isAlive() {
+        return personLogic.isAlive();
+    }
 }
