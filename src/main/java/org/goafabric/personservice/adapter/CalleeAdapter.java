@@ -1,5 +1,6 @@
 package org.goafabric.personservice.adapter;
 
+import org.eclipse.microprofile.faulttolerance.CircuitBreaker;
 import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
 
 import javax.inject.Singleton;
@@ -9,6 +10,7 @@ import javax.ws.rs.Path;
 @Path("/callees")
 @RegisterRestClient
 @Singleton
+@CircuitBreaker(requestVolumeThreshold = 4)
 public interface CalleeAdapter {
 
     @GET
