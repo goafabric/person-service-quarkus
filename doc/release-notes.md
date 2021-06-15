@@ -1,4 +1,5 @@
 #1.0.4
+- CalleeService Call added
 
 #1.0.3
 - sync with quarkus variant
