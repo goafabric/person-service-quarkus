@@ -8,11 +8,13 @@
 - Aspects / Interceptor
 - Cache
 
+- Resilience
+
 #Not Tested
 - Security
-- Resilience, Tracing, 
 - Jasypt, 
-- Multi Tenancy, REST Call
+- Multi Tenancy
+- Tracing
 
 #build times apple silicon:
 - console: 1m
