@@ -10,9 +10,9 @@ import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
-@DurationLog
 @Priority(2020)
 @Interceptor
+@DurationLog
 @Slf4j
 public class DurationLogInterceptor {
     
