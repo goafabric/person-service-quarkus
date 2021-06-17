@@ -1,19 +1,18 @@
 #Working
-- Tomcat, Actuator, Prometheus, Lombok, Mapstruct, Exceptionhandler
+- Web, Health, Prometheus, ExceptionHandler
+- Lombok, Mapstruct
 - Swagger
-
-- JPA, Bean Validation
+- Security
+- DurationLogger
   
-- Flyway, Annotations (e.g. @Transactional)
-- Aspects / Interceptor
+- JPA
+- Flyway
 - Cache
-
 - Resilience
 
 #Not Tested
-- Security
-- Jasypt, 
-- Multi Tenancy
+- Jaspyt Encryption
+- Multi Tenancy for JPA + Cache 
 - Tracing
 
 #build times apple silicon:

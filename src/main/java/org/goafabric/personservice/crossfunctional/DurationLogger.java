@@ -14,8 +14,8 @@ import java.util.stream.Collectors;
 @Interceptor
 @DurationLog
 @Slf4j
-public class DurationLogInterceptor {
-    
+public class DurationLogger {
+
     @AroundInvoke
     Object logInvocation(InvocationContext context) throws Exception {
         final long startTime = System.currentTimeMillis();
