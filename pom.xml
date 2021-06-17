@@ -15,15 +15,17 @@
     </parent>
 
     <dependencies>
-        <!-- Quarkus -->
+        <!-- web -->
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-arc</artifactId>
         </dependency>
+
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-resteasy</artifactId>
         </dependency>
+
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-resteasy-jackson</artifactId>
@@ -34,7 +36,7 @@
             <artifactId>log4j2-jboss-logmanager</artifactId>
         </dependency>
 
-        <!-- Monitoring -->
+        <!-- monitoring -->
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-smallrye-health</artifactId>
@@ -45,7 +47,7 @@
             <artifactId>quarkus-micrometer-registry-prometheus</artifactId>
         </dependency>
 
-        <!-- Code Generation -->
+        <!-- code generation -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -56,13 +58,13 @@
             <artifactId>mapstruct</artifactId>
         </dependency>
 
-        <!-- Swagger -->
+        <!-- swagger -->
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-smallrye-openapi</artifactId>
         </dependency>
 
-        <!-- Crosscutting -->
+        <!-- crosscutting -->
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-hibernate-validator</artifactId>
@@ -73,7 +75,7 @@
             <artifactId>quarkus-cache</artifactId>
         </dependency>
 
-        <!-- Persistence -->
+        <!-- persistence -->
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-hibernate-orm-panache</artifactId>
@@ -101,7 +103,7 @@
             <scope>runtime</scope>
         </dependency>
 
-        <!-- Adapter -->
+        <!-- adapter -->
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-rest-client</artifactId>
@@ -116,7 +118,6 @@
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-smallrye-fault-tolerance</artifactId>
         </dependency>
-
         
         <!-- Test -->
         <dependency>
