@@ -5,7 +5,7 @@
 - Security
 - DurationLogger
   
-- JPA
+- JPA, Bean Validation
 - Flyway
 - Cache
 - Resilience
