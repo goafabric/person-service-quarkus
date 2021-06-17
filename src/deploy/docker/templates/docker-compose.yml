@@ -20,10 +20,12 @@ services:
     networks:
       - ${_Values_root_name}-net
     environment:
-      #application
+      #web
       - TZ=Europe/Berlin
       - quarkus.http.port=${_Values_service_port}
       - quarkus.http.io-threads=20
+      #security
+      - security.authorization.enabled=true
       #persistence
       - quarkus.datasource.db-kind=postgresql
       - quarkus.datasource.jdbc.url=jdbc:postgresql://${_Values_root_name}-postgres:5432/persondb

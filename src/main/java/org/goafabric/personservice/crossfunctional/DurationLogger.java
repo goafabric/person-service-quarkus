@@ -1,12 +1,15 @@
 package org.goafabric.personservice.crossfunctional;
 
+import io.quarkus.security.identity.SecurityIdentity;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.annotation.Priority;
+import javax.inject.Inject;
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.Interceptor;
 import javax.interceptor.InvocationContext;
 import java.lang.reflect.Method;
+import java.security.Principal;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
@@ -15,6 +18,8 @@ import java.util.stream.Collectors;
 @DurationLog
 @Slf4j
 public class DurationLogger {
+    @Inject
+    SecurityIdentity securityIdentity;
 
     @AroundInvoke
     Object logInvocation(InvocationContext context) throws Exception {
@@ -38,8 +43,7 @@ public class DurationLogger {
     }
 
     private String getUserName() {
-        return "<nouser>";
-        //final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        //return (authentication == null) ? "" : authentication.getName();
+        final Principal authentication = securityIdentity.getPrincipal();
+        return (authentication == null) ? "" : authentication.getName();
     }
 }

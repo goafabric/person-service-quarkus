@@ -2,6 +2,7 @@ package org.goafabric.personservice.service;
 
 import org.goafabric.personservice.logic.PersonLogic;
 
+import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.validation.Valid;
 import javax.ws.rs.Consumes;
@@ -16,6 +17,7 @@ import java.util.List;
 
 @Path("/persons")
 @Produces(MediaType.APPLICATION_JSON)
+@RolesAllowed("admin")
 public class PersonService {
     @Inject
     PersonLogic personLogic;

@@ -47,6 +47,11 @@
             <artifactId>quarkus-micrometer-registry-prometheus</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-smallrye-openapi</artifactId>
+        </dependency>
+
         <!-- code generation -->
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -58,10 +63,10 @@
             <artifactId>mapstruct</artifactId>
         </dependency>
 
-        <!-- swagger -->
+        <!-- security -->
         <dependency>
             <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-smallrye-openapi</artifactId>
+            <artifactId>quarkus-elytron-security-properties-file</artifactId>
         </dependency>
 
         <!-- crosscutting -->
