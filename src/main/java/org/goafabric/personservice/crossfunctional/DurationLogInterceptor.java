@@ -23,8 +23,8 @@ public class DurationLogInterceptor {
         try {
             ret = context.proceed();
         } finally {
-            final Method method = context.getMethod();
-            log.info("{} took {}ms for user {}", toString(method), System.currentTimeMillis() - startTime, getUserName());
+            log.info("{} took {}ms for user {}", toString(context.getMethod()),
+                    System.currentTimeMillis() - startTime, getUserName());
         }
         return ret;
     }
