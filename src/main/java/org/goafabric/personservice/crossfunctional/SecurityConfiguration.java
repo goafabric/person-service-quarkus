@@ -14,6 +14,6 @@ import javax.interceptor.Interceptor;
 @ApplicationScoped
 @Getter
 public class SecurityConfiguration extends AuthorizationController {
-    @ConfigProperty(name = "security.authorization.enabled", defaultValue = "true")
+    @ConfigProperty(name = "security.authentication.enabled", defaultValue = "true")
     boolean isAuthorizationEnabled;
 }
