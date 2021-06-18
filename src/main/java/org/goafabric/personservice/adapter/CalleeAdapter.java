@@ -2,6 +2,7 @@ package org.goafabric.personservice.adapter;
 
 import org.eclipse.microprofile.faulttolerance.CircuitBreaker;
 import org.eclipse.microprofile.faulttolerance.Timeout;
+import org.eclipse.microprofile.rest.client.annotation.RegisterClientHeaders;
 import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
 
 import javax.inject.Singleton;
@@ -12,7 +13,8 @@ import javax.ws.rs.Path;
 @RegisterRestClient
 @Singleton
 @Timeout
-@CircuitBreaker()
+@CircuitBreaker
+@RegisterClientHeaders(RequestUUIDHeaderFactory.class)
 public interface CalleeAdapter {
 
     @GET

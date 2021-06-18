@@ -17,7 +17,7 @@ import java.util.List;
 
 @Path("/persons")
 @Produces(MediaType.APPLICATION_JSON)
-@RolesAllowed("admin")
+@RolesAllowed("standard_role")
 public class PersonService {
     @Inject
     PersonLogic personLogic;

@@ -15,5 +15,5 @@ import javax.interceptor.Interceptor;
 @Getter
 public class SecurityConfiguration extends AuthorizationController {
     @ConfigProperty(name = "security.authorization.enabled", defaultValue = "true")
-    private boolean isAuthorizationEnabled;
+    boolean isAuthorizationEnabled;
 }
