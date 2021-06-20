@@ -13,6 +13,7 @@
 
 #Not Tested
 - Jaspyt Encryption
+- Auditing
 - Multi Tenancy for JPA + Cache 
 - Tracing
 
