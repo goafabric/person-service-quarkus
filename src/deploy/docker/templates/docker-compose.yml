@@ -34,6 +34,8 @@ services:
       - quarkus.datasource.jdbc.max-size=10
       #adapter
       - adapter.calleeservice.url=http://host.docker.internal:50900
+      - adapter.calleeservice.user=YWRtaW4=
+      - adapter.calleeservice.password=YWRtaW4=
       - adapter.timeout=10000
       - adapter.failureRate=0.5
       - adapter.openDuration=30000
