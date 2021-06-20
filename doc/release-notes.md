@@ -2,6 +2,7 @@
 - CalleeService Call added
 - Resilience added
 - Security added
+- Duration Logger Interceptor added                          
 
 #1.0.3
 - sync with quarkus variant
