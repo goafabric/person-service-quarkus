@@ -9,16 +9,16 @@ import java.util.Base64;
 
 public class RequestHeaderFactory implements ClientHeadersFactory {
     @ConfigProperty(name = "adapter.calleeservice.user")
-    private String user;
+    String user;
 
     @ConfigProperty(name = "adapter.calleeservice.password")
-    private String password;
+    String password;
 
     @Override
     public MultivaluedMap<String, String> update(MultivaluedMap<String, String> multivaluedMap, MultivaluedMap<String, String> multivaluedMap1) {
-        MultivaluedMap<String, String> result = new MultivaluedMapImpl<>();
-        result.add("Authorization", "Basic " +
-                Base64.getEncoder().encodeToString((user + ":" +password).getBytes()));
+        final MultivaluedMap<String, String> result = new MultivaluedMapImpl<>();
+        result.add("Authorization", "Basic " + Base64.getEncoder().encodeToString(
+                (new String(Base64.getDecoder().decode(user)) + ":" + new String(Base64.getDecoder().decode(password))).getBytes()));
         return result;
     }
 }
