@@ -15,7 +15,7 @@ import javax.ws.rs.Path;
 @Timeout
 @CircuitBreaker
 @RegisterClientHeaders(RequestHeaderFactory.class)
-public interface CalleeAdapter {
+public interface CalleeServiceAdapter {
 
     @GET
     @Path("isAlive")

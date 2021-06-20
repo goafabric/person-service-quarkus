@@ -3,7 +3,7 @@ package org.goafabric.personservice.logic;
 import io.quarkus.cache.CacheInvalidateAll;
 import io.quarkus.cache.CacheResult;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
-import org.goafabric.personservice.adapter.CalleeAdapter;
+import org.goafabric.personservice.adapter.CalleeServiceAdapter;
 import org.goafabric.personservice.crossfunctional.DurationLog;
 import org.goafabric.personservice.persistence.PersonRepository;
 import org.goafabric.personservice.service.Person;
@@ -25,7 +25,7 @@ public class PersonLogic {
 
     @Inject
     @RestClient
-    CalleeAdapter calleeAdapter;
+    CalleeServiceAdapter calleeServiceAdapter;
 
     public Person getById(String id) {
         return personMapper.map(
@@ -56,6 +56,6 @@ public class PersonLogic {
     }
 
     public Boolean isAlive() {
-        return calleeAdapter.isAlive();
+        return calleeServiceAdapter.isAlive();
     }
 }
