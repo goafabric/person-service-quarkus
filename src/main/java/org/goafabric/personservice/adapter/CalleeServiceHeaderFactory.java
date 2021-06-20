@@ -7,7 +7,7 @@ import org.jboss.resteasy.specimpl.MultivaluedMapImpl;
 import javax.ws.rs.core.MultivaluedMap;
 import java.util.Base64;
 
-public class RequestHeaderFactory implements ClientHeadersFactory {
+public class CalleeServiceHeaderFactory implements ClientHeadersFactory {
     @ConfigProperty(name = "adapter.calleeservice.user")
     String user;
 

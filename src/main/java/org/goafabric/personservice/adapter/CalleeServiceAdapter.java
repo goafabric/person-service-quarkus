@@ -14,7 +14,7 @@ import javax.ws.rs.Path;
 @Singleton
 @Timeout
 @CircuitBreaker
-@RegisterClientHeaders(RequestHeaderFactory.class)
+@RegisterClientHeaders(CalleeServiceHeaderFactory.class)
 public interface CalleeServiceAdapter {
 
     @GET
