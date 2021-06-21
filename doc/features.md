@@ -14,8 +14,7 @@
 #Not Tested
 - Jaspyt Encryption
 - Auditing
-- Multi Tenancy for JPA + Cache 
-- Tracing
+- Multi Tenancy for JPA + Cache
 
 #build times apple silicon:
 - console: 1m
