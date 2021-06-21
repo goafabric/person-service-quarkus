@@ -32,6 +32,7 @@ services:
       - quarkus.datasource.username=person-service
       - quarkus.datasource.password=person-service
       - quarkus.datasource.jdbc.max-size=10
+      - database.provisioning.goals=-import-demo-data
       #adapter
       - adapter.calleeservice.url=http://host.docker.internal:50900
       - adapter.calleeservice.user=YWRtaW4=
