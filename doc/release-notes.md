@@ -3,6 +3,7 @@
 - Resilience added
 - Security added
 - Duration Logger Interceptor added                          
+- Database Provisioning Toggle added
 
 #1.0.3
 - sync with quarkus variant
