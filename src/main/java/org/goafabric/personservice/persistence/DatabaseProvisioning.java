@@ -1,5 +1,6 @@
 package org.goafabric.personservice.persistence;
 
+import io.quarkus.runtime.Quarkus;
 import lombok.extern.slf4j.Slf4j;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
@@ -19,8 +20,13 @@ public class DatabaseProvisioning {
 
     public void run() {
         if (goals.contains("-import-demo-data")) {
-            log.info("Importing demo data");
+            log.info("Importing demo data ...");
             importDemoData();
+        }
+
+        if (goals.contains("-terminate")) {
+            log.info("Terminating app ...");
+            Quarkus.asyncExit();
         }
     }
 
