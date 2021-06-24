@@ -1,5 +1,3 @@
--- Todo
-
 - Encryption
 - Auditing
 - Multi Tenancy (Hibernate + CacheKey)
