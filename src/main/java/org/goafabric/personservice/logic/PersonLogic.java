@@ -37,7 +37,7 @@ public class PersonLogic {
                 personRepository.findAll().list());
     }
 
-    @CacheResult(cacheName = "persons")
+    //@CacheResult(cacheName = "persons")
     public List<Person> findByFirstName(String firstName) {
         return personMapper.map(
                 personRepository.findByFirstName(firstName));
