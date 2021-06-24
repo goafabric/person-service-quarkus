@@ -1,6 +1,10 @@
+-- Todo
+
+- Encryption
+- Auditing
+- Multi Tenancy (Hibernate + CacheKey)
+
 - Working Integration Tests with H2
-- CacheKey with Multi Tenancy Id and own Key Generator
-- Open Points from features.md
 
 -- Solutions
 
