@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.goafabric.personservice.persistence.audit.TenantAware;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.Column;
@@ -16,7 +17,7 @@ import javax.persistence.Table;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity @Table(name = "person")
-public class PersonBo {
+public class PersonBo extends TenantAware {
     @javax.persistence.Id @GeneratedValue(generator = "uuid") @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
 
