@@ -11,8 +11,6 @@ import org.goafabric.personservice.crossfunctional.TenantFilter;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import java.security.Principal;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.Date;
 import java.util.UUID;
 
@@ -95,7 +93,7 @@ public class AuditBean {
 
     private AuditEvent createAuditEvent(
             DbOperation dbOperation, String referenceId, final Object oldObject, final Object newObject) throws JsonProcessingException {
-        final Date date = Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant());
+        final Date date = new Date(System.currentTimeMillis());
         return AuditEvent.builder()
                 .id(UUID.randomUUID().toString())
                 .referenceId(referenceId)
