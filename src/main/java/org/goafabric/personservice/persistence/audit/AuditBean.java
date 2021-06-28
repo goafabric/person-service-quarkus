@@ -109,7 +109,7 @@ public class AuditBean {
     }
 
     private String getUserName() {
-        final Principal authentication = securityIdentity.getPrincipal();
+        final Principal authentication = null; //TODO: //securityIdentity.getPrincipal();
         return (authentication == null) ? "" : authentication.getName();
     }
 
