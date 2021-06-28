@@ -4,6 +4,7 @@ import org.goafabric.personservice.crossfunctional.TenantFilter;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
+import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
@@ -12,6 +13,7 @@ public abstract class TenantAware {
     public static final String TENANT_FILTER = "TENANT_FILTER";
 
     @Access(AccessType.PROPERTY)
+    @Column(name = "tenant_id")
     public String getTenantId() {
         return TenantFilter.getTenantId(); //this is for save operations only and this should also ensure that setting the wrong tenant is nearly impossible
     }
