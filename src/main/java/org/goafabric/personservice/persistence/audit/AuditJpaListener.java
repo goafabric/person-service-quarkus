@@ -2,6 +2,7 @@ package org.goafabric.personservice.persistence.audit;
 
 import io.quarkus.runtime.annotations.RegisterForReflection;
 import lombok.NonNull;
+import lombok.SneakyThrows;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.spi.CDI;
@@ -9,6 +10,8 @@ import javax.inject.Inject;
 import javax.persistence.*;
 import javax.sql.DataSource;
 import javax.transaction.Transactional;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 
 /**
  * Specific Listener for JPA for Auditing
@@ -59,10 +62,24 @@ public class AuditJpaListener {
     static class AuditJpaInserter implements AuditBean.AuditInserter {
         @Inject DataSource dataSource;
 
+        @SneakyThrows
         public void insertAudit(AuditBean.AuditEvent auditEvent, Object object) { //we cannot use jpa because of the dynamic table name
-            System.out.println(auditEvent);
-            //final SimpleJdbcInsert insert = new SimpleJdbcInsert(dataSource).withTableName(getTableName(object) + "_audit");
-            //insert.execute(new BeanPropertySqlParameterSource(auditEvent));
+            final String sql = "INSERT INTO " + getTableName(object) + "_audit"
+                    +  " (id, tenant_id, reference_id, operation, created_by, created_at, modified_by, modified_at, oldvalue, newvalue)"
+                    +  " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            try (Connection con = dataSource.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
+                ps.setString(1, auditEvent.getId());
+                ps.setString(2, auditEvent.getTenantId());
+                ps.setString(3, auditEvent.getReferenceId());
+                ps.setString(4, String.valueOf(auditEvent.getOperation()));
+                ps.setString(5, auditEvent.getCreatedBy());
+                ps.setDate(6, null); //Date.valueOf(auditEvent.getCreatedAt().toInstant()));
+                ps.setString(7, auditEvent.getModifiedBy());
+                ps.setDate(8, null); //Date.valueOf(auditEvent.getCreatedAt().toInstant()));
+                ps.setString(9, auditEvent.getOldValue());
+                ps.setString(10, auditEvent.getNewValue());
+                ps.executeUpdate();
+            }
         }
 
         private String getTableName(@NonNull Object object) {

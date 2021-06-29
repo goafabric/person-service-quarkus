@@ -14,8 +14,6 @@ create table person_audit
 		constraint pk_person_audit
 			primary key,
     tenant_id varchar(3),
-	first_name varchar(255),
-	last_name varchar(255),
 
     reference_id varchar(255),
     operation varchar(255),
