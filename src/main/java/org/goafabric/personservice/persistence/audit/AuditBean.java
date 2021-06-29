@@ -18,7 +18,6 @@ import java.util.UUID;
 @Slf4j
 @ApplicationScoped
 @Unremovable
-//also see https://www.baeldung.com/database-auditing-jpa
 /**
  * A class that audits all registered entities with @EntityListeners
  * And writes the Audit Entries to the database

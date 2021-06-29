@@ -3,6 +3,7 @@ package org.goafabric.personservice.persistence.audit;
 import io.quarkus.runtime.annotations.RegisterForReflection;
 import lombok.NonNull;
 import lombok.SneakyThrows;
+import org.goafabric.personservice.persistence.multitenancy.TenantAware;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.spi.CDI;
@@ -11,6 +12,7 @@ import javax.persistence.*;
 import javax.sql.DataSource;
 import javax.transaction.Transactional;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 
 /**
@@ -73,9 +75,9 @@ public class AuditJpaListener {
                 ps.setString(3, auditEvent.getReferenceId());
                 ps.setString(4, String.valueOf(auditEvent.getOperation()));
                 ps.setString(5, auditEvent.getCreatedBy());
-                ps.setDate(6, null); //Date.valueOf(auditEvent.getCreatedAt().toInstant()));
+                ps.setDate(6, new Date(auditEvent.getCreatedAt().getTime()));
                 ps.setString(7, auditEvent.getModifiedBy());
-                ps.setDate(8, null); //Date.valueOf(auditEvent.getCreatedAt().toInstant()));
+                ps.setDate(8, new Date(auditEvent.getCreatedAt().getTime()));
                 ps.setString(9, auditEvent.getOldValue());
                 ps.setString(10, auditEvent.getNewValue());
                 ps.executeUpdate();

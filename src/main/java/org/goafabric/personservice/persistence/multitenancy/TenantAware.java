@@ -1,4 +1,4 @@
-package org.goafabric.personservice.persistence.audit;
+package org.goafabric.personservice.persistence.multitenancy;
 
 import org.goafabric.personservice.crossfunctional.TenantFilter;
 

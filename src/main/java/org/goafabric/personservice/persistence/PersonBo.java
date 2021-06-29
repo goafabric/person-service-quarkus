@@ -5,7 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.goafabric.personservice.persistence.audit.AuditJpaListener;
-import org.goafabric.personservice.persistence.audit.TenantAware;
+import org.goafabric.personservice.persistence.multitenancy.TenantAware;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
