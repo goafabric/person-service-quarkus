@@ -2,6 +2,7 @@ package org.goafabric.personservice.persistence.audit;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.quarkus.arc.Unremovable;
 import io.quarkus.security.identity.SecurityIdentity;
 import lombok.Builder;
 import lombok.Data;
@@ -16,6 +17,7 @@ import java.util.UUID;
 
 @Slf4j
 @ApplicationScoped
+@Unremovable
 //also see https://www.baeldung.com/database-auditing-jpa
 /**
  * A class that audits all registered entities with @EntityListeners
@@ -50,7 +52,7 @@ public class AuditBean {
     }
 
     @Inject
-    private AuditInserter auditInserter;
+    AuditInserter auditInserter;
 
     @Inject
     SecurityIdentity securityIdentity;
@@ -109,7 +111,12 @@ public class AuditBean {
     }
 
     private String getUserName() {
-        final Principal authentication = null; //TODO: //securityIdentity.getPrincipal();
+        Principal authentication;
+        try {
+            authentication = securityIdentity.getPrincipal();
+        } catch (Exception e) {
+            authentication = null;
+        }
         return (authentication == null) ? "" : authentication.getName();
     }
 

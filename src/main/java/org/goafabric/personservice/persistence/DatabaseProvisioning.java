@@ -3,7 +3,6 @@ package org.goafabric.personservice.persistence;
 import io.quarkus.runtime.Quarkus;
 import lombok.extern.slf4j.Slf4j;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
-import org.goafabric.personservice.persistence.audit.AuditBean;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -19,8 +18,8 @@ public class DatabaseProvisioning {
     @Inject
     PersonRepository personRepository;
 
-    @Inject
-    AuditBean auditBean;
+    //@Inject
+    //AuditBean auditBean;
     
     public void run() {
         if (goals.contains("-import-demo-data")) {

@@ -55,7 +55,7 @@ public class AuditJpaListener {
 
     @ApplicationScoped
     static class AuditJpaInserter implements AuditBean.AuditInserter {
-        @Inject private DataSource dataSource;
+        @Inject DataSource dataSource;
 
         public void insertAudit(AuditBean.AuditEvent auditEvent, Object object) { //we cannot use jpa because of the dynamic table name
             System.out.println(auditEvent);
