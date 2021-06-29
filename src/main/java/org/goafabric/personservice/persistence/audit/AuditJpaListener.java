@@ -1,5 +1,6 @@
 package org.goafabric.personservice.persistence.audit;
 
+import io.quarkus.runtime.annotations.RegisterForReflection;
 import lombok.NonNull;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -14,6 +15,7 @@ import javax.transaction.Transactional;
  *
  */
 
+@RegisterForReflection
 public class AuditJpaListener {
 
     @PostLoad
