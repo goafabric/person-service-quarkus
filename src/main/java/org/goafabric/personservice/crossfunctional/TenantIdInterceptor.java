@@ -11,7 +11,7 @@ import java.io.IOException;
 
 @Slf4j
 @Provider
-public class TenantFilter implements ContainerRequestFilter, ContainerResponseFilter {
+public class TenantIdInterceptor implements ContainerRequestFilter, ContainerResponseFilter {
     private static final ThreadLocal<String> tenantIdThreadLocal = new ThreadLocal<>();
 
     @Override
