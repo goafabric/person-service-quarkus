@@ -1,3 +1,7 @@
+#1.0.5
+- Auditing added
+- Cache removed
+
 #1.0.4
 - CalleeService Call added
 - Resilience added

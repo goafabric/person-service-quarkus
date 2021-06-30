@@ -74,12 +74,7 @@
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-hibernate-validator</artifactId>
         </dependency>
-
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-cache</artifactId>
-        </dependency>
-
+        
         <!-- persistence -->
         <dependency>
             <groupId>io.quarkus</groupId>

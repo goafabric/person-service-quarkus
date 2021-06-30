@@ -7,7 +7,7 @@ import io.quarkus.security.identity.SecurityIdentity;
 import lombok.Builder;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
-import org.goafabric.personservice.crossfunctional.TenantFilter;
+import org.goafabric.personservice.crossfunctional.TenantIdInterceptor;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -98,7 +98,7 @@ public class AuditBean {
         return AuditEvent.builder()
                 .id(UUID.randomUUID().toString())
                 .referenceId(referenceId)
-                .tenantId(TenantFilter.getTenantId())
+                .tenantId(TenantIdInterceptor.getTenantId())
                 .operation(dbOperation)
                 .createdBy(dbOperation == DbOperation.CREATE ? getUserName() : null)
                 .createdAt(dbOperation == DbOperation.CREATE ? date : null)

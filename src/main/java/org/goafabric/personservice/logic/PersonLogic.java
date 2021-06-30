@@ -1,7 +1,5 @@
 package org.goafabric.personservice.logic;
 
-import io.quarkus.cache.CacheInvalidateAll;
-import io.quarkus.cache.CacheResult;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.goafabric.personservice.adapter.CalleeServiceAdapter;
 import org.goafabric.personservice.crossfunctional.DurationLog;
@@ -37,19 +35,16 @@ public class PersonLogic {
                 personRepository.findAll().list());
     }
 
-    //@CacheResult(cacheName = "persons")
     public List<Person> findByFirstName(String firstName) {
         return personMapper.map(
                 personRepository.findByFirstName(firstName));
     }
 
-    @CacheResult(cacheName = "persons")
     public List<Person> findByLastName(String lastName) {
         return personMapper.map(
                 personRepository.findByLastName(lastName));
     }
 
-    @CacheInvalidateAll(cacheName = "persons")
     public Person save(Person person) {
         return personMapper.map(
                 personRepository.save(personMapper.map(person)));

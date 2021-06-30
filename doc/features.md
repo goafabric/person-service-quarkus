@@ -10,11 +10,12 @@
 - Flyway
 - Cache
 - Resilience
-
-#Not Tested
-- Jaspyt Encryption
+                     
 - Auditing
-- Multi Tenancy for JPA + Cache
+
+#Not Working
+- Multi Tenancy
+- Jaspyt Encryption
 
 #build times apple silicon:
 - console: 1m
