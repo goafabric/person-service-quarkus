@@ -9,12 +9,27 @@ import static io.restassured.RestAssured.given;
 public class PersonServiceTest {
 
     @Test
-    public void testFindAll() {
+    public void findAll() {
         given()
           .when().get("/persons/findAll")
           .then()
              .statusCode(200);
-                //.body(is("true"));
+    }
+
+    @Test
+    public void findByFirstName() {
+        given()
+                .when().get("/persons/findByFirstName?firstName=Homer")
+                .then()
+                .statusCode(200);
+    }
+
+    @Test
+    public void findByLastName() {
+        given()
+                .when().get("/persons/findByLastName?lastName=Simpson")
+                .then()
+                .statusCode(200);
     }
 
 }
