@@ -50,7 +50,8 @@ public class PersonLogic {
                 personRepository.save(personMapper.map(person)));
     }
 
-    public Boolean isAlive() {
-        return calleeServiceAdapter.isAlive();
+    public Person sayMyName(String name) {
+        return Person.builder().firstName(
+                calleeServiceAdapter.sayMyName(name).getMessage()).build();
     }
 }
