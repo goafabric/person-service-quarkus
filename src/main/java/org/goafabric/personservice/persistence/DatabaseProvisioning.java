@@ -18,6 +18,9 @@ public class DatabaseProvisioning {
     @Inject
     PersonRepository personRepository;
 
+    //@Inject
+    //AuditBean auditBean;
+    
     public void run() {
         if (goals.contains("-import-demo-data")) {
             log.info("Importing demo data ...");
