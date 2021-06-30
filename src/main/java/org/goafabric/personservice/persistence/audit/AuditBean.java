@@ -102,8 +102,8 @@ public class AuditBean {
                 .operation(dbOperation)
                 .createdBy(dbOperation == DbOperation.CREATE ? getUserName() : null)
                 .createdAt(dbOperation == DbOperation.CREATE ? date : null)
-                .modifiedBy(dbOperation == DbOperation.CREATE ? null : getUserName())
-                .modifiedAt(dbOperation == DbOperation.CREATE ? null : date)
+                .modifiedBy((dbOperation == DbOperation.UPDATE || dbOperation == DbOperation.DELETE) ? getUserName() : null)
+                .modifiedAt((dbOperation == DbOperation.UPDATE || dbOperation == DbOperation.DELETE) ? date : null)
                 .oldValue(oldObject == null ? null : getJsonValue(oldObject))
                 .newValue(newObject == null ? null : getJsonValue(newObject))
                 .build();
