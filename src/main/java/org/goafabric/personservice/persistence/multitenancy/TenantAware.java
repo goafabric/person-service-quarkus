@@ -1,14 +1,12 @@
 package org.goafabric.personservice.persistence.multitenancy;
 
 import org.goafabric.personservice.crossfunctional.TenantFilter;
+import org.goafabric.personservice.persistence.audit.AuditJpaListener;
 
-import javax.persistence.Access;
-import javax.persistence.AccessType;
-import javax.persistence.Column;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.*;
 
 @MappedSuperclass
-//@Where(clause = TenantAware.TENANT_FILTER)
+@EntityListeners(AuditJpaListener.class)
 public abstract class TenantAware {
     public static final String TENANT_FILTER = "TENANT_FILTER";
 
@@ -18,9 +16,7 @@ public abstract class TenantAware {
         return TenantFilter.getTenantId(); //this is for save operations only and this should also ensure that setting the wrong tenant is nearly impossible
     }
 
-    public void setTenantId(String tenantId) {
-        //should never be set because we alway use the ThreadLocal
-    }
+    public void setTenantId(String tenantId) {}
 
     public abstract String getId();
 }
