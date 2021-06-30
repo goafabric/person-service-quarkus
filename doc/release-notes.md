@@ -1,6 +1,7 @@
 #1.0.5
 - Auditing added
 - Cache removed
+- added CalleService.sayMyName instead of isAlive
 
 #1.0.4
 - CalleeService Call added
