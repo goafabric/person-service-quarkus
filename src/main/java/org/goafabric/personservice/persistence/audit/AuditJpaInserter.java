@@ -26,9 +26,11 @@ public class AuditJpaInserter implements AuditBean.AuditInserter {
             ps.setString(3, auditEvent.getReferenceId());
             ps.setString(4, String.valueOf(auditEvent.getOperation()));
             ps.setString(5, auditEvent.getCreatedBy());
-            ps.setDate(6, new Date(auditEvent.getCreatedAt().getTime()));
+            ps.setDate(6,
+                    auditEvent.getCreatedAt() != null ? new Date(auditEvent.getCreatedAt().getTime()) : null);
             ps.setString(7, auditEvent.getModifiedBy());
-            ps.setDate(8, new Date(auditEvent.getCreatedAt().getTime()));
+            ps.setDate(8,
+                    auditEvent.getModifiedAt() != null ? new Date(auditEvent.getModifiedAt().getTime()) : null);
             ps.setString(9, auditEvent.getOldValue());
             ps.setString(10, auditEvent.getNewValue());
             ps.executeUpdate();

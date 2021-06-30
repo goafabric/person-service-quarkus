@@ -114,7 +114,7 @@ public class AuditBean {
         try {
             authentication = securityIdentity.getPrincipal();
         } catch (Exception e) {
-            authentication = null;
+            authentication = null; //might happen during demodata import
         }
         return (authentication == null) ? "" : authentication.getName();
     }
