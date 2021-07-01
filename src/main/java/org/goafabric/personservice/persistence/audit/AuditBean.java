@@ -25,10 +25,7 @@ import java.util.UUID;
 @Unremovable
 public class AuditBean {
     private enum DbOperation {
-        CREATE,
-        READ,
-        UPDATE,
-        DELETE
+        CREATE, READ, UPDATE, DELETE
     }
 
     @Data
@@ -89,7 +86,7 @@ public class AuditBean {
         if (log.isDebugEnabled()) {
             auditEvent.setOldValue(auditEvent.getOldValue());
             auditEvent.setNewValue(auditEvent.getNewValue());
-            log.debug("New audit event :\n{}", auditEvent.toString());
+            log.debug("New audit event :\n{}", auditEvent);
         }
     }
 
