@@ -202,7 +202,7 @@
             <properties>
                 <quarkus.container-image.push>false</quarkus.container-image.push>
                 <quarkus.container-image.image>${docker.registry}/${project.artifactId}-arm64v8:${project.version}</quarkus.container-image.image>
-                <quarkus.native.builder-image>goafabric/quarkus-build-aarch64:java11-21.0.0.2</quarkus.native.builder-image>
+                <quarkus.native.builder-image>goafabric/quarkus-build-aarch64:java11-21.1.0</quarkus.native.builder-image>
                 <quarkus.jib.platforms>linux/arm64/v8</quarkus.jib.platforms>
             </properties>
         </profile>

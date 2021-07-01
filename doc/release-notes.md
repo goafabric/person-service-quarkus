@@ -2,6 +2,7 @@
 - Auditing added
 - Cache removed
 - added CalleService.sayMyName instead of isAlive
+- upgrade to Quarkus 2.0
 
 #1.0.4
 - CalleeService Call added
