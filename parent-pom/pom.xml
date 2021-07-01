@@ -23,8 +23,8 @@
         <docker.registry>docker.io/goafabric</docker.registry>
 
         <!-- Quarkus -->
-        <quarkus-plugin.version>1.13.6.Final</quarkus-plugin.version>
-        <quarkus.platform.version>1.13.6.Final</quarkus.platform.version>
+        <quarkus-plugin.version>2.0.0.Final</quarkus-plugin.version>
+        <quarkus.platform.version>2.0.0.Final</quarkus.platform.version>
 
         <!-- 3rd party -->
         <lombok.version>1.18.20</lombok.version>
