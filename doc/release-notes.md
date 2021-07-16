@@ -1,5 +1,5 @@
 #1.0.6
-- Upgrade to Quarkus 2.0.1
+- Upgrade to Quarkus 2.0.2
 
 #1.0.5
 - Auditing added
