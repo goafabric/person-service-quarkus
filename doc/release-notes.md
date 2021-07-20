@@ -1,5 +1,6 @@
 #1.0.6
 - Upgrade to Quarkus 2.0.2
+- Jaeger Opentracing added
 
 #1.0.5
 - Auditing added
