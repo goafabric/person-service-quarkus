@@ -27,8 +27,9 @@ public class PersonLogic {
     CalleeServiceAdapter calleeServiceAdapter;
 
     public Person getById(String id) {
-        return personMapper.map(
-                personRepository.findById(id));
+        return null;
+        //return personMapper.map(
+         //       personRepository.findById(id));
     }
 
     public List<Person> findAll() {
