@@ -18,7 +18,7 @@ public class TenantIdInterceptor implements ContainerRequestFilter, ContainerRes
     public void filter(ContainerRequestContext request) throws IOException {
         final String tenantId = request.getHeaderString("X-TenantId");
         log.debug("#interceptor got tenant id {}", tenantId);
-        tenantIdThreadLocal.set(request.getHeaderString("X-TenantId"));
+        setTenantId(request.getHeaderString("X-TenantId"));
     }
 
     @Override
@@ -29,5 +29,9 @@ public class TenantIdInterceptor implements ContainerRequestFilter, ContainerRes
     public static String getTenantId() {
         final String tenantId = tenantIdThreadLocal.get();
         return tenantId == null ? "0" : tenantId;  //Todo: should throw exception
+    }
+
+    public static void setTenantId(String tenantId) {
+        tenantIdThreadLocal.set(tenantId);
     }
 }
