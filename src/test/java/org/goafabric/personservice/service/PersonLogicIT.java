@@ -15,7 +15,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 
 @QuarkusTest
-public class PersonLogicTest {
+public class PersonLogicIT {
     @Inject
     PersonLogic personLogic;
 
