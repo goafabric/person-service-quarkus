@@ -19,6 +19,10 @@ public abstract class MultiTenantRepository <Entity extends TenantAware, Id> imp
         return findx("", sort, new HashMap<>());
     }
 
+    public PanacheQuery<Entity> findByIdx(Object id) {
+        return findx("id", id);
+    }
+
     public PanacheQuery<Entity> findx(String field, Object param) {
         return findx(field + " = :" + field, null, Parameters.with(field, param).map());
     }
