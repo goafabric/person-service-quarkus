@@ -1,6 +1,8 @@
 package org.goafabric.personservice.persistence;
 
 import io.quarkus.hibernate.orm.panache.PanacheQuery;
+import io.quarkus.panache.common.Parameters;
+import org.goafabric.personservice.crossfunctional.TenantIdInterceptor;
 import org.goafabric.personservice.persistence.multitenancy.MultiTenantRepository;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -14,11 +16,19 @@ public class PersonRepository extends MultiTenantRepository<PersonBo, String> {
     }
 
     public List<PersonBo> findByFirstName(String firstName) {
-        return findx("firstName = ?1 and tenantId = ?2", firstName, "0").list();
+        return findx("firstName = :firstName and tenantId = :tenantId",
+                Parameters.with("firstName", firstName)
+                        .and("tenantId", TenantIdInterceptor.getTenantId())
+                        .map()).list();
+
+        //return findx("firstName = ?1 and tenantId = ?2", firstName, "0").list();
     }
 
     public List<PersonBo> findByLastName(String lastName) {
-        return findx("lastName = ?1 and tenantId = ?2", lastName, "0").list();
+        return findx("lastName = :lastName and tenantId = :tenantId",
+                Parameters.with("lastName", lastName)
+                        .and("tenantId", TenantIdInterceptor.getTenantId())
+                        .map()).list();
     }
 
     public PersonBo save(PersonBo personBo) {
