@@ -1,6 +1,7 @@
 package org.goafabric.personservice.service;
 
 import io.quarkus.test.junit.QuarkusTest;
+import io.restassured.RestAssured;
 import org.junit.jupiter.api.Test;
 
 import java.util.Base64;
@@ -17,6 +18,11 @@ public class PersonServiceTest {
           .when().get("/persons/findAll")
           .then()
              .statusCode(200);
+
+        Person[] persons = RestAssured.given()
+                .auth().basic(new String(Base64.getDecoder().decode("YWRtaW4=")), new String(Base64.getDecoder().decode("YWRtaW4=")))
+                .get("/persons/findAll").as(Person[].class);
+        int x = 5;
     }
 
     @Test

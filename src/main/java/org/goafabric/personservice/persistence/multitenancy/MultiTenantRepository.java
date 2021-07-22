@@ -9,19 +9,17 @@ import java.util.Map;
 
 public abstract class MultiTenantRepository <Entity extends TenantAware, Id> implements PanacheRepositoryBase<Entity, Id>{
 
-
     public PanacheQuery<Entity> findAllx() {
-        return find("tenantId", TenantIdInterceptor.getTenantId());
-    }
-
-    public PanacheQuery<Entity> findx(String query, Object... params) {
-        return find(query, params);
+        return findx("", new HashMap<>());
     }
 
     public PanacheQuery<Entity> findx(String query, Map<String, Object> params) {
         final Map<String, Object> map = new HashMap<>(params);
         map.put("tenantId", TenantIdInterceptor.getTenantId());
-        return find(query + " and tenantId = :tenantId", map);
+        if (params.size() > 0) {
+            query += " and ";
+        }
+        return find(query + "tenantId = :tenantId", map);
     }
 
     public Entity savex(Entity entity) {
