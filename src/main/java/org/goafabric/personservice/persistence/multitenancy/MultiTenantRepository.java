@@ -4,6 +4,7 @@ import io.quarkus.hibernate.orm.panache.PanacheQuery;
 import io.quarkus.hibernate.orm.panache.PanacheRepositoryBase;
 import org.goafabric.personservice.crossfunctional.TenantIdInterceptor;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public abstract class MultiTenantRepository <Entity extends TenantAware, Id> implements PanacheRepositoryBase<Entity, Id>{
@@ -18,7 +19,9 @@ public abstract class MultiTenantRepository <Entity extends TenantAware, Id> imp
     }
 
     public PanacheQuery<Entity> findx(String query, Map<String, Object> params) {
-        return find(query, params);
+        final Map<String, Object> map = new HashMap<>(params);
+        map.put("tenantId", TenantIdInterceptor.getTenantId());
+        return find(query + " and tenantId = :tenantId", map);
     }
 
     public Entity savex(Entity entity) {
