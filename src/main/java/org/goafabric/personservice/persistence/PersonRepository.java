@@ -24,6 +24,12 @@ public class PersonRepository extends MultiTenantRepository<PersonBo, String> {
                         .map()).list();
     }
 
+    public long countByLastName(String lastName) {
+        return countx("lastName = :lastName",
+                Parameters.with("lastName", lastName)
+                        .map());
+    }
+
     public PersonBo save(PersonBo personBo) {
         return savex(personBo);
     }

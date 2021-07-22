@@ -25,6 +25,22 @@ public class PersonLogicTest {
     }
 
     @Test
+    public void findById() {
+        TenantIdInterceptor.setTenantId("0");
+        List<Person> persons = personLogic.findAll();
+        assertThat(persons).isNotNull().hasSize(3);
+
+        final Person person
+                = personLogic.getById(persons.get(0).getId());
+        assertThat(person).isNotNull();
+        assertThat(person.getFirstName()).isEqualTo(persons.get(0).getFirstName());
+        assertThat(person.getLastName()).isEqualTo(persons.get(0).getLastName());
+
+        TenantIdInterceptor.setTenantId("5a2f");
+        assertThat(personLogic.getById(persons.get(0).getId())).isNull();
+    }
+
+    @Test
     public void findAll() {
         TenantIdInterceptor.setTenantId("0");
         assertThat(personLogic.findAll()).isNotNull().hasSize(3);
@@ -56,4 +72,12 @@ public class PersonLogicTest {
         assertThat(personLogic.findByFirstName("Simpson")).isNotNull().hasSize(0);
     }
 
+    @Test
+    public void countByLastName() {
+        TenantIdInterceptor.setTenantId("0");
+        assertThat(personLogic.countByLastName("Simpson")).isEqualTo(2);
+
+        TenantIdInterceptor.setTenantId("5a2f");
+        assertThat(personLogic.countByLastName("Simpson")).isEqualTo(0);
+    }
 }
