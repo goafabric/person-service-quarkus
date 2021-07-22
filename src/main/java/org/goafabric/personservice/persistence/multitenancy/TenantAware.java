@@ -8,8 +8,6 @@ import javax.persistence.*;
 @MappedSuperclass
 @EntityListeners(AuditJpaListener.class)
 public abstract class TenantAware {
-    public static final String TENANT_FILTER = "TENANT_FILTER";
-
     @Access(AccessType.PROPERTY)
     @Column(name = "tenant_id")
     public String getTenantId() {
