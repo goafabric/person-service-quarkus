@@ -2,6 +2,7 @@ package org.goafabric.personservice.persistence.multitenancy;
 
 import io.quarkus.hibernate.orm.panache.PanacheQuery;
 import io.quarkus.hibernate.orm.panache.PanacheRepositoryBase;
+import io.quarkus.panache.common.Parameters;
 import io.quarkus.panache.common.Sort;
 import org.goafabric.personservice.crossfunctional.TenantIdInterceptor;
 
@@ -9,10 +10,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public abstract class MultiTenantRepository <Entity extends TenantAware, Id> implements PanacheRepositoryBase<Entity, Id>{
-
-    public long countx(String query, Map<String, Object> params) {
-        return findx(query, params).count();
-    }
 
     public PanacheQuery<Entity> findAllx() {
         return findx("", new HashMap<>());
@@ -22,6 +19,14 @@ public abstract class MultiTenantRepository <Entity extends TenantAware, Id> imp
         return findx("", sort, new HashMap<>());
     }
 
+    public PanacheQuery<Entity> findx(String field, Object param) {
+        return findx(field + " = :" + field, null, Parameters.with(field, param).map());
+    }
+
+    public PanacheQuery<Entity> findx(String field, Sort sort, Object param) {
+        return findx(field + " = :" + field, sort, Parameters.with(field, param).map());
+    }
+    
     public PanacheQuery<Entity> findx(String query, Map<String, Object> params) {
         return findx(query, null, params);
     }
@@ -30,9 +35,12 @@ public abstract class MultiTenantRepository <Entity extends TenantAware, Id> imp
         return find(getTenantQuery(query, params), sort, getTenantParams(params));
     }
 
+    public long countx(String query, Map<String, Object> params) {
+        return count(getTenantQuery(query, params), getTenantParams(params));
+    }
 
     public long deletex(String query, Map<String, Object> params) {
-        return 0;
+        return delete(getTenantQuery(query, params), getTenantParams(params));
     }
 
     public Entity savex(Entity entity) {

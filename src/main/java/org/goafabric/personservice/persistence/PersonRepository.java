@@ -15,11 +15,7 @@ public class PersonRepository extends MultiTenantRepository<PersonBo, String> {
     }
 
     public List<PersonBo> findByFirstName(String firstName) {
-        return findx("firstName = :firstName",
-                Parameters.with("firstName", firstName)
-                        .map()).list();
-
-        //return findx("firstName = ?1 and tenantId = ?2", firstName, "0").list();
+        return findx("firstName", firstName).list();
     }
 
     public List<PersonBo> findByLastName(String lastName) {
