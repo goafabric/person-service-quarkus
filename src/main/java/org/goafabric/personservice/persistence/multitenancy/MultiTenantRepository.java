@@ -6,15 +6,15 @@ import io.quarkus.hibernate.orm.panache.PanacheRepositoryBase;
 public abstract class MultiTenantRepository <Entity extends TenantAware, Id> implements PanacheRepositoryBase<Entity, Id>{
 
 
-    public PanacheQuery<Entity> findAll() {
+    public PanacheQuery<Entity> findAllx() {
         return find("tenantId", "0");
     }
 
-    public PanacheQuery<Entity> find(String query, Object... params) {
+    public PanacheQuery<Entity> findx(String query, Object... params) {
         return find(query, params);
     }
 
-    public Entity save(Entity entity) {
+    public Entity savex(Entity entity) {
         persist(entity);
         return entity;
     }
