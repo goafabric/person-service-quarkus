@@ -5,5 +5,5 @@ import io.quarkus.hibernate.orm.panache.PanacheRepositoryBase;
 import javax.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
-public class RepositoryDelegate implements PanacheRepositoryBase<PersonBo, String> {
+public class RepositoryDelegate<T, I> implements PanacheRepositoryBase<T, I> {
 }

@@ -12,34 +12,34 @@ import java.util.Map;
 public abstract class MultiTenantRepository <Entity extends TenantAware, Id> {
 
     @Inject
-    RepositoryDelegate repository;
+    RepositoryDelegate<Entity, Id> repository;
     
     
-    public PanacheQuery<PersonBo> findAllx() {
+    public PanacheQuery<Entity> findAllx() {
         return findx("", new HashMap<>());
     }
 
-    public PanacheQuery<PersonBo> findAllx(Sort sort) {
+    public PanacheQuery<Entity> findAllx(Sort sort) {
         return findx("", sort, new HashMap<>());
     }
 
-    public PanacheQuery<PersonBo> findByIdx(Object id) {
+    public PanacheQuery<Entity> findByIdx(Object id) {
         return findx("id", id);
     }
 
-    public PanacheQuery<PersonBo> findx(String field, Object param) {
+    public PanacheQuery<Entity> findx(String field, Object param) {
         return findx(field + " = :" + field, null, Parameters.with(field, param).map());
     }
 
-    public PanacheQuery<PersonBo> findx(String field, Sort sort, Object param) {
+    public PanacheQuery<Entity> findx(String field, Sort sort, Object param) {
         return findx(field + " = :" + field, sort, Parameters.with(field, param).map());
     }
     
-    public PanacheQuery<PersonBo> findx(String query, Map<String, Object> params) {
+    public PanacheQuery<Entity> findx(String query, Map<String, Object> params) {
         return findx(query, null, params);
     }
 
-    public PanacheQuery<PersonBo> findx(String query, Sort sort, Map<String, Object> params) {
+    public PanacheQuery<Entity> findx(String query, Sort sort, Map<String, Object> params) {
         return repository.find(getTenantQuery(query, params), sort, getTenantParams(params));
     }
 
@@ -51,7 +51,7 @@ public abstract class MultiTenantRepository <Entity extends TenantAware, Id> {
         return repository.delete(getTenantQuery(query, params), getTenantParams(params));
     }
 
-    public PersonBo savex(PersonBo entity) {
+    public Entity savex(Entity entity) {
         repository.persist(entity);
         return entity;
     }
