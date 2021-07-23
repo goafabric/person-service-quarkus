@@ -1,7 +1,6 @@
 package org.goafabric.personservice.persistence.multitenancy;
 
 import io.quarkus.hibernate.orm.panache.PanacheRepositoryBase;
-import org.goafabric.personservice.persistence.PersonBo;
 
 import javax.enterprise.context.ApplicationScoped;
 

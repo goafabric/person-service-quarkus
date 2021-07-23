@@ -4,7 +4,6 @@ import io.quarkus.hibernate.orm.panache.PanacheQuery;
 import io.quarkus.panache.common.Parameters;
 import io.quarkus.panache.common.Sort;
 import org.goafabric.personservice.crossfunctional.TenantIdInterceptor;
-import org.goafabric.personservice.persistence.PersonBo;
 
 import javax.inject.Inject;
 import java.util.HashMap;
