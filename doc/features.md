@@ -8,7 +8,8 @@
   
 - JPA, Bean Validation
 - Flyway
-- Cache
+
+- Tracing
 - Resilience
                      
 - Auditing
