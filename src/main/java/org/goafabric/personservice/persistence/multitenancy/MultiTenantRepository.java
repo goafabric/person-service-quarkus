@@ -1,54 +1,60 @@
 package org.goafabric.personservice.persistence.multitenancy;
 
 import io.quarkus.hibernate.orm.panache.PanacheQuery;
-import io.quarkus.hibernate.orm.panache.PanacheRepositoryBase;
 import io.quarkus.panache.common.Parameters;
 import io.quarkus.panache.common.Sort;
 import org.goafabric.personservice.crossfunctional.TenantIdInterceptor;
+import org.goafabric.personservice.persistence.PersonBo;
+import org.goafabric.personservice.persistence.RepositoryDelegate;
 
+import javax.inject.Inject;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class MultiTenantRepository <Entity extends TenantAware, Id> implements PanacheRepositoryBase<Entity, Id>{
+public abstract class MultiTenantRepository <Entity extends TenantAware, Id> {
 
-    public PanacheQuery<Entity> findAllx() {
+    @Inject
+    RepositoryDelegate repository;
+    
+    
+    public PanacheQuery<PersonBo> findAllx() {
         return findx("", new HashMap<>());
     }
 
-    public PanacheQuery<Entity> findAllx(Sort sort) {
+    public PanacheQuery<PersonBo> findAllx(Sort sort) {
         return findx("", sort, new HashMap<>());
     }
 
-    public PanacheQuery<Entity> findByIdx(Object id) {
+    public PanacheQuery<PersonBo> findByIdx(Object id) {
         return findx("id", id);
     }
 
-    public PanacheQuery<Entity> findx(String field, Object param) {
+    public PanacheQuery<PersonBo> findx(String field, Object param) {
         return findx(field + " = :" + field, null, Parameters.with(field, param).map());
     }
 
-    public PanacheQuery<Entity> findx(String field, Sort sort, Object param) {
+    public PanacheQuery<PersonBo> findx(String field, Sort sort, Object param) {
         return findx(field + " = :" + field, sort, Parameters.with(field, param).map());
     }
     
-    public PanacheQuery<Entity> findx(String query, Map<String, Object> params) {
+    public PanacheQuery<PersonBo> findx(String query, Map<String, Object> params) {
         return findx(query, null, params);
     }
 
-    public PanacheQuery<Entity> findx(String query, Sort sort, Map<String, Object> params) {
-        return find(getTenantQuery(query, params), sort, getTenantParams(params));
+    public PanacheQuery<PersonBo> findx(String query, Sort sort, Map<String, Object> params) {
+        return repository.find(getTenantQuery(query, params), sort, getTenantParams(params));
     }
 
     public long countx(String query, Map<String, Object> params) {
-        return count(getTenantQuery(query, params), getTenantParams(params));
+        return repository.count(getTenantQuery(query, params), getTenantParams(params));
     }
 
     public long deletex(String query, Map<String, Object> params) {
-        return delete(getTenantQuery(query, params), getTenantParams(params));
+        return repository.delete(getTenantQuery(query, params), getTenantParams(params));
     }
 
-    public Entity savex(Entity entity) {
-        persist(entity);
+    public PersonBo savex(PersonBo entity) {
+        repository.persist(entity);
         return entity;
     }
 
