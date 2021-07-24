@@ -13,8 +13,8 @@ public abstract class MultiTenantRepository <Entity extends TenantAware> {
 
     PanacheRepositoryBase repository;
 
-    public <T extends PanacheRepositoryBase> MultiTenantRepository(PanacheRepositoryBase repositoryBase) {
-        this.repository = repositoryBase;
+    public <T extends PanacheRepositoryBase> MultiTenantRepository(PanacheRepositoryBase repositoryDelegate) {
+        this.repository = repositoryDelegate;
     }
 
     public MultiTenantRepository() {

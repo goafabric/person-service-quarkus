@@ -6,20 +6,18 @@ import io.quarkus.runtime.Startup;
 import org.goafabric.personservice.persistence.multitenancy.MultiTenantRepository;
 
 import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
 import java.util.List;
 
 @ApplicationScoped
 public class PersonRepository extends MultiTenantRepository<PersonBo> {
 
     @ApplicationScoped @Startup
-    private static class RepositoryDelegate implements PanacheRepositoryBase<PersonBo, String> {}
+    private static class Delegate implements PanacheRepositoryBase<PersonBo, String> {}
 
-    @Inject
-    public PersonRepository(RepositoryDelegate repositoryDelegate) {
-        super(repositoryDelegate);
+    public PersonRepository(Delegate delegate) {
+        super(delegate);
     }
-    
+
     public List<PersonBo> findByFirstName(String firstName) {
         return find("firstName", firstName).list();
     }
