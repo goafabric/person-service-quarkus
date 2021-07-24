@@ -9,7 +9,7 @@ import org.goafabric.personservice.crossfunctional.TenantIdInterceptor;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class MultiTenantRepository <Entity extends TenantAware, Id> {
+public abstract class MultiTenantRepository <Entity extends TenantAware> {
 
     PanacheRepositoryBase repository;
 
