@@ -19,43 +19,43 @@ public abstract class MultiTenantRepository <Entity extends TenantAware> {
     }
 
 
-    public PanacheQuery<Entity> findAllx() {
-        return findx("", new HashMap<>());
+    public PanacheQuery<Entity> findAll() {
+        return find("", new HashMap<>());
     }
 
-    public PanacheQuery<Entity> findAllx(Sort sort) {
-        return findx("", sort, new HashMap<>());
+    public PanacheQuery<Entity> findAll(Sort sort) {
+        return find("", sort, new HashMap<>());
     }
 
-    public PanacheQuery<Entity> findByIdx(Object id) {
-        return findx("id", id);
+    public PanacheQuery<Entity> findById(Object id) {
+        return find("id", id);
     }
 
-    public PanacheQuery<Entity> findx(String field, Object param) {
-        return findx(field + " = :" + field, null, Parameters.with(field, param).map());
+    public PanacheQuery<Entity> find(String field, Object param) {
+        return find(field + " = :" + field, null, Parameters.with(field, param).map());
     }
 
-    public PanacheQuery<Entity> findx(String field, Sort sort, Object param) {
-        return findx(field + " = :" + field, sort, Parameters.with(field, param).map());
+    public PanacheQuery<Entity> find(String field, Sort sort, Object param) {
+        return find(field + " = :" + field, sort, Parameters.with(field, param).map());
     }
     
-    public PanacheQuery<Entity> findx(String query, Map<String, Object> params) {
-        return findx(query, null, params);
+    public PanacheQuery<Entity> find(String query, Map<String, Object> params) {
+        return find(query, null, params);
     }
 
-    public PanacheQuery<Entity> findx(String query, Sort sort, Map<String, Object> params) {
+    public PanacheQuery<Entity> find(String query, Sort sort, Map<String, Object> params) {
         return repository.find(getTenantQuery(query, params), sort, getTenantParams(params));
     }
 
-    public long countx(String query, Map<String, Object> params) {
+    public long count(String query, Map<String, Object> params) {
         return repository.count(getTenantQuery(query, params), getTenantParams(params));
     }
 
-    public long deletex(String query, Map<String, Object> params) {
+    public long delete(String query, Map<String, Object> params) {
         return repository.delete(getTenantQuery(query, params), getTenantParams(params));
     }
 
-    public Entity savex(Entity entity) {
+    public Entity save(Entity entity) {
         repository.persist(entity);
         return entity;
     }

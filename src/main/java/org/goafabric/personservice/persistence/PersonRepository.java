@@ -1,6 +1,5 @@
 package org.goafabric.personservice.persistence;
 
-import io.quarkus.hibernate.orm.panache.PanacheQuery;
 import io.quarkus.panache.common.Parameters;
 import org.goafabric.personservice.persistence.multitenancy.MultiTenantRepository;
 
@@ -13,29 +12,22 @@ public class PersonRepository extends MultiTenantRepository<PersonBo> {
     public PersonRepository() {
         super(PersonRepositoryDelegate.class);
     }
-
-    public PanacheQuery<PersonBo> findAll() {
-        return findAllx();
-    }
-
+    
     public List<PersonBo> findByFirstName(String firstName) {
-        return findx("firstName", firstName).list();
+        return find("firstName", firstName).list();
     }
 
     public List<PersonBo> findByLastName(String lastName) {
-        return findx("lastName = :lastName",
+        return find("lastName = :lastName",
                 Parameters.with("lastName", lastName)
                         .map()).list();
     }
 
     public long countByLastName(String lastName) {
-        return countx("lastName = :lastName",
+        return count("lastName = :lastName",
                 Parameters.with("lastName", lastName)
                         .map());
     }
 
-    public PersonBo save(PersonBo personBo) {
-        return savex(personBo);
-    }
 }
 

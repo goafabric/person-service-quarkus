@@ -29,7 +29,7 @@ public class PersonLogic {
 
     public Person getById(String id) {
         return personMapper.map(
-                (PersonBo) personRepository.findByIdx(id).firstResult());
+                (PersonBo) personRepository.findById(id).firstResult());
     }
 
     public List<Person> findAll() {
