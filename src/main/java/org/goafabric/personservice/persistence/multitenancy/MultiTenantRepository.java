@@ -14,8 +14,8 @@ public abstract class MultiTenantRepository <Entity extends TenantAware> {
 
     PanacheRepositoryBase repository;
 
-    public MultiTenantRepository(Class clazz) {
-        this.repository = (PanacheRepositoryBase) CDI.current().select(clazz).get();
+    public <T extends PanacheRepositoryBase> MultiTenantRepository(Class<T> clazz) {
+        this.repository = CDI.current().select(clazz).get();
     }
 
 
