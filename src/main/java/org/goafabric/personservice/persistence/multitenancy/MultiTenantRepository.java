@@ -61,15 +61,14 @@ public abstract class MultiTenantRepository <Entity extends TenantAware> {
         return entity;
     }
 
+    private String getTenantQuery(String query, Map<String, Object> params) {
+        return (params.size() > 0)  ? query + " and tenantId = :tenantId" : "tenantId = :tenantId";
+    }
+
     private Map<String, Object> getTenantParams(Map<String, Object> params) {
         final Map<String, Object> map = new HashMap<>(params);
         map.put("tenantId", TenantIdInterceptor.getTenantId());
         return map;
     }
-
-    private String getTenantQuery(String query, Map<String, Object> params) {
-        return (params.size() > 0)  ? query + " and tenantId = :tenantId"
-                                    : "tenantId = :tenantId";
-    }
-
+    
 }
