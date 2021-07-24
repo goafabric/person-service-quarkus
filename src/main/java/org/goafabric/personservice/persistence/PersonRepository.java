@@ -1,6 +1,8 @@
 package org.goafabric.personservice.persistence;
 
+import io.quarkus.hibernate.orm.panache.PanacheRepositoryBase;
 import io.quarkus.panache.common.Parameters;
+import io.quarkus.runtime.Startup;
 import org.goafabric.personservice.persistence.multitenancy.MultiTenantRepository;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -8,6 +10,11 @@ import java.util.List;
 
 @ApplicationScoped
 public class PersonRepository extends MultiTenantRepository<PersonBo> {
+
+    @ApplicationScoped
+    @Startup
+    public static class PersonRepositoryDelegate implements PanacheRepositoryBase<PersonBo, String> {
+    }
 
     public PersonRepository() {
         super(PersonRepositoryDelegate.class);
