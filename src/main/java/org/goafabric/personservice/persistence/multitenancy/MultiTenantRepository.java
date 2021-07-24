@@ -6,6 +6,7 @@ import io.quarkus.panache.common.Parameters;
 import io.quarkus.panache.common.Sort;
 import org.goafabric.personservice.crossfunctional.TenantIdInterceptor;
 
+import javax.enterprise.inject.spi.CDI;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,8 +14,8 @@ public abstract class MultiTenantRepository <Entity extends TenantAware> {
 
     PanacheRepositoryBase repository;
 
-    public MultiTenantRepository(PanacheRepositoryBase repository) {
-        this.repository = repository;
+    public MultiTenantRepository(Class clazz) {
+        this.repository = (PanacheRepositoryBase) CDI.current().select(clazz).get();
     }
 
 

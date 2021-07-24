@@ -5,14 +5,13 @@ import io.quarkus.panache.common.Parameters;
 import org.goafabric.personservice.persistence.multitenancy.MultiTenantRepository;
 
 import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.inject.spi.CDI;
 import java.util.List;
 
 @ApplicationScoped
 public class PersonRepository extends MultiTenantRepository<PersonBo> {
 
     public PersonRepository() {
-        super(CDI.current().select(PersonRepositoryDelegate.class).get());
+        super(PersonRepositoryDelegate.class);
     }
 
     public PanacheQuery<PersonBo> findAll() {
