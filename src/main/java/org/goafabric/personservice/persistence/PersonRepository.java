@@ -3,7 +3,7 @@ package org.goafabric.personservice.persistence;
 import io.quarkus.hibernate.orm.panache.PanacheQuery;
 import io.quarkus.panache.common.Parameters;
 import org.goafabric.personservice.persistence.multitenancy.MultiTenantRepository;
-import org.goafabric.personservice.persistence.multitenancy.RepositoryDelegate;
+import org.goafabric.personservice.persistence.multitenancy.PersonRepositoryDelegate;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.spi.CDI;
@@ -13,7 +13,7 @@ import java.util.List;
 public class PersonRepository extends MultiTenantRepository<PersonBo, String> {
 
     public PersonRepository() {
-        super(CDI.current().select(RepositoryDelegate.class).get());
+        super(CDI.current().select(PersonRepositoryDelegate.class).get());
     }
 
     public PanacheQuery<PersonBo> findAll() {

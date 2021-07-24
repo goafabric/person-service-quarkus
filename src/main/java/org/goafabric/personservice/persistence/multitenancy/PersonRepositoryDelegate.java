@@ -8,5 +8,5 @@ import javax.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
 @Startup
-public class RepositoryDelegate implements PanacheRepositoryBase<PersonBo, String> {
+public class PersonRepositoryDelegate implements PanacheRepositoryBase<PersonBo, String> {
 }
