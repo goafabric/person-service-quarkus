@@ -1,9 +1,12 @@
 package org.goafabric.personservice.persistence.multitenancy;
 
 import io.quarkus.hibernate.orm.panache.PanacheRepositoryBase;
+import io.quarkus.runtime.Startup;
+import org.goafabric.personservice.persistence.PersonBo;
 
 import javax.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
-public class RepositoryDelegate<T extends TenantAware, I> implements PanacheRepositoryBase<T, I> {
+@Startup
+public class RepositoryDelegate implements PanacheRepositoryBase<PersonBo, String> {
 }

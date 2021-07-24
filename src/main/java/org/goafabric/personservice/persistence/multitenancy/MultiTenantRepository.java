@@ -1,20 +1,23 @@
 package org.goafabric.personservice.persistence.multitenancy;
 
 import io.quarkus.hibernate.orm.panache.PanacheQuery;
+import io.quarkus.hibernate.orm.panache.PanacheRepositoryBase;
 import io.quarkus.panache.common.Parameters;
 import io.quarkus.panache.common.Sort;
 import org.goafabric.personservice.crossfunctional.TenantIdInterceptor;
 
-import javax.inject.Inject;
 import java.util.HashMap;
 import java.util.Map;
 
 public abstract class MultiTenantRepository <Entity extends TenantAware, Id> {
 
-    @Inject
-    RepositoryDelegate<Entity, Id> repository;
-    
-    
+    PanacheRepositoryBase repository;
+
+    public MultiTenantRepository(PanacheRepositoryBase repository) {
+        this.repository = repository;
+    }
+
+
     public PanacheQuery<Entity> findAllx() {
         return findx("", new HashMap<>());
     }
