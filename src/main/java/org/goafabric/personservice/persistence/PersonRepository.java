@@ -11,13 +11,11 @@ import java.util.List;
 @ApplicationScoped
 public class PersonRepository extends MultiTenantRepository<PersonBo> {
 
-    @ApplicationScoped
-    @Startup
-    public static class PersonRepositoryDelegate implements PanacheRepositoryBase<PersonBo, String> {
-    }
+    @ApplicationScoped @Startup
+    private static class RepositoryDelegate implements PanacheRepositoryBase<PersonBo, String> {}
 
     public PersonRepository() {
-        super(PersonRepositoryDelegate.class);
+        super(RepositoryDelegate.class);
     }
     
     public List<PersonBo> findByFirstName(String firstName) {
