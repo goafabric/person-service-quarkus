@@ -1,5 +1,5 @@
 #1.0.6
-- Upgrade to Quarkus 2.0.2
+- Upgrade to Quarkus 2.0.3
 - Jaeger Opentracing added
 - Multi Tenancy added
 
