@@ -8,6 +8,8 @@ create table person
 	last_name varchar(255)
 );
 
+create index idx_person_tenant_id on person(tenant_id);
+
 create table person_audit
 (
 	id varchar(36) not null
@@ -25,3 +27,4 @@ create table person_audit
     newvalue TEXT
 );
 
+create index idx_person_audit_tenant_id on person_audit(tenant_id);
