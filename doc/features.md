@@ -13,9 +13,9 @@
 - Resilience
                      
 - Auditing
+- Multi Tenancy
 
 #Not Working
-- Multi Tenancy
 - Jaspyt Encryption
 
 #build times apple silicon:
