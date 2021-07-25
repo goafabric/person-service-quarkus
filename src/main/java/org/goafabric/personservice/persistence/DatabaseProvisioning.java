@@ -33,7 +33,7 @@ public class DatabaseProvisioning {
         }
     }
 
-    private void importDemoData() {
+    public void importDemoData() {
         if (personRepository.findAll().list().isEmpty()) {
             personRepository.save(PersonBo.builder()
                     .firstName("Homer").lastName("Simpson")

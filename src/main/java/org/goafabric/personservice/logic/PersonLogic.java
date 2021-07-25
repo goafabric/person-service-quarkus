@@ -4,6 +4,7 @@ import lombok.NonNull;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.goafabric.personservice.adapter.CalleeServiceAdapter;
 import org.goafabric.personservice.crossfunctional.DurationLog;
+import org.goafabric.personservice.persistence.PersonBo;
 import org.goafabric.personservice.persistence.PersonRepository;
 import org.goafabric.personservice.service.Person;
 
@@ -28,7 +29,7 @@ public class PersonLogic {
 
     public Person getById(String id) {
         return personMapper.map(
-                personRepository.findById(id));
+                (PersonBo) personRepository.findById(id).firstResult());
     }
 
     public List<Person> findAll() {
@@ -44,6 +45,10 @@ public class PersonLogic {
     public List<Person> findByLastName(@NonNull String lastName) {
         return personMapper.map(
                 personRepository.findByLastName(lastName));
+    }
+
+    public long countByLastName(@NonNull String lastName) {
+        return personRepository.countByLastName(lastName);
     }
 
     public Person save(@NonNull Person person) {
