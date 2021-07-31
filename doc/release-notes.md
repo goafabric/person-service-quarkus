@@ -1,4 +1,4 @@
-#1.0.7
+#1.0.7-SNAPSHOT
 
 #1.0.6
 - Upgrade to Quarkus 2.0.3
