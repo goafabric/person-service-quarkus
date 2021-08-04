@@ -12,7 +12,7 @@ import java.util.List;
 public class PersonRepository extends MultiTenantRepository<PersonBo> {
 
     @ApplicationScoped @Startup
-    private static class Delegate implements PanacheRepositoryBase<PersonBo, String> {}
+    static class Delegate implements PanacheRepositoryBase<PersonBo, String> {}
 
     public PersonRepository(Delegate delegate) {
         super(delegate);
