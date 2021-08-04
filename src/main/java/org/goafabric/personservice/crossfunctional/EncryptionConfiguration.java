@@ -24,8 +24,7 @@ import java.util.UUID;
 public class EncryptionConfiguration {
     @ConfigProperty(name = "security.encryption.key", defaultValue = " ")
     String encryptionKey;
-
-
+    
     @Startup
     @Produces
     @ApplicationScoped
@@ -54,6 +53,5 @@ public class EncryptionConfiguration {
         }
         return " ".equals(encryptionKey) ? UUID.randomUUID().toString() : encryptionKey;
     }
-
 
 }
