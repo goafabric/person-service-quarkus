@@ -36,15 +36,15 @@ public class DatabaseProvisioning {
     public void importDemoData() {
         if (personRepository.findAll().list().isEmpty()) {
             personRepository.save(PersonBo.builder()
-                    .firstName("Homer").lastName("Simpson")
+                    .firstName("Homer").lastName("Simpson").secret("SuperSecret")
                     .build());
 
             personRepository.save(PersonBo.builder()
-                    .firstName("Bart").lastName("Simpson")
+                    .firstName("Bart").lastName("Simpson").secret("SuperSecret")
                     .build());
 
             personRepository.save(PersonBo.builder()
-                    .firstName("Monty").lastName("Burns")
+                    .firstName("Monty").lastName("Burns").secret("SuperSecret")
                     .build());
         }
     }

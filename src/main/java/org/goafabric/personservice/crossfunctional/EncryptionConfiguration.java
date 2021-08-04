@@ -2,6 +2,7 @@ package org.goafabric.personservice.crossfunctional;
 
 import io.quarkus.runtime.Startup;
 import io.quarkus.runtime.annotations.RegisterForReflection;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
 import org.jasypt.hibernate5.encryptor.HibernatePBEEncryptorRegistry;
 import org.jasypt.iv.IvGenerator;
@@ -19,13 +20,16 @@ import javax.ws.rs.Produces;
 })
 
 public class EncryptionConfiguration {
+    @ConfigProperty(name = "security.encryption.key")
+    String encryptionKey;
+
 
     @Startup
     @Produces
     @ApplicationScoped
     public StandardPBEStringEncryptor hibernateEncryptor() {
         final StandardPBEStringEncryptor encryptor =
-                getAES256Encryptor("secret", new RandomIvGenerator(), new RandomSaltGenerator());
+                getAES256Encryptor(encryptionKey, new RandomIvGenerator(), new RandomSaltGenerator());
 
         HibernatePBEEncryptorRegistry.getInstance()
                 .registerPBEStringEncryptor("hibernateStringEncryptor", encryptor);

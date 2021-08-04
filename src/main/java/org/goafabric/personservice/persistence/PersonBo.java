@@ -25,7 +25,10 @@ public class PersonBo extends TenantAware {
     @Column(name = "first_name")
     private String firstName;
 
-    @Type(type="encryptedString")
     @Column(name = "last_name")
     private String lastName;
+
+    @Type(type="encryptedString")
+    @Column(name = "secret")
+    private String secret;
 }
