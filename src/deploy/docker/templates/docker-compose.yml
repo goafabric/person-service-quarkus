@@ -26,7 +26,7 @@ services:
       - quarkus.http.io-threads=20
       #security
       - security.authentication.enabled=true
-      - security.encryption.key=203fef90-aead-45ca-830e-ca878bb4e987
+      - security.encryption.key=203fef90-aead-45ca-830e-ca878bb4e987 #this needs to be changed during first deployment to a unique value
       #persistence
       - quarkus.datasource.db-kind=postgresql
       - quarkus.datasource.jdbc.url=jdbc:postgresql://${_Values_root_name}-postgres:5432/persondb
