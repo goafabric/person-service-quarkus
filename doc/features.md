@@ -14,9 +14,8 @@
                      
 - Auditing
 - Multi Tenancy
-
-#Not Working
 - Jaspyt Encryption
+
 
 #build times apple silicon:
 - console: 1m
@@ -26,4 +25,4 @@
 #build times github:
 - console: 3m
 - web: 4m
-- jpa: 6m
+- jpa: 10m
