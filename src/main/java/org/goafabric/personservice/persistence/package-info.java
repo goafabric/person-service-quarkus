@@ -6,15 +6,7 @@
                         parameters= {
                                 @Parameter(name="encryptorRegisteredName", value="hibernateStringEncryptor")
                         }
-                )/*,
-                @TypeDef(
-                        name="encryptedSearchableString",
-                        typeClass= EncryptedStringType.class,
-                        parameters= {
-                                @Parameter(name="encryptorRegisteredName", value="hibernateSearchableStringEncryptor")
-                        }
-                )  */
-
+                )
         })
 
 package org.goafabric.personservice.persistence;
