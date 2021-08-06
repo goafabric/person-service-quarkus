@@ -1,13 +1,17 @@
 #Working
-- Web, Health, Prometheus, ExceptionHandler
+- Web, ExceptionHandler
 - Lombok, Mapstruct
+
+- Health, Prometheus
+- Swagger
+
 - Security
 
-- Swagger
-- DurationLogger
+- DurationLogger Aspect
   
-- JPA, Bean Validation
+- JPA, 
 - Flyway
+- Bean Validation
 
 - Tracing
 - Resilience
