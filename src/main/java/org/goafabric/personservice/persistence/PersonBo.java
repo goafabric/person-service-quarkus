@@ -28,7 +28,7 @@ public class PersonBo extends TenantAware {
     @Column(name = "last_name")
     private String lastName;
 
-    @Type(type="encryptedString")
     @Column(name = "secret")
+    @Type(type="org.jasypt.hibernate5.type.EncryptedStringType", parameters = @org.hibernate.annotations.Parameter(name="encryptorRegisteredName", value="hibernateStringEncryptor"))
     private String secret;
 }
