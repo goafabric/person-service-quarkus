@@ -18,8 +18,7 @@
                      
 - Auditing
 - Multi Tenancy
-- Jaspyt Encryption
-
+- Jaspyt Database Encryption
 
 #build times apple silicon:
 - console: 1m
