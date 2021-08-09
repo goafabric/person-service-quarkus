@@ -1,6 +1,5 @@
 #1.1.0
 - Jasypt Database Encryption added
-- Upgrade to Quarkus 2.1.1
 
 #1.0.6
 - Upgrade to Quarkus 2.0.3
