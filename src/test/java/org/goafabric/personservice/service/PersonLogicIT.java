@@ -80,4 +80,11 @@ public class PersonLogicIT {
         TenantIdInterceptor.setTenantId("5a2f");
         assertThat(personLogic.countByLastName("Simpson")).isEqualTo(0);
     }
+
+    @Test
+    void save() {
+        assertThat(personLogic.save(Person.builder()
+                .build())).isNotNull();
+    }
+
 }
