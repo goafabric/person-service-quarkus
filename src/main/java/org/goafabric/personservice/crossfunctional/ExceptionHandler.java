@@ -18,7 +18,7 @@ public class ExceptionHandler implements ExceptionMapper<Exception> {
         } else if (e instanceof IllegalStateException) {
             status = Response.Status.PRECONDITION_FAILED;
         } else {
-            status = Response.Status.BAD_REQUEST;
+            status = Response.Status.INTERNAL_SERVER_ERROR;
         }
         
         log.error(e.getMessage(), e);
