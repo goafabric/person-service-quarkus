@@ -1,5 +1,6 @@
 #1.1.1
 - Upgrade to Graalvm 21.2 for Arm64
+- Circuit Breaker Enabled property added
 
 #1.1.0
 - Jasypt Database Encryption added
