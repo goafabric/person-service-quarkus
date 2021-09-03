@@ -57,7 +57,7 @@ services:
 
   postgres:
     container_name: ${_Values_root_name}-postgres
-    image: postgres:13.3
+    image: postgres:13.4
     restart: 'no'
     ports:
       - 50810:5432
