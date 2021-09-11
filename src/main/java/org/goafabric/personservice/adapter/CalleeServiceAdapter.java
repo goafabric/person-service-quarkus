@@ -3,6 +3,7 @@ package org.goafabric.personservice.adapter;
 import io.quarkus.oidc.token.propagation.AccessToken;
 import org.eclipse.microprofile.faulttolerance.CircuitBreaker;
 import org.eclipse.microprofile.faulttolerance.Timeout;
+import org.eclipse.microprofile.rest.client.annotation.RegisterClientHeaders;
 import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
 
 import javax.ws.rs.GET;
@@ -14,7 +15,7 @@ import javax.ws.rs.QueryParam;
 @RegisterRestClient
 @Timeout
 @CircuitBreaker
-//@RegisterClientHeaders(CalleeServiceConfiguration.class)
+@RegisterClientHeaders(CalleeServiceConfiguration.class)  //TODO: switch of in case of oidc
 @AccessToken
 public interface CalleeServiceAdapter {
     @GET
