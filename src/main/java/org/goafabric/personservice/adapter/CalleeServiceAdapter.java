@@ -1,9 +1,10 @@
 package org.goafabric.personservice.adapter;
 
-import io.quarkus.oidc.token.propagation.AccessToken;
 import org.eclipse.microprofile.faulttolerance.CircuitBreaker;
 import org.eclipse.microprofile.faulttolerance.Timeout;
+import org.eclipse.microprofile.rest.client.annotation.RegisterProvider;
 import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
+import org.goafabric.personservice.crossfunctional.SecurityAccessTokenRequestFilter;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -14,7 +15,7 @@ import javax.ws.rs.QueryParam;
 @RegisterRestClient
 @Timeout
 @CircuitBreaker
-@AccessToken
+@RegisterProvider(SecurityAccessTokenRequestFilter.class)
 public interface CalleeServiceAdapter {
     @GET
     @Path("sayMyName")
