@@ -1,4 +1,6 @@
 #1.1.2
+- Upgrade to Quarkus 2.2.2
+- Integration of OpenID Connect as a replacement for In Memory Authentication
 
 #1.1.1
 - Upgrade to Graalvm 21.2 for Arm64

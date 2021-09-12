@@ -25,7 +25,7 @@ services:
       - quarkus.http.port=${_Values_service_port}
       - quarkus.http.io-threads=20
       #security
-      - security.authentication.enabled=true
+      - security.authentication.enabled=false
       - security.encryption.key=203fef90-aead-45ca-830e-ca878bb4e987 #this needs to be changed during first deployment to a unique value
       #persistence
       - quarkus.datasource.db-kind=postgresql
@@ -36,8 +36,6 @@ services:
       - database.provisioning.goals=-import-demo-data
       #adapter
       - adapter.calleeservice.url=http://host.docker.internal:50900
-      - adapter.calleeservice.user=YWRtaW4=
-      - adapter.calleeservice.password=YWRtaW4=
       - adapter.timeout=10000
       - adapter.failureRate=0.5
       - adapter.openDuration=30000
