@@ -1,4 +1,4 @@
-package org.goafabric.personservice.crossfunctional;
+package org.goafabric.personservice.adapter;
 
 import io.quarkus.oidc.token.propagation.AccessTokenRequestFilter;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
@@ -6,7 +6,7 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 import javax.ws.rs.client.ClientRequestContext;
 import java.io.IOException;
 
-public class SecurityAccessTokenRequestFilter extends AccessTokenRequestFilter {
+public class ConfigurableAccessTokenRequestFilter extends AccessTokenRequestFilter {
     @ConfigProperty(name = "security.authentication.enabled", defaultValue = "true")
     boolean isAuthorizationEnabled;
 

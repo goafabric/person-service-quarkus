@@ -4,7 +4,6 @@ import org.eclipse.microprofile.faulttolerance.CircuitBreaker;
 import org.eclipse.microprofile.faulttolerance.Timeout;
 import org.eclipse.microprofile.rest.client.annotation.RegisterProvider;
 import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
-import org.goafabric.personservice.crossfunctional.SecurityAccessTokenRequestFilter;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -15,7 +14,7 @@ import javax.ws.rs.QueryParam;
 @RegisterRestClient
 @Timeout
 @CircuitBreaker
-@RegisterProvider(SecurityAccessTokenRequestFilter.class)
+@RegisterProvider(ConfigurableAccessTokenRequestFilter.class)
 public interface CalleeServiceAdapter {
     @GET
     @Path("sayMyName")
