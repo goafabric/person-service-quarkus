@@ -14,8 +14,6 @@ import javax.ws.rs.QueryParam;
 @RegisterRestClient
 @Timeout
 @CircuitBreaker
-//https://itnext.io/authentication-with-microprofile-rest-client-d1e9da774f70
-//@RegisterClientHeaders(CalleeServiceConfiguration.class)  //TODO: switch of in case of oidc
 @AccessToken
 public interface CalleeServiceAdapter {
     @GET
