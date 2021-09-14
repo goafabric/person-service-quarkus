@@ -15,13 +15,11 @@ public class TenantIdResolver implements TenantConfigResolver {
 
     @Override
     public Uni<OidcTenantConfig> resolve(RoutingContext routingContext, TenantConfigResolver.TenantConfigRequestContext requestContext) {
-        String tenantId = routingContext.request().getHeader("X-TenantId");
-        log.info("#Tenantresolver got: " + tenantId);
+        final String tenantId = routingContext.request().getHeader("X-TenantId");
+        return Uni.createFrom().item(createOidcConfig(tenantId == null ? "0" : tenantId));
+    }
 
-        if (tenantId == null) {
-            tenantId = "0";
-        }
-
+    private OidcTenantConfig createOidcConfig(String tenantId) {
         final OidcTenantConfig config = new OidcTenantConfig();
         //config.setApplicationType(ConfigProvider.getConfig().getValue("quarkus.oidc.application-type", OidcTenantConfig.ApplicationType.class));
         config.setApplicationType(OidcTenantConfig.ApplicationType.HYBRID);
@@ -35,7 +33,6 @@ public class TenantIdResolver implements TenantConfigResolver {
         config.setTenantId("tenant-" + tenantId);
         config.setAuthServerUrl(
                 ConfigProvider.getConfig().getValue("quarkus.oidc.auth-server-url", String.class) + "/" + config.getTenantId().get());
-
-        return Uni.createFrom().item(config);
+        return config;
     }
 }
