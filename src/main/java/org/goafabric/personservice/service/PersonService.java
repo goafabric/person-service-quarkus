@@ -1,8 +1,8 @@
 package org.goafabric.personservice.service;
 
-import io.quarkus.security.Authenticated;
 import org.goafabric.personservice.logic.PersonLogic;
 
+import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.validation.Valid;
 import javax.ws.rs.*;
@@ -11,8 +11,8 @@ import java.util.List;
 
 @Path("/persons")
 @Produces(MediaType.APPLICATION_JSON)
-//@RolesAllowed("standard")
-@Authenticated
+@RolesAllowed("standard")
+//@Authenticated
 public class PersonService {
     @Inject
     PersonLogic personLogic;

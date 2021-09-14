@@ -26,7 +26,10 @@ public class TenantIdResolver implements TenantConfigResolver {
         //config.setApplicationType(ConfigProvider.getConfig().getValue("quarkus.oidc.application-type", OidcTenantConfig.ApplicationType.class));
         config.setApplicationType(OidcTenantConfig.ApplicationType.HYBRID);
 
-        //config.setRoles(OidcTenantConfig.Roles.Source.accesstoken);
+        OidcTenantConfig.Roles roles = new OidcTenantConfig.Roles();
+        roles.setSource(OidcTenantConfig.Roles.Source.accesstoken);
+
+        config.setRoles(roles);
         config.setClientId(ConfigProvider.getConfig().getValue("quarkus.oidc.client-id", String.class));
 
         config.setTenantId("tenant-" + tenantId);
