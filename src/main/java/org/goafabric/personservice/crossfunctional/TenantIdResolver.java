@@ -5,6 +5,7 @@ import io.quarkus.oidc.TenantConfigResolver;
 import io.smallrye.mutiny.Uni;
 import io.vertx.ext.web.RoutingContext;
 import lombok.extern.slf4j.Slf4j;
+import org.eclipse.microprofile.config.Config;
 import org.eclipse.microprofile.config.ConfigProvider;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -20,19 +21,17 @@ public class TenantIdResolver implements TenantConfigResolver {
     }
 
     private OidcTenantConfig createOidcConfig(String tenantId) {
-        final OidcTenantConfig config = new OidcTenantConfig();
-        //config.setApplicationType(ConfigProvider.getConfig().getValue("quarkus.oidc.application-type", OidcTenantConfig.ApplicationType.class));
-        config.setApplicationType(OidcTenantConfig.ApplicationType.HYBRID);
+        final OidcTenantConfig tenantConfig = new OidcTenantConfig();
+        final Config config = ConfigProvider.getConfig();
+        tenantConfig.setTenantId(tenantId);
+        tenantConfig.setApplicationType(OidcTenantConfig.ApplicationType.HYBRID);
 
-        OidcTenantConfig.Roles roles = new OidcTenantConfig.Roles();
+        final OidcTenantConfig.Roles roles = new OidcTenantConfig.Roles();
         roles.setSource(OidcTenantConfig.Roles.Source.accesstoken);
+        tenantConfig.setRoles(roles);
 
-        config.setRoles(roles);
-        config.setClientId(ConfigProvider.getConfig().getValue("quarkus.oidc.client-id", String.class));
-
-        config.setTenantId("tenant-" + tenantId);
-        config.setAuthServerUrl(
-                ConfigProvider.getConfig().getValue("quarkus.oidc.auth-server-url", String.class) + "/" + config.getTenantId().get());
-        return config;
+        tenantConfig.setClientId(config.getValue("quarkus.oidc.client-id", String.class));
+        tenantConfig.setAuthServerUrl(config.getValue("quarkus.oidc.auth-server-url", String.class) + tenantId);
+        return tenantConfig;
     }
 }
