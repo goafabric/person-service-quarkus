@@ -23,15 +23,19 @@ public class TenantIdResolver implements TenantConfigResolver {
     private OidcTenantConfig createOidcConfig(String tenantId) {
         final OidcTenantConfig tenantConfig = new OidcTenantConfig();
         final Config config = ConfigProvider.getConfig();
+
         tenantConfig.setTenantId(tenantId);
-        tenantConfig.setApplicationType(OidcTenantConfig.ApplicationType.HYBRID);
-
-        final OidcTenantConfig.Roles roles = new OidcTenantConfig.Roles();
-        roles.setSource(OidcTenantConfig.Roles.Source.accesstoken);
-        tenantConfig.setRoles(roles);
-
+        tenantConfig.setApplicationType(
+                OidcTenantConfig.ApplicationType.valueOf(config.getValue("quarkus.oidc.application-type", String.class).toUpperCase()));
+        tenantConfig.setRoles(getRolesConfig(config));
         tenantConfig.setClientId(config.getValue("quarkus.oidc.client-id", String.class));
         tenantConfig.setAuthServerUrl(config.getValue("quarkus.oidc.auth-server-url", String.class) + tenantId);
         return tenantConfig;
+    }
+
+    private OidcTenantConfig.Roles getRolesConfig(Config config) {
+        final OidcTenantConfig.Roles roles = new OidcTenantConfig.Roles();
+        roles.setSource(config.getValue("quarkus.oidc.roles.source", OidcTenantConfig.Roles.Source.class));
+        return roles;
     }
 }
