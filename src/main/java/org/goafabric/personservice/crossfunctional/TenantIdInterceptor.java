@@ -34,10 +34,8 @@ public class TenantIdInterceptor implements ContainerRequestFilter, ContainerRes
 
     @Override
     public Uni<OidcTenantConfig> resolve(RoutingContext routingContext, TenantConfigResolver.TenantConfigRequestContext requestContext) {
-        final String tenantId = routingContext.request().getHeader("X-TenantId");
-        return Uni.createFrom().item(createOidcConfig(tenantId == null ? "0" : tenantId));
+        return createOidcConfig(getTenantId(routingContext.request().getHeader("X-TenantId")));
     }
-
 
     public static void setTenantId(String tenantId) {
         tenantIdThreadLocal.set(tenantId);
@@ -51,23 +49,22 @@ public class TenantIdInterceptor implements ContainerRequestFilter, ContainerRes
         return tenantId == null ? "0" : tenantId;  //Todo: should throw exception
     }
 
-    private OidcTenantConfig createOidcConfig(String tenantId) {
+    private Uni<OidcTenantConfig> createOidcConfig(String tenantId) {
         final OidcTenantConfig tenantConfig = new OidcTenantConfig();
         final Config config = ConfigProvider.getConfig();
 
         tenantConfig.setTenantId(tenantId);
         tenantConfig.setApplicationType(
                 OidcTenantConfig.ApplicationType.valueOf(config.getValue("quarkus.oidc.application-type", String.class).toUpperCase()));
-        tenantConfig.setRoles(getRolesConfig(config));
-        tenantConfig.setClientId(config.getValue("quarkus.oidc.client-id", String.class));
-        tenantConfig.setAuthServerUrl(config.getValue("quarkus.oidc.auth-server-url", String.class) + tenantId);
-        return tenantConfig;
-    }
 
-    private OidcTenantConfig.Roles getRolesConfig(Config config) {
         final OidcTenantConfig.Roles roles = new OidcTenantConfig.Roles();
         roles.setSource(config.getValue("quarkus.oidc.roles.source", OidcTenantConfig.Roles.Source.class));
-        return roles;
+        tenantConfig.setRoles(roles);
+
+        tenantConfig.setClientId(config.getValue("quarkus.oidc.client-id", String.class));
+        tenantConfig.setAuthServerUrl(config.getValue("quarkus.oidc.auth-server-url", String.class) + tenantId);
+        return Uni.createFrom().item(tenantConfig);
     }
+
 
 }
