@@ -58,7 +58,7 @@ public class TenantIdInterceptor implements ContainerRequestFilter, ContainerRes
                 OidcTenantConfig.ApplicationType.valueOf(config.getValue("quarkus.oidc.application-type", String.class).toUpperCase()));
 
         final OidcTenantConfig.Roles roles = new OidcTenantConfig.Roles();
-        roles.setSource(config.getValue("quarkus.oidc.roles.source", OidcTenantConfig.Roles.Source.class));
+        roles.setSource(OidcTenantConfig.Roles.Source.accesstoken); //config.getValue("quarkus.oidc.roles.source", OidcTenantConfig.Roles.Source.class));
         tenantConfig.setRoles(roles);
 
         tenantConfig.setClientId(config.getValue("quarkus.oidc.client-id", String.class));
