@@ -7,7 +7,7 @@ import javax.ws.rs.client.ClientRequestContext;
 import java.io.IOException;
 
 public class ConfigurableAccessTokenRequestFilter extends AccessTokenRequestFilter {
-    @ConfigProperty(name = "security.authentication.enabled", defaultValue = "true")
+    @ConfigProperty(name = "security.authentication.enabled")
     boolean isAuthorizationEnabled;
 
     @Override
