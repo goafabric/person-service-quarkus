@@ -14,6 +14,6 @@ public class ConfigurableAccessTokenRequestFilter extends AccessTokenRequestFilt
     @Override
     public void filter(ClientRequestContext requestContext) throws IOException {
         if (isAuthorizationEnabled) { super.filter(requestContext); }
-        requestContext.getStringHeaders().add(TenantIdInterceptor.TENANT_ID, TenantIdInterceptor.getTenantId());
+        requestContext.getHeaders().add(TenantIdInterceptor.TENANT_ID, TenantIdInterceptor.getTenantId());
     }
 }
