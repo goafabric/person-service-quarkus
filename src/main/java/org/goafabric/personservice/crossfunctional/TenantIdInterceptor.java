@@ -21,10 +21,11 @@ import java.io.IOException;
 @ApplicationScoped
 public class TenantIdInterceptor implements ContainerRequestFilter, ContainerResponseFilter, TenantConfigResolver {
     private static final ThreadLocal<String> tenantIdThreadLocal = new ThreadLocal<>();
+    public static final String TENANT_ID = "X-TenantId";
 
     @Override
     public void filter(ContainerRequestContext request) throws IOException {
-        setTenantId(request.getHeaderString("X-TenantId"));
+        setTenantId(request.getHeaderString(TENANT_ID));
     }
 
     @Override
@@ -34,7 +35,7 @@ public class TenantIdInterceptor implements ContainerRequestFilter, ContainerRes
 
     @Override
     public Uni<OidcTenantConfig> resolve(RoutingContext routingContext, TenantConfigResolver.TenantConfigRequestContext requestContext) {
-        return createOidcConfig(getTenantId(routingContext.request().getHeader("X-TenantId")));
+        return createOidcConfig(getTenantId(routingContext.request().getHeader(TENANT_ID)));
     }
 
     public static void setTenantId(String tenantId) {
