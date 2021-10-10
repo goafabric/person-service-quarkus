@@ -1,5 +1,6 @@
 package org.goafabric.personservice.crossfunctional;
 
+import io.quarkus.oidc.OidcRequestContext;
 import io.quarkus.oidc.OidcTenantConfig;
 import io.quarkus.oidc.TenantConfigResolver;
 import io.smallrye.mutiny.Uni;
@@ -33,8 +34,7 @@ public class TenantIdInterceptor implements ContainerRequestFilter, ContainerRes
         tenantIdThreadLocal.remove();
     }
 
-    @Override
-    public Uni<OidcTenantConfig> resolve(RoutingContext routingContext, TenantConfigResolver.TenantConfigRequestContext requestContext) {
+    public Uni<OidcTenantConfig> resolve(RoutingContext routingContext, OidcRequestContext<OidcTenantConfig> requestContext) {
         return createOidcConfig(getTenantId(routingContext.request().getHeader(TENANT_ID)));
     }
 
