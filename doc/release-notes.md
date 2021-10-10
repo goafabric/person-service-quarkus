@@ -1,5 +1,5 @@
 #1.1.2
-- Upgrade to Quarkus 2.3.0
+- Upgrade to Quarkus 2.2.3
 - build updated to jdk 17
 - Integration of OpenID Connect as a replacement for In Memory Authentication
 
