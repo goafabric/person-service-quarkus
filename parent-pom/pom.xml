@@ -6,7 +6,7 @@
 
     <groupId>org.goafabric</groupId>
     <artifactId>quarkus-parent</artifactId>
-    <version>2.3.0</version>
+    <version>2.4.1</version>
     <packaging>pom</packaging>
     <name>quarkus parent pom</name>
     <description>quarkus parent pom</description>
@@ -22,7 +22,7 @@
         <docker.registry>docker.io/goafabric</docker.registry>
 
         <!-- Quarkus -->
-        <quarkus.platform.version>2.3.0.Final</quarkus.platform.version>
+        <quarkus.platform.version>2.4.1.Final</quarkus.platform.version>
 
         <!-- 3rd party -->
         <lombok.version>1.18.20</lombok.version>
@@ -234,7 +234,7 @@
             <properties>
                 <quarkus.container-image.push>false</quarkus.container-image.push>
                 <quarkus.container-image.image>${docker.registry}/${project.artifactId}-arm64v8:${project.version}</quarkus.container-image.image>
-                <quarkus.native.builder-image>goafabric/quarkus-build-aarch64:java11-21.2.0</quarkus.native.builder-image>
+                <quarkus.native.builder-image>goafabric/quarkus-build-aarch64:java11-21.3.0</quarkus.native.builder-image>
                 <quarkus.jib.platforms>linux/arm64/v8</quarkus.jib.platforms>
             </properties>
         </profile>
