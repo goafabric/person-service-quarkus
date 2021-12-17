@@ -1,8 +1,10 @@
-package org.goafabric.personservice.persistence;
+package org.goafabric.personservice.persistence.transformer;
 
 import io.quarkus.runtime.Quarkus;
 import lombok.extern.slf4j.Slf4j;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
+import org.goafabric.personservice.persistence.PersonBo;
+import org.goafabric.personservice.persistence.PersonRepository;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;

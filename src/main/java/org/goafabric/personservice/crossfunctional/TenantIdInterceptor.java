@@ -16,8 +16,6 @@ public class TenantIdInterceptor implements ContainerRequestFilter, ContainerRes
 
     @Override
     public void filter(ContainerRequestContext request) throws IOException {
-        final String tenantId = request.getHeaderString("X-TenantId");
-        log.debug("#interceptor got tenant id {}", tenantId);
         setTenantId(request.getHeaderString("X-TenantId"));
     }
 
