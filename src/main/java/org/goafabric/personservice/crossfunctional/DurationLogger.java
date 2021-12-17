@@ -9,7 +9,6 @@ import javax.interceptor.AroundInvoke;
 import javax.interceptor.Interceptor;
 import javax.interceptor.InvocationContext;
 import java.lang.reflect.Method;
-import java.security.Principal;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
@@ -43,7 +42,6 @@ public class DurationLogger {
     }
 
     private String getUserName() {
-        final Principal authentication = securityIdentity.getPrincipal();
-        return (authentication == null) ? "" : authentication.getName();
+        return (securityIdentity.getPrincipal() == null) ? "" : securityIdentity.getPrincipal().getName();
     }
 }
