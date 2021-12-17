@@ -1,5 +1,5 @@
 #1.1.2
-- Upgrade to Quarkus 2.5.2
+- Upgrade to Quarkus 2.5.3
 - build updated to jdk 17
 
 #1.1.1
