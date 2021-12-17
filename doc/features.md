@@ -1,24 +1,29 @@
 #Working
+Core
 - Web, ExceptionHandler
 - Lombok, Mapstruct
 
 - Health, Prometheus
-- Swagger
+- Tracing
+- OpenAPI
 
 - Security
 
 - DurationLogger Aspect
-  
-- JPA, 
-- Flyway
-- Bean Validation
 
-- Tracing
-- Resilience
-                     
-- Auditing
+Persistence
+- JPA
+- Bean Validation
+- Auditing (not in native mode, https://github.com/spring-projects-experimental/spring-native/issues/949)
 - Multi Tenancy
 - Jaspyt Database Encryption
+
+- Flyway
+
+Adapter
+- REST Call
+
+- Resilience
 
 #build times apple silicon:
 - console: 1m
