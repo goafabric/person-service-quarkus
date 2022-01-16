@@ -16,14 +16,10 @@ import java.security.Principal;
 import java.util.Date;
 import java.util.UUID;
 
-
-/**
- * A class that audits all registered entities with @EntityListeners
- * And writes the Audit Entries to the database
- */
 @Slf4j
 @ApplicationScoped
 @Unremovable
+/** A class that audits all registered entities with @EntityListeners and writes the Audit Entries to the database **/
 public class AuditBean {
     private enum DbOperation {
         CREATE, READ, UPDATE, DELETE
