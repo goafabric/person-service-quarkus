@@ -3,7 +3,7 @@ package org.goafabric.personservice.service;
 import io.quarkus.test.junit.QuarkusTest;
 import org.goafabric.personservice.crossfunctional.TenantIdInterceptor;
 import org.goafabric.personservice.logic.PersonLogic;
-import org.goafabric.personservice.persistence.transformer.DatabaseProvisioning;
+import org.goafabric.personservice.persistence.DatabaseProvisioning;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 

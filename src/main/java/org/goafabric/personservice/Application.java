@@ -4,7 +4,7 @@ import io.quarkus.runtime.Quarkus;
 import io.quarkus.runtime.QuarkusApplication;
 import io.quarkus.runtime.annotations.QuarkusMain;
 import lombok.extern.slf4j.Slf4j;
-import org.goafabric.personservice.persistence.transformer.DatabaseProvisioning;
+import org.goafabric.personservice.persistence.DatabaseProvisioning;
 
 import javax.inject.Inject;
 

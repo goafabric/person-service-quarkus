@@ -1,4 +1,4 @@
-package org.goafabric.personservice.persistence.transformer;
+package org.goafabric.personservice.persistence.encryption;
 
 import io.quarkus.runtime.Startup;
 import io.quarkus.runtime.annotations.RegisterForReflection;
