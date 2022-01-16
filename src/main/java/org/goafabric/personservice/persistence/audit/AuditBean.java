@@ -80,20 +80,12 @@ public class AuditBean {
             final AuditEvent auditEvent =
                 createAuditEvent(operation, referenceId, oldObject, newObject);
             auditInserter.insertAudit(auditEvent, oldObject != null ? oldObject : newObject);
-            logAudit(auditEvent);
+            log.debug("New audit event :\n{}", auditEvent);
         } catch (Exception e) {
             log.error("Error during audit:\n{}", e.getMessage(), e);
         }
     }
-
-    private void logAudit(AuditEvent auditEvent) {
-        if (log.isDebugEnabled()) {
-            auditEvent.setOldValue(auditEvent.getOldValue());
-            auditEvent.setNewValue(auditEvent.getNewValue());
-            log.debug("New audit event :\n{}", auditEvent);
-        }
-    }
-
+    
     private AuditEvent createAuditEvent(
             DbOperation dbOperation, String referenceId, final Object oldObject, final Object newObject) throws JsonProcessingException {
         final Date date = new Date(System.currentTimeMillis());
