@@ -6,10 +6,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
 import org.jasypt.hibernate5.encryptor.HibernatePBEEncryptorRegistry;
-import org.jasypt.iv.IvGenerator;
 import org.jasypt.iv.RandomIvGenerator;
 import org.jasypt.salt.RandomSaltGenerator;
-import org.jasypt.salt.SaltGenerator;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.ws.rs.Produces;
@@ -29,21 +27,19 @@ public class EncryptionConfiguration {
     @Produces
     @ApplicationScoped
     public StandardPBEStringEncryptor hibernateEncryptor() {
-        final StandardPBEStringEncryptor encryptor =
-                getAES256Encryptor(getEncryptionKey(), new RandomIvGenerator(), new RandomSaltGenerator());
-
+        final StandardPBEStringEncryptor encryptor = getAES256Encryptor();
         HibernatePBEEncryptorRegistry.getInstance()
                 .registerPBEStringEncryptor("hibernateStringEncryptor", encryptor);
 
         return encryptor;
     }
 
-    private StandardPBEStringEncryptor getAES256Encryptor(String configKey, IvGenerator ivGenerator, SaltGenerator saltGenerator) {
+    private StandardPBEStringEncryptor getAES256Encryptor() {
         final StandardPBEStringEncryptor encryptor = new StandardPBEStringEncryptor();
         encryptor.setAlgorithm("PBEWithHMACSHA512AndAES_256");
-        encryptor.setIvGenerator(ivGenerator);
-        encryptor.setSaltGenerator(saltGenerator);
-        encryptor.setPassword(configKey);
+        encryptor.setIvGenerator(new RandomIvGenerator());
+        encryptor.setSaltGenerator(new RandomSaltGenerator());
+        encryptor.setPassword(getEncryptionKey());
         return encryptor;
     }
 
