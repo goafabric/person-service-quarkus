@@ -18,9 +18,6 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <!-- Docker -->
-        <docker.registry>docker.io/goafabric</docker.registry>
-
         <!-- Quarkus -->
         <quarkus.platform.version>2.5.3.Final</quarkus.platform.version>
 
@@ -35,6 +32,12 @@
         <maven.compiler.parameters>true</maven.compiler.parameters>
         <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
         <exec-maven-plugin.version>3.0.0</exec-maven-plugin.version>
+
+
+        <!--   OWN   -->
+
+        <!-- Docker Registry-->
+        <docker.registry>docker.io/goafabric</docker.registry>
 
         <!-- Deploy disabled here-->
         <maven.javadoc.skip>true</maven.javadoc.skip>
@@ -232,11 +235,70 @@
         <profile>
             <id>docker-image-native-arm64</id>
             <properties>
+                <quarkus.package.type>native</quarkus.package.type>
+                <quarkus.native.container-build>true</quarkus.native.container-build>
+
                 <quarkus.container-image.push>false</quarkus.container-image.push>
+                <quarkus.container-image.build>true</quarkus.container-image.build>
                 <quarkus.container-image.image>${docker.registry}/${project.artifactId}-arm64v8:${project.version}</quarkus.container-image.image>
+
+                <quarkus.native.native-image-xmx>4096m</quarkus.native.native-image-xmx>
+
                 <quarkus.native.builder-image>goafabric/quarkus-build-aarch64:java11-21.3.0</quarkus.native.builder-image>
                 <quarkus.jib.platforms>linux/arm64/v8</quarkus.jib.platforms>
             </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>io.quarkus</groupId>
+                    <artifactId>quarkus-container-image-jib</artifactId>
+                </dependency>
+            </dependencies>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <version>${maven-surefire-plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>integration-test</goal>
+                                    <goal>verify</goal>
+                                </goals>
+                                <configuration>
+                                    <systemPropertyVariables>
+                                        <native.image.path>
+                                            ${project.build.directory}/${project.build.finalName}-runner
+                                        </native.image.path>
+                                        <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
+                                        <maven.home>${maven.home}</maven.home>
+                                    </systemPropertyVariables>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <version>${exec-maven-plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <id>docker push</id>
+                                <phase>deploy</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <configuration>
+                                    <executable>docker</executable>
+                                    <arguments>
+                                        <argument>push</argument>
+                                        <argument>${quarkus.container-image.image}</argument>
+                                    </arguments>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
         </profile>
     </profiles>
 </project>
