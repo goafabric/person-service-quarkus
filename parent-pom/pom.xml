@@ -6,7 +6,7 @@
 
     <groupId>org.goafabric</groupId>
     <artifactId>quarkus-parent</artifactId>
-    <version>2.5.3</version>
+    <version>2.7.0</version>
     <packaging>pom</packaging>
     <name>quarkus parent pom</name>
     <description>quarkus parent pom</description>
@@ -19,7 +19,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <!-- Quarkus -->
-        <quarkus.platform.version>2.5.3.Final</quarkus.platform.version>
+        <quarkus.platform.version>2.7.0.Final</quarkus.platform.version>
 
         <!-- 3rd party -->
         <lombok.version>1.18.20</lombok.version>
@@ -180,6 +180,9 @@
                 <quarkus.container-image.image>${docker.registry}/${project.artifactId}:${project.version}</quarkus.container-image.image>
 
                 <quarkus.native.native-image-xmx>4096m</quarkus.native.native-image-xmx>
+
+                <!--<quarkus.native.builder-image>quay.io/quarkus/ubi-quarkus-native-image:21.3-java11</quarkus.native.builder-image> -->
+                <quarkus.jib.base-native-image>registry.access.redhat.com/ubi8/ubi-minimal:8.5</quarkus.jib.base-native-image>
             </properties>
             <dependencies>
                 <dependency>
@@ -247,6 +250,8 @@
                 <quarkus.native.native-image-xmx>4096m</quarkus.native.native-image-xmx>
 
                 <quarkus.native.builder-image>goafabric/quarkus-build-aarch64:java11-21.3.0</quarkus.native.builder-image>
+                <quarkus.jib.base-native-image>registry.access.redhat.com/ubi8/ubi-minimal:8.5</quarkus.jib.base-native-image>
+
                 <quarkus.jib.platforms>linux/arm64/v8</quarkus.jib.platforms>
             </properties>
             <dependencies>
