@@ -3,6 +3,7 @@ package org.goafabric.personservice.persistence;
 import io.quarkus.runtime.Quarkus;
 import lombok.extern.slf4j.Slf4j;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
+import org.goafabric.personservice.crossfunctional.HttpInterceptor;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -32,17 +33,23 @@ public class DatabaseProvisioning {
 
     public void importDemoData() {
         if (personRepository.findAll().list().isEmpty()) {
-            personRepository.save(PersonBo.builder()
-                    .firstName("Homer").lastName("Simpson").secret("SuperSecret")
-                    .build());
+            HttpInterceptor.setTenantId("0");
+            insertData();
+            HttpInterceptor.setTenantId("5a2f");
+            insertData();        }
+    }
 
-            personRepository.save(PersonBo.builder()
-                    .firstName("Bart").lastName("Simpson").secret("SuperSecret")
-                    .build());
+    private void insertData() {
+        personRepository.save(PersonBo.builder()
+                .firstName("Homer").lastName("Simpson").secret("SuperSecret")
+                .build());
 
-            personRepository.save(PersonBo.builder()
-                    .firstName("Monty").lastName("Burns").secret("SuperSecret")
-                    .build());
-        }
+        personRepository.save(PersonBo.builder()
+                .firstName("Bart").lastName("Simpson").secret("SuperSecret")
+                .build());
+
+        personRepository.save(PersonBo.builder()
+                .firstName("Monty").lastName("Burns").secret("SuperSecret")
+                .build());
     }
 }

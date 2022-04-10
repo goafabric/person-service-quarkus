@@ -1,7 +1,7 @@
 package org.goafabric.personservice.service;
 
 import io.quarkus.test.junit.QuarkusTest;
-import org.goafabric.personservice.crossfunctional.TenantIdInterceptor;
+import org.goafabric.personservice.crossfunctional.HttpInterceptor;
 import org.goafabric.personservice.logic.PersonLogic;
 import org.goafabric.personservice.persistence.DatabaseProvisioning;
 import org.junit.jupiter.api.BeforeAll;
@@ -26,7 +26,7 @@ public class PersonLogicIT {
 
     @Test
     public void findById() {
-        TenantIdInterceptor.setTenantId("0");
+        HttpInterceptor.setTenantId("0");
         List<Person> persons = personLogic.findAll();
         assertThat(persons).isNotNull().hasSize(3);
 
@@ -36,49 +36,49 @@ public class PersonLogicIT {
         assertThat(person.getFirstName()).isEqualTo(persons.get(0).getFirstName());
         assertThat(person.getLastName()).isEqualTo(persons.get(0).getLastName());
 
-        TenantIdInterceptor.setTenantId("5a2f");
+        HttpInterceptor.setTenantId("5a2f");
         assertThat(personLogic.getById(persons.get(0).getId())).isNull();
     }
 
     @Test
     public void findAll() {
-        TenantIdInterceptor.setTenantId("0");
+        HttpInterceptor.setTenantId("0");
         assertThat(personLogic.findAll()).isNotNull().hasSize(3);
 
-        TenantIdInterceptor.setTenantId("5a2f");
-        assertThat(personLogic.findAll()).isNotNull().hasSize(0);
+        HttpInterceptor.setTenantId("5a2f");
+        assertThat(personLogic.findAll()).isNotNull().hasSize(3);
     }
 
     @Test
     public void findByFirstName() {
-        TenantIdInterceptor.setTenantId("0");
+        HttpInterceptor.setTenantId("0");
         List<Person> persons = personLogic.findByFirstName("Monty");
         assertThat(persons).isNotNull().hasSize(1);
         assertThat(persons.get(0).getFirstName()).isEqualTo("Monty");
         assertThat(persons.get(0).getLastName()).isEqualTo("Burns");
 
-        TenantIdInterceptor.setTenantId("5a2f");
-        assertThat(personLogic.findByFirstName("Monty")).isNotNull().hasSize(0);
+        HttpInterceptor.setTenantId("5a2f");
+        assertThat(personLogic.findByFirstName("Monty")).isNotNull().hasSize(1);
     }
 
     @Test
     public void findByLastName() {
-        TenantIdInterceptor.setTenantId("0");
+        HttpInterceptor.setTenantId("0");
         List<Person> persons = personLogic.findByLastName("Simpson");
         assertThat(persons).isNotNull().hasSize(2);
         assertThat(persons.get(0).getLastName()).isEqualTo("Simpson");
 
-        TenantIdInterceptor.setTenantId("5a2f");
+        HttpInterceptor.setTenantId("5a2f");
         assertThat(personLogic.findByFirstName("Simpson")).isNotNull().hasSize(0);
     }
 
     @Test
     public void countByLastName() {
-        TenantIdInterceptor.setTenantId("0");
+        HttpInterceptor.setTenantId("0");
         assertThat(personLogic.countByLastName("Simpson")).isEqualTo(2);
 
-        TenantIdInterceptor.setTenantId("5a2f");
-        assertThat(personLogic.countByLastName("Simpson")).isEqualTo(0);
+        HttpInterceptor.setTenantId("5a2f");
+        assertThat(personLogic.countByLastName("Simpson")).isEqualTo(2);
     }
 
     @Test

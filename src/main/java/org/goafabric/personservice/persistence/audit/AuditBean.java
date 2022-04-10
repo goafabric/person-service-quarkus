@@ -7,12 +7,11 @@ import io.quarkus.security.identity.SecurityIdentity;
 import lombok.Builder;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
-import org.goafabric.personservice.crossfunctional.TenantIdInterceptor;
+import org.goafabric.personservice.crossfunctional.HttpInterceptor;
 import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import java.security.Principal;
 import java.util.Date;
 import java.util.UUID;
 
@@ -88,25 +87,15 @@ public class AuditBean {
         return AuditEvent.builder()
                 .id(UUID.randomUUID().toString())
                 .referenceId(referenceId)
-                .tenantId(TenantIdInterceptor.getTenantId())
+                .tenantId(HttpInterceptor.getTenantId())
                 .operation(dbOperation)
-                .createdBy(dbOperation == DbOperation.CREATE ? getUserName() : null)
+                .createdBy(dbOperation == DbOperation.CREATE ? HttpInterceptor.getUserName() : null)
                 .createdAt(dbOperation == DbOperation.CREATE ? date : null)
-                .modifiedBy((dbOperation == DbOperation.UPDATE || dbOperation == DbOperation.DELETE) ? getUserName() : null)
+                .modifiedBy((dbOperation == DbOperation.UPDATE || dbOperation == DbOperation.DELETE) ? HttpInterceptor.getUserName() : null)
                 .modifiedAt((dbOperation == DbOperation.UPDATE || dbOperation == DbOperation.DELETE) ? date : null)
                 .oldValue(oldObject == null ? null : hibernateEncryptor.encrypt(getJsonValue(oldObject)))
                 .newValue(newObject == null ? null : hibernateEncryptor.encrypt(getJsonValue(newObject)))
                 .build();
-    }
-
-    private String getUserName() {
-        Principal authentication;
-        try {
-            authentication = securityIdentity.getPrincipal();
-        } catch (Exception e) {
-            authentication = null; //might happen during demodata import
-        }
-        return (authentication == null) ? "" : authentication.getName();
     }
 
     private String getJsonValue(final Object object) throws JsonProcessingException {
