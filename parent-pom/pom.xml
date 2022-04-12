@@ -213,7 +213,6 @@
                             </execution>
                         </executions>
                     </plugin>
-                    <!--
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>exec-maven-plugin</artifactId>
@@ -235,7 +234,6 @@
                             </execution>
                         </executions>
                     </plugin>
-                    -->
                 </plugins>
             </build>
         </profile>
