@@ -1,10 +1,8 @@
 package org.goafabric.personservice.crossfunctional;
 
-import io.quarkus.security.identity.SecurityIdentity;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.annotation.Priority;
-import javax.inject.Inject;
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.Interceptor;
 import javax.interceptor.InvocationContext;
@@ -17,9 +15,6 @@ import java.util.stream.Collectors;
 @DurationLog
 @Slf4j
 public class DurationLogger {
-    @Inject
-    SecurityIdentity securityIdentity;
-
     @AroundInvoke
     Object logInvocation(InvocationContext context) throws Exception {
         final long startTime = System.currentTimeMillis();
