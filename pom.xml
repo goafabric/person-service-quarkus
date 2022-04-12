@@ -134,7 +134,13 @@
             <groupId>org.jasypt</groupId>
             <artifactId>jasypt-hibernate5</artifactId>
         </dependency>
-        
+
+        <!-- jib -->
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-container-image-jib</artifactId>
+        </dependency>
+
         <!-- Test -->
         <dependency>
             <groupId>io.quarkus</groupId>
