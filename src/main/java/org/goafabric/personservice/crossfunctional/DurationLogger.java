@@ -22,8 +22,8 @@ public class DurationLogger {
         try {
             ret = context.proceed();
         } finally {
-            log.info("{} took {}ms for user {}", toString(context.getMethod()),
-                    System.currentTimeMillis() - startTime, HttpInterceptor.getUserName());
+            log.info("{} took {}ms for user {} , tenant {}", toString(context.getMethod()),
+                    System.currentTimeMillis() - startTime, HttpInterceptor.getUserName(), HttpInterceptor.getTenantId());
         }
         return ret;
     }
