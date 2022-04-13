@@ -2,7 +2,8 @@
 - Upgrade to Quarkus 2.7.5
 - Upgrade to Lombok 1.18.22
 - Jaeger Tracing Connection Error Logging disabled
-
+- HttpInterceptor for Username and TenantId
+                                  
 #1.2.0
 - Upgrade to Quarkus 2.5.3
 - build updated to jdk 17
