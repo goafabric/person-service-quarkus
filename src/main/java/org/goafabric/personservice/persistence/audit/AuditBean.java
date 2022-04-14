@@ -89,6 +89,7 @@ public class AuditBean {
                 .referenceId(referenceId)
                 .tenantId(HttpInterceptor.getTenantId())
                 .operation(dbOperation)
+                .type(newObject.getClass().getSimpleName())
                 .createdBy(dbOperation == DbOperation.CREATE ? HttpInterceptor.getUserName() : null)
                 .createdAt(dbOperation == DbOperation.CREATE ? date : null)
                 .modifiedBy((dbOperation == DbOperation.UPDATE || dbOperation == DbOperation.DELETE) ? HttpInterceptor.getUserName() : null)
