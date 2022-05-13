@@ -1,18 +1,14 @@
 package org.goafabric.personservice.service;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.Value;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
 import javax.validation.constraints.Size;
 
-@Data
+@Value
 @Builder
-@AllArgsConstructor
-@NoArgsConstructor
 public class Person {
     @Null
     private String id;
