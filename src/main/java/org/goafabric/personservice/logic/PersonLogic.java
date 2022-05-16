@@ -4,9 +4,9 @@ import lombok.NonNull;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.goafabric.personservice.adapter.CalleeServiceAdapter;
 import org.goafabric.personservice.crossfunctional.DurationLog;
-import org.goafabric.personservice.persistence.PersonBo;
+import org.goafabric.personservice.persistence.domain.PersonBo;
 import org.goafabric.personservice.persistence.PersonRepository;
-import org.goafabric.personservice.service.Person;
+import org.goafabric.personservice.service.dto.Person;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;

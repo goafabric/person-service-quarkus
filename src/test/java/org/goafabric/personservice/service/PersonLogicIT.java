@@ -4,6 +4,7 @@ import io.quarkus.test.junit.QuarkusTest;
 import org.goafabric.personservice.crossfunctional.HttpInterceptor;
 import org.goafabric.personservice.logic.PersonLogic;
 import org.goafabric.personservice.persistence.DatabaseProvisioning;
+import org.goafabric.personservice.service.dto.Person;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 

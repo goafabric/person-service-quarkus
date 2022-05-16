@@ -1,6 +1,7 @@
 package org.goafabric.personservice.service;
 
 import org.goafabric.personservice.logic.PersonLogic;
+import org.goafabric.personservice.service.dto.Person;
 
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;

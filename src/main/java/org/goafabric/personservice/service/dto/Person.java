@@ -1,4 +1,4 @@
-package org.goafabric.personservice.service;
+package org.goafabric.personservice.service.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,4 +24,6 @@ public class Person {
     @NotNull
     @Size(min = 3, max = 255)
     private String lastName;
+
+    private Address address;
 }

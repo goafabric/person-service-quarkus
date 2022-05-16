@@ -3,6 +3,7 @@ package org.goafabric.personservice.persistence;
 import io.quarkus.hibernate.orm.panache.PanacheRepositoryBase;
 import io.quarkus.panache.common.Parameters;
 import io.quarkus.runtime.Startup;
+import org.goafabric.personservice.persistence.domain.PersonBo;
 import org.goafabric.personservice.persistence.multitenancy.MultiTenantRepository;
 
 import javax.enterprise.context.ApplicationScoped;
