@@ -22,7 +22,6 @@ public class PersonServiceTest {
         Person[] persons = RestAssured.given()
                 .auth().basic(new String(Base64.getDecoder().decode("YWRtaW4=")), new String(Base64.getDecoder().decode("YWRtaW4=")))
                 .get("/persons/findAll").as(Person[].class);
-        int x = 5;
     }
 
     @Test

@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.goafabric</groupId>
     <artifactId>person-service-quarkus</artifactId>
-    <version>1.2.3-SNAPSHOT</version>
+    <version>1.2.3-relations-SNAPSHOT</version>
 
     <parent>
         <groupId>org.goafabric</groupId>
@@ -123,18 +123,7 @@
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-smallrye-fault-tolerance</artifactId>
         </dependency>
-
-        <!-- Jasypt -->
-        <dependency>
-            <groupId>org.jasypt</groupId>
-            <artifactId>jasypt</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.jasypt</groupId>
-            <artifactId>jasypt-hibernate5</artifactId>
-        </dependency>
-
+        
         <!-- jib -->
         <dependency>
             <groupId>io.quarkus</groupId>

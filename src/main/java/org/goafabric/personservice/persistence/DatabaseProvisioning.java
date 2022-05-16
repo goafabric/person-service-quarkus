@@ -41,15 +41,15 @@ public class DatabaseProvisioning {
 
     private void insertData() {
         personRepository.save(PersonBo.builder()
-                .firstName("Homer").lastName("Simpson").secret("SuperSecret")
+                .firstName("Homer").lastName("Simpson")
                 .build());
 
         personRepository.save(PersonBo.builder()
-                .firstName("Bart").lastName("Simpson").secret("SuperSecret")
+                .firstName("Bart").lastName("Simpson")
                 .build());
 
         personRepository.save(PersonBo.builder()
-                .firstName("Monty").lastName("Burns").secret("SuperSecret")
+                .firstName("Monty").lastName("Burns")
                 .build());
     }
 }
