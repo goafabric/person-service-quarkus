@@ -1,15 +1,13 @@
 package org.goafabric.personservice.persistence.multitenancy;
 
 import org.goafabric.personservice.crossfunctional.HttpInterceptor;
-import org.goafabric.personservice.persistence.audit.AuditAware;
+import org.goafabric.personservice.persistence.audit.AuditJpaListener;
 
-import javax.persistence.Access;
-import javax.persistence.AccessType;
-import javax.persistence.Column;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.*;
 
 @MappedSuperclass
-public abstract class TenantAware extends AuditAware {
+@EntityListeners(AuditJpaListener.class)
+public abstract class TenantAware {
     @Access(AccessType.PROPERTY)
     @Column(name = "tenant_id")
     public String getTenantId() {
@@ -17,4 +15,6 @@ public abstract class TenantAware extends AuditAware {
     }
 
     public void setTenantId(String tenantId) {}
+
+    public abstract String getId();
 }
