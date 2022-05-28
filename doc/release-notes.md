@@ -1,5 +1,5 @@
 #1.2.3
-- Upgrade to Quarkus 2.9.0
+- Upgrade to Quarkus 2.9.2
 - Address 1:1 Relation added
 - removed Jasypt Database Encryption
 
