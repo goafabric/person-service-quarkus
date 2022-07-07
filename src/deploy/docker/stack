@@ -1,6 +1,7 @@
 #!/bin/bash
 source .values
 export COMMAND=$1
+export _Values_image_native=$2
 
 [[ "$(uname -m)" == "arm64" || "$(uname -m)" == "aarch64" ]] && export _Values_server_arch="-arm64v8"
 
@@ -29,6 +30,11 @@ then
 elif [ "${COMMAND}" = "prune" ]
 then
     func_compose down --volumes
+elif [ "${COMMAND}" = "update" ]
+then
+    func_compose down --volumes
+    func_compose pull
+    func_compose up -d
 else
     echo Doing nothing !
 fi
