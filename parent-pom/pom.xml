@@ -25,7 +25,6 @@
         <lombok.version>1.18.24</lombok.version>
         <mapstruct.version>1.4.2.Final</mapstruct.version>
         <lombok.mapstruct.binding.version>0.2.0</lombok.mapstruct.binding.version>
-        <jasypt.version>1.9.3</jasypt.version>
         <assertj.version>3.22.0</assertj.version>
         
         <!-- Build -->
@@ -68,18 +67,6 @@
                 <groupId>org.mapstruct</groupId>
                 <artifactId>mapstruct</artifactId>
                 <version>${mapstruct.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.jasypt</groupId>
-                <artifactId>jasypt</artifactId>
-                <version>${jasypt.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.jasypt</groupId>
-                <artifactId>jasypt-hibernate5</artifactId>
-                <version>${jasypt.version}</version>
             </dependency>
 
             <dependency>
