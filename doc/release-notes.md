@@ -1,5 +1,6 @@
 #1.2.4
 - Upgrade to Quarkus 2.11.1
+- Upgrade to Java 17
 
 #1.2.3
 - Upgrade to Quarkus 2.10.2
