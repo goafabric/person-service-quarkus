@@ -1,7 +1,10 @@
+# 2.0.1
+- Upgrade to Quarkus 2.13.1
+
 # 2.0.0
 - Parity with Quarkus Version
 
-- Upgrade to Quarkus 2.12.2
+- Upgrade to Quarkus 2.11.1
 - Upgrade to Java 17
 
 # 1.2.3
