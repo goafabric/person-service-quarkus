@@ -11,6 +11,7 @@ import javax.inject.Inject;
 import javax.ws.rs.QueryParam;
 import java.util.List;
 
+//TODO: RollesAllowd and HTTPInterceptor not working
 //@RolesAllowed("standard_role")
 @GraphQLApi
 public class PersonServiceGraphQL {
