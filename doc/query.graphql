@@ -1,0 +1,24 @@
+query {
+    findByLastName (lastName : "Simpson") {
+        id
+        firstName
+        lastName
+        address {
+            city
+            street
+        }
+    }
+}
+
+mutation {
+    save(person : {
+        firstName: "lisa"
+        lastName: "simpson"
+        address: {
+            city: "springfield"
+            street: "evergreen terrace"
+        }
+    }) {
+        id
+    }
+}
