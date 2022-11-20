@@ -1,3 +1,5 @@
+# 2.0.2
+
 # 2.0.1
 - Upgrade to Quarkus 2.14.0
 
