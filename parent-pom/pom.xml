@@ -240,6 +240,5 @@
                 <quarkus.jib.platforms>linux/arm64/v8</quarkus.jib.platforms>
             </properties>
         </profile>
-
     </profiles>
 </project>
