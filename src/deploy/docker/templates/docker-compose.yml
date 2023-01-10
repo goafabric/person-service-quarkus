@@ -74,15 +74,31 @@ services:
       timeout: 5s
       retries: 5
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - pgdata_quarkus:/var/lib/postgresql/data
 #      - ../config/postgres/initdb/00_pg_statements.sql:/docker-entrypoint-initdb.d/00_pg_statements.sql
     networks:
       - ${_Values_root_name}-net
 
+  nginx:
+    container_name: ${_Values_root_name}-nginx
+    image: nginx:1.22.1
+    restart: 'no'
+    ports:
+      - 8080:80
+      - 444:443
+    networks:
+      - ${_Values_root_name}-net
+    volumes:
+      - ./nginx/:/etc/nginx/
+      - ./server.pem:/etc/ssl/server.pem
+      - ./server.key:/etc/ssl/server.key
+    depends_on:
+      - application
+
 volumes:
     tmp:
     applogs:
-    pgdata:
+    pgdata_quarkus:
 
 networks:
   person-service-net:
