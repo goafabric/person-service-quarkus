@@ -90,8 +90,7 @@ services:
       - ${_Values_root_name}-net
     volumes:
       - ./nginx/:/etc/nginx/
-      - ./server.pem:/etc/ssl/server.pem
-      - ./server.key:/etc/ssl/server.key
+      - ./ssl/:/etc/ssl/
     depends_on:
       - application
 
