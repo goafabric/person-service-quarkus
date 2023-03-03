@@ -2,7 +2,6 @@ package org.goafabric.personservice.crossfunctional;
 
 import io.quarkus.security.identity.SecurityIdentity;
 
-import javax.inject.Inject;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
 import javax.ws.rs.container.ContainerResponseContext;
@@ -12,7 +11,12 @@ import java.io.IOException;
 
 @Provider
 public class HttpInterceptor implements ContainerRequestFilter, ContainerResponseFilter {
-    @Inject SecurityIdentity securityIdentity;
+    private final SecurityIdentity securityIdentity;
+
+    public HttpInterceptor(SecurityIdentity securityIdentity) {
+        this.securityIdentity = securityIdentity;
+    }
+
     private static final ThreadLocal<String> tenantId = new ThreadLocal<>();
     private static final ThreadLocal<String> userName = new ThreadLocal<>();
 
@@ -20,7 +24,7 @@ public class HttpInterceptor implements ContainerRequestFilter, ContainerRespons
     public void filter(ContainerRequestContext request) throws IOException {
         tenantId.set(request.getHeaderString(request.getHeaderString("X-TenantId")));
         userName.set(request.getHeaderString("X-Auth-Request-Preferred-Username") != null ? request.getHeaderString("X-Auth-Request-Preferred-Username")
-                :  securityIdentity.getPrincipal().getName());
+                :  securityIdentity != null ? securityIdentity.getPrincipal().getName() : "");
     }
 
     @Override
