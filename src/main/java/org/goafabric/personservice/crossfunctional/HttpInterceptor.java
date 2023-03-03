@@ -1,8 +1,6 @@
 package org.goafabric.personservice.crossfunctional;
 
 import io.quarkus.security.identity.SecurityIdentity;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 import javax.ws.rs.container.ContainerRequestContext;
@@ -14,8 +12,6 @@ import java.io.IOException;
 
 @Provider
 public class HttpInterceptor implements ContainerRequestFilter, ContainerResponseFilter {
-    private final Logger log = LoggerFactory.getLogger(this.getClass());
-
     @Inject SecurityIdentity securityIdentity;
     private static final ThreadLocal<String> tenantId = new ThreadLocal<>();
     private static final ThreadLocal<String> userName = new ThreadLocal<>();

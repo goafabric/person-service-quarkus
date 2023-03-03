@@ -11,7 +11,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
 import java.util.Date;
 import java.util.UUID;
 
@@ -45,11 +44,14 @@ public class AuditBean {
         void insertAudit(AuditEvent auditEvent, Object object);
     }
 
-    @Inject
-    AuditInserter auditInserter;
+    private final AuditInserter auditInserter;
 
-    @Inject
-    SecurityIdentity securityIdentity;
+    private final SecurityIdentity securityIdentity;
+
+    public AuditBean(AuditInserter auditInserter, SecurityIdentity securityIdentity) {
+        this.auditInserter = auditInserter;
+        this.securityIdentity = securityIdentity;
+    }
 
     public void afterRead(Object object, String id) {
         insertAudit(DbOperation.READ, id, object, object);
