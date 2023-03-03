@@ -5,7 +5,6 @@ import org.goafabric.personservice.persistence.multitenancy.TenantAware;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.spi.CDI;
-import javax.inject.Inject;
 import javax.persistence.*;
 import javax.transaction.Transactional;
 
@@ -40,8 +39,11 @@ public class AuditJpaListener {
     
     @ApplicationScoped
     static class AuditJpaUpdater {
-        @Inject
-        private EntityManager entityManager;
+        private final EntityManager entityManager;
+
+        public AuditJpaUpdater(EntityManager entityManager) {
+            this.entityManager = entityManager;
+        }
 
         @Transactional(value = Transactional.TxType.REQUIRES_NEW) //new transaction helps us to retrieve the old value still inside the db
         public <T> T findOldObject(Class<T> clazz, String id) {

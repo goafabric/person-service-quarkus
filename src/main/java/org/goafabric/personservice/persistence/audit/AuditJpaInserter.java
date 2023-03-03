@@ -4,7 +4,6 @@ import lombok.NonNull;
 import lombok.SneakyThrows;
 
 import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.Date;
@@ -12,8 +11,11 @@ import java.sql.PreparedStatement;
 
 @ApplicationScoped
 public class AuditJpaInserter implements AuditBean.AuditInserter {
-    @Inject
-    DataSource dataSource;
+    private final DataSource dataSource;
+
+    public AuditJpaInserter(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
 
     @SneakyThrows
     public void insertAudit(AuditBean.AuditEvent auditEvent, Object object) { //we cannot use jpa because of the dynamic table name

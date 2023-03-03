@@ -8,18 +8,20 @@ import org.goafabric.personservice.persistence.domain.AddressBo;
 import org.goafabric.personservice.persistence.domain.PersonBo;
 
 import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
 import javax.transaction.Transactional;
 
 @ApplicationScoped
 @Transactional
 @Slf4j
 public class DatabaseProvisioning {
-    @ConfigProperty(name = "database.provisioning.goals", defaultValue = " ")
-    String goals;
+    private final String goals;
 
-    @Inject
-    PersonRepository personRepository;
+    private final PersonRepository personRepository;
+
+    public DatabaseProvisioning(@ConfigProperty(name = "database.provisioning.goals", defaultValue = " ") String goals, PersonRepository personRepository) {
+        this.goals = goals;
+        this.personRepository = personRepository;
+    }
 
     public void run() {
         if (goals.contains("-import-demo-data")) {
