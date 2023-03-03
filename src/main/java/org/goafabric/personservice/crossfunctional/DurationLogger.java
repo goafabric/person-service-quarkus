@@ -1,6 +1,7 @@
 package org.goafabric.personservice.crossfunctional;
 
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.annotation.Priority;
 import javax.interceptor.AroundInvoke;
@@ -13,8 +14,9 @@ import java.util.stream.Collectors;
 @Priority(2020)
 @Interceptor
 @DurationLog
-@Slf4j
 public class DurationLogger {
+    private final Logger log = LoggerFactory.getLogger(this.getClass());
+
     @AroundInvoke
     Object logInvocation(InvocationContext context) throws Exception {
         final long startTime = System.currentTimeMillis();

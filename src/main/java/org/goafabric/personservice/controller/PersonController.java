@@ -1,10 +1,9 @@
-package org.goafabric.personservice.service;
+package org.goafabric.personservice.controller;
 
+import org.goafabric.personservice.controller.dto.Person;
 import org.goafabric.personservice.logic.PersonLogic;
-import org.goafabric.personservice.service.dto.Person;
 
 import javax.annotation.security.RolesAllowed;
-import javax.inject.Inject;
 import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -13,9 +12,12 @@ import java.util.List;
 @Path("/persons")
 @Produces(MediaType.APPLICATION_JSON)
 @RolesAllowed("standard_role")
-public class PersonService {
-    @Inject
-    PersonLogic personLogic;
+public class PersonController {
+    private final PersonLogic personLogic;
+
+    public PersonController(PersonLogic personLogic) {
+        this.personLogic = personLogic;
+    }
 
     @GET
     @Path("getById/{id}")

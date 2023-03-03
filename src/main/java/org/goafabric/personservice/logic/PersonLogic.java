@@ -3,13 +3,12 @@ package org.goafabric.personservice.logic;
 import lombok.NonNull;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.goafabric.personservice.adapter.CalleeServiceAdapter;
+import org.goafabric.personservice.controller.dto.Person;
 import org.goafabric.personservice.crossfunctional.DurationLog;
-import org.goafabric.personservice.persistence.domain.PersonBo;
 import org.goafabric.personservice.persistence.PersonRepository;
-import org.goafabric.personservice.service.dto.Person;
+import org.goafabric.personservice.persistence.domain.PersonBo;
 
 import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
 import javax.transaction.Transactional;
 import java.util.List;
 
@@ -17,15 +16,17 @@ import java.util.List;
 @Transactional
 @DurationLog
 public class PersonLogic {
-    @Inject
-    PersonMapper personMapper;
+    private final PersonMapper personMapper;
 
-    @Inject
-    PersonRepository personRepository;
+    private final PersonRepository personRepository;
 
-    @Inject
-    @RestClient
-    CalleeServiceAdapter calleeServiceAdapter;
+    private final CalleeServiceAdapter calleeServiceAdapter;
+
+    public PersonLogic(PersonMapper personMapper, PersonRepository personRepository, @RestClient CalleeServiceAdapter calleeServiceAdapter) {
+        this.personMapper = personMapper;
+        this.personRepository = personRepository;
+        this.calleeServiceAdapter = calleeServiceAdapter;
+    }
 
     public Person getById(String id) {
         return personMapper.map(

@@ -1,11 +1,11 @@
-package org.goafabric.personservice.service;
+package org.goafabric.personservice.controller;
 
 import io.quarkus.test.junit.QuarkusTest;
 import org.goafabric.personservice.crossfunctional.HttpInterceptor;
 import org.goafabric.personservice.logic.PersonLogic;
 import org.goafabric.personservice.persistence.DatabaseProvisioning;
-import org.goafabric.personservice.service.dto.Address;
-import org.goafabric.personservice.service.dto.Person;
+import org.goafabric.personservice.controller.dto.Address;
+import org.goafabric.personservice.controller.dto.Person;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 

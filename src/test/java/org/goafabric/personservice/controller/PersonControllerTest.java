@@ -1,8 +1,8 @@
-package org.goafabric.personservice.service;
+package org.goafabric.personservice.controller;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
-import org.goafabric.personservice.service.dto.Person;
+import org.goafabric.personservice.controller.dto.Person;
 import org.junit.jupiter.api.Test;
 
 import java.util.Base64;
@@ -10,7 +10,7 @@ import java.util.Base64;
 import static io.restassured.RestAssured.given;
 
 @QuarkusTest
-public class PersonServiceTest {
+public class PersonControllerTest {
 
     @Test
     public void findAll() {
