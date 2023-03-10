@@ -1,6 +1,6 @@
 # 2.0.2
 - maven build (re) moved to doc/maven
-- Upgrade to Quarkus 2.15.2
+- Upgrade to Quarkus 2.16.2
 
 # 2.0.1
 - Upgrade to Quarkus 2.14.0
