@@ -1,15 +1,12 @@
 package org.goafabric.personservice.controller;
 
 import io.quarkus.test.junit.QuarkusTest;
-import org.goafabric.personservice.crossfunctional.HttpInterceptor;
-import org.goafabric.personservice.logic.PersonLogic;
-import org.goafabric.personservice.persistence.DatabaseProvisioning;
 import org.goafabric.personservice.controller.dto.Address;
 import org.goafabric.personservice.controller.dto.Person;
-import org.junit.jupiter.api.BeforeAll;
+import org.goafabric.personservice.crossfunctional.HttpInterceptor;
+import org.goafabric.personservice.logic.PersonLogic;
 import org.junit.jupiter.api.Test;
 
-import javax.enterprise.inject.spi.CDI;
 import javax.inject.Inject;
 import java.util.List;
 
@@ -20,11 +17,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class PersonLogicIT {
     @Inject
     PersonLogic personLogic;
-
-    @BeforeAll
-    public static void init() {
-        CDI.current().select(DatabaseProvisioning.class).get().importDemoData();
-    }
 
     @Test
     public void findById() {
