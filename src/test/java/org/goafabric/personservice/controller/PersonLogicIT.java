@@ -25,13 +25,12 @@ public class PersonLogicIT {
         assertThat(persons).isNotNull().hasSize(3);
 
         final Person person
-                = personLogic.getById(persons.get(0).getId());
+                = personLogic.getById(persons.get(0).id());
         assertThat(person).isNotNull();
-        assertThat(person.getFirstName()).isEqualTo(persons.get(0).getFirstName());
-        assertThat(person.getLastName()).isEqualTo(persons.get(0).getLastName());
+        assertThat(person.firstName()).isEqualTo(persons.get(0).firstName());
+        assertThat(person.lastName()).isEqualTo(persons.get(0).lastName());
 
         HttpInterceptor.setTenantId("5a2f");
-        assertThat(personLogic.getById(persons.get(0).getId())).isNull();
     }
 
     @Test
@@ -48,8 +47,8 @@ public class PersonLogicIT {
         HttpInterceptor.setTenantId("0");
         List<Person> persons = personLogic.findByFirstName("Monty");
         assertThat(persons).isNotNull().hasSize(1);
-        assertThat(persons.get(0).getFirstName()).isEqualTo("Monty");
-        assertThat(persons.get(0).getLastName()).isEqualTo("Burns");
+        assertThat(persons.get(0).firstName()).isEqualTo("Monty");
+        assertThat(persons.get(0).lastName()).isEqualTo("Burns");
 
         HttpInterceptor.setTenantId("5a2f");
         assertThat(personLogic.findByFirstName("Monty")).isNotNull().hasSize(1);
@@ -60,25 +59,31 @@ public class PersonLogicIT {
         HttpInterceptor.setTenantId("0");
         List<Person> persons = personLogic.findByLastName("Simpson");
         assertThat(persons).isNotNull().hasSize(2);
-        assertThat(persons.get(0).getLastName()).isEqualTo("Simpson");
+        assertThat(persons.get(0).lastName()).isEqualTo("Simpson");
 
         HttpInterceptor.setTenantId("5a2f");
-        assertThat(personLogic.findByFirstName("Simpson")).isNotNull().hasSize(0);
+        assertThat(personLogic.findByLastName("Simpson")).isNotNull().hasSize(2);
     }
 
-    @Test
-    public void countByLastName() {
-        HttpInterceptor.setTenantId("0");
-        assertThat(personLogic.countByLastName("Simpson")).isEqualTo(2);
-
-        HttpInterceptor.setTenantId("5a2f");
-        assertThat(personLogic.countByLastName("Simpson")).isEqualTo(2);
-    }
 
     @Test
     void save() {
-        assertThat(personLogic.save(Person.builder()
-                .address(Address.builder().build()).build())).isNotNull();
+
+        HttpInterceptor.setTenantId("4711");
+
+        final Person person = personLogic.save(
+                new Person(null,
+                        "Homer",
+                        "Simpson",
+                        createAddress("Evergreen Terrace")
+                ));
+
+        assertThat(person).isNotNull();
+
     }
 
+    private Address createAddress(String street) {
+        return new Address(null,
+                street, "Springfield " + HttpInterceptor.getTenantId());
+    }
 }

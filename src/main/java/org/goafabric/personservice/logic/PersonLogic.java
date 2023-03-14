@@ -58,7 +58,6 @@ public class PersonLogic {
     }
 
     public Person sayMyName(@NonNull String name) {
-        return Person.builder().firstName(
-                calleeServiceAdapter.sayMyName(name).getMessage()).build();
-    }
+        return new Person(null,
+                calleeServiceAdapter.sayMyName(name).message(), "", null);    }
 }
