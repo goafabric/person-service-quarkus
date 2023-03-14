@@ -1,6 +1,6 @@
 plugins {
 	id 'java'
-	id 'io.quarkus' version '2.15.3.Final'
+	id 'io.quarkus' version '2.16.3.Final'
 }
 
 ext {
@@ -14,7 +14,7 @@ dependencies {
 		testImplementation 'org.assertj:assertj-core:3.4.1'
 	}
 
-	implementation enforcedPlatform('io.quarkus:quarkus-bom:2.15.3.Final')
+	implementation enforcedPlatform('io.quarkus:quarkus-bom:2.16.3.Final')
 }
 
 group = 'org.goafabric'
