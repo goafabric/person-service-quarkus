@@ -2,7 +2,7 @@ package org.goafabric.personservice.persistence.multitenancy;
 
 import org.goafabric.personservice.crossfunctional.HttpInterceptor;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @MappedSuperclass
 @EntityListeners(AuditListener.class)

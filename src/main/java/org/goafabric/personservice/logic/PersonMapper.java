@@ -8,7 +8,7 @@ import org.mapstruct.ReportingPolicy;
 import java.util.List;
 
 
-@Mapper(componentModel = "cdi", unmappedTargetPolicy = ReportingPolicy.IGNORE)
+@Mapper(componentModel = "jakarta", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface PersonMapper {
     Person map(PersonBo person);
 

@@ -3,7 +3,7 @@ package org.goafabric.personservice.persistence.domain;
 import org.goafabric.personservice.persistence.multitenancy.TenantAware;
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "person")

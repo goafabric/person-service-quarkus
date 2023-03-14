@@ -5,10 +5,10 @@ import io.quarkus.runtime.annotations.QuarkusMain;
 import io.quarkus.security.spi.runtime.AuthorizationController;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
-import javax.annotation.Priority;
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.inject.Alternative;
-import javax.interceptor.Interceptor;
+import jakarta.annotation.Priority;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.inject.Alternative;
+import jakarta.interceptor.Interceptor;
 
 @QuarkusMain
 public class Application {

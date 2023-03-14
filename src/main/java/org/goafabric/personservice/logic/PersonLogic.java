@@ -7,8 +7,8 @@ import org.goafabric.personservice.crossfunctional.DurationLog;
 import org.goafabric.personservice.persistence.PersonRepository;
 import org.goafabric.personservice.persistence.domain.PersonBo;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.transaction.Transactional;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.transaction.Transactional;
 import java.util.List;
 
 @ApplicationScoped
