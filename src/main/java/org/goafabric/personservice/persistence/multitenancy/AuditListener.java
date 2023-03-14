@@ -46,39 +46,24 @@ public class AuditListener {
 
     @PostLoad
     public void afterRead(Object object) {
-        afterRead(object, ((TenantAware) object).getId());
+        insertAudit(DbOperation.READ, ((TenantAware) object).getId(), object, object);
     }
 
     @PostPersist
     public void afterCreate(Object object)  {
-        afterCreate(object, ((TenantAware) object).getId());
+        insertAudit(DbOperation.CREATE, ((TenantAware) object).getId(), null, object);
     }
 
     @PostUpdate
     public void afterUpdate(Object object) {
-        afterUpdate(object, ((TenantAware) object).getId(),
-                CDI.current().select(AuditJpaUpdater.class).get().findOldObject(object.getClass(), ((TenantAware) object).getId()));
+        final String id = ((TenantAware) object).getId();
+        insertAudit(DbOperation.UPDATE, id,
+                CDI.current().select(AuditJpaUpdater.class).get().findOldObject(object.getClass(), id), object);
     }
 
     @PostRemove
     public void afterDelete(Object object) {
-        afterDelete(object, ((TenantAware) object).getId());
-    }
-
-    public void afterRead(Object object, String id) {
-        insertAudit(DbOperation.READ, id, object, object);
-    }
-
-    public void afterCreate(Object object, String id) {
-        insertAudit(DbOperation.CREATE, id, null, object);
-    }
-
-    public void afterUpdate(Object object, String id, Object oldObject) {
-        insertAudit(DbOperation.UPDATE, id, oldObject, object);
-    }
-
-    public void afterDelete(Object object, String id) {
-        insertAudit(DbOperation.DELETE, id, object, null);
+        insertAudit(DbOperation.DELETE, ((TenantAware) object).getId(), object, null);
     }
 
     private void insertAudit(final DbOperation operation, String referenceId, final Object oldObject, final Object newObject) {
@@ -147,11 +132,9 @@ public class AuditListener {
                     ps.setString(3, auditEvent.referenceId());
                     ps.setString(4, String.valueOf(auditEvent.operation()));
                     ps.setString(5, auditEvent.createdBy());
-                    ps.setDate(6,
-                            auditEvent.createdAt() != null ? new java.sql.Date(auditEvent.createdAt().getTime()) : null);
+                    ps.setDate(6, auditEvent.createdAt() != null ? new java.sql.Date(auditEvent.createdAt().getTime()) : null);
                     ps.setString(7, auditEvent.modifiedBy());
-                    ps.setDate(8,
-                            auditEvent.modifiedAt() != null ? new java.sql.Date(auditEvent.modifiedAt().getTime()) : null);
+                    ps.setDate(8, auditEvent.modifiedAt() != null ? new java.sql.Date(auditEvent.modifiedAt().getTime()) : null);
                     ps.setString(9, auditEvent.oldValue());
                     ps.setString(10, auditEvent.newValue());
                     ps.executeUpdate();
@@ -165,5 +148,4 @@ public class AuditListener {
             return object.getClass().getSimpleName().replaceAll("Bo", "").toLowerCase();
         }
     }
-
 }
