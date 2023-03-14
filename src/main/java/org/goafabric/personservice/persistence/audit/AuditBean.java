@@ -4,8 +4,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.quarkus.arc.Unremovable;
 import io.quarkus.security.identity.SecurityIdentity;
-import lombok.Builder;
-import lombok.Data;
 import org.goafabric.personservice.crossfunctional.HttpInterceptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,21 +22,19 @@ public class AuditBean {
         CREATE, READ, UPDATE, DELETE
     }
 
-    @Data
-    @Builder
-    static class AuditEvent {
-        private String id;
-        private String tenantId;
-        private String referenceId;
-        private String type;
-        private DbOperation operation;
-        private String createdBy;
-        private Date createdAt;
-        private String modifiedBy;
-        private Date   modifiedAt;
-        private String oldValue;
-        private String newValue;
-    }
+    record AuditEvent (
+            String id,
+            String tenantId,
+            String referenceId,
+            String type,
+            DbOperation operation,
+            String createdBy,
+            Date createdAt,
+            String modifiedBy,
+            Date   modifiedAt,
+            String oldValue,
+            String newValue
+    ) {}
 
     interface AuditInserter {
         void insertAudit(AuditEvent auditEvent, Object object);
@@ -83,19 +79,19 @@ public class AuditBean {
     private AuditEvent createAuditEvent(
             DbOperation dbOperation, String referenceId, final Object oldObject, final Object newObject) throws JsonProcessingException {
         final Date date = new Date(System.currentTimeMillis());
-        return AuditEvent.builder()
-                .id(UUID.randomUUID().toString())
-                .referenceId(referenceId)
-                .tenantId(HttpInterceptor.getTenantId())
-                .operation(dbOperation)
-                .type(newObject.getClass().getSimpleName())
-                .createdBy(dbOperation == DbOperation.CREATE ? HttpInterceptor.getUserName() : null)
-                .createdAt(dbOperation == DbOperation.CREATE ? date : null)
-                .modifiedBy((dbOperation == DbOperation.UPDATE || dbOperation == DbOperation.DELETE) ? HttpInterceptor.getUserName() : null)
-                .modifiedAt((dbOperation == DbOperation.UPDATE || dbOperation == DbOperation.DELETE) ? date : null)
-                .oldValue(oldObject == null ? null : getJsonValue(oldObject))
-                .newValue(newObject == null ? null : getJsonValue(newObject))
-                .build();
+        return new AuditEvent(
+                UUID.randomUUID().toString(),
+                HttpInterceptor.getTenantId(),
+                referenceId,
+                newObject.getClass().getSimpleName(),
+                dbOperation,
+                (dbOperation == DbOperation.CREATE ? HttpInterceptor.getUserName() : null),
+                (dbOperation == DbOperation.CREATE ? date : null),
+                ((dbOperation == DbOperation.UPDATE || dbOperation == DbOperation.DELETE) ? HttpInterceptor.getUserName() : null),
+                ((dbOperation == DbOperation.UPDATE || dbOperation == DbOperation.DELETE) ? date : null),
+                (oldObject == null ? null : getJsonValue(oldObject)),
+                (newObject == null ? null : getJsonValue(newObject))
+        );
     }
 
     private String getJsonValue(final Object object) throws JsonProcessingException {

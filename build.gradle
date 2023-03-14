@@ -55,10 +55,6 @@ dependencies {
 	implementation 'io.quarkus:quarkus-container-image-jib'
 
 	//code generation
-	compileOnly 'org.projectlombok:lombok:1.18.24'
-	annotationProcessor 'org.projectlombok:lombok:1.18.24'
-	testAnnotationProcessor 'org.projectlombok:lombok:1.18.24'
-
 	implementation 'org.mapstruct:mapstruct'
 	annotationProcessor 'org.mapstruct:mapstruct-processor'
 

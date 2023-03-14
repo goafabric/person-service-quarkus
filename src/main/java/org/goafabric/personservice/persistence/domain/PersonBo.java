@@ -1,6 +1,5 @@
 package org.goafabric.personservice.persistence.domain;
 
-import lombok.*;
 import org.goafabric.personservice.persistence.multitenancy.TenantAware;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -21,7 +20,6 @@ public class PersonBo extends TenantAware {
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id", referencedColumnName = "id")
-    @NonNull
     public AddressBo address;
 
     @Override
