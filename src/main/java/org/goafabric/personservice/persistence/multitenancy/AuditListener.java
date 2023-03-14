@@ -98,7 +98,7 @@ public class AuditListener {
         return new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(object);
     }
     
-    @ApplicationScoped
+    @ApplicationScoped @Unremovable
     static class AuditJpaUpdater {
         private final EntityManager entityManager;
 
@@ -112,8 +112,7 @@ public class AuditListener {
         }
     }
 
-    @ApplicationScoped
-    @Unremovable
+    @ApplicationScoped @Unremovable
     static class AuditJpaInserter  {
         private final DataSource dataSource;
 
