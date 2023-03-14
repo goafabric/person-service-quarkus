@@ -1,11 +1,10 @@
-package org.goafabric.personservice.persistence.audit;
+package org.goafabric.personservice.persistence.multitenancy;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.quarkus.arc.Unremovable;
 import io.quarkus.runtime.annotations.RegisterForReflection;
 import org.goafabric.personservice.crossfunctional.HttpInterceptor;
-import org.goafabric.personservice.persistence.multitenancy.TenantAware;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,7 +24,7 @@ import java.util.UUID;
  */
 
 @RegisterForReflection
-public class AuditJpaListener {
+public class AuditListener {
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
     private enum DbOperation { CREATE, READ, UPDATE, DELETE }
@@ -137,7 +136,7 @@ public class AuditJpaListener {
             this.dataSource = dataSource;
         }
 
-        public void insertAudit(AuditJpaListener.AuditEvent auditEvent, Object object) { //we cannot use jpa because of the dynamic table name
+        public void insertAudit(AuditListener.AuditEvent auditEvent, Object object) { //we cannot use jpa because of the dynamic table name
             try {
                 final String sql = "INSERT INTO " + getTableName(object) + "_audit"
                         + " (id, tenant_id, reference_id, operation, created_by, created_at, modified_by, modified_at, oldvalue, newvalue)"

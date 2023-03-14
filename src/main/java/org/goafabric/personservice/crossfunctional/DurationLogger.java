@@ -19,7 +19,7 @@ public class DurationLogger {
 
     @AroundInvoke
     Object logInvocation(InvocationContext context) throws Exception {
-        final long startTime = System.currentTimeMillis();
+        var startTime = System.currentTimeMillis();
         final Object ret;
         try {
             ret = context.proceed();
@@ -31,7 +31,7 @@ public class DurationLogger {
     }
 
     private String toString(final Method method) {
-        final String parameterTypes = Arrays.stream(method.getParameterTypes())
+        var parameterTypes = Arrays.stream(method.getParameterTypes())
                 .map(Class::getSimpleName)
                 .collect(Collectors.joining(","));
         return String.format("%s.%s(%s)", method.getDeclaringClass().getSimpleName(),
