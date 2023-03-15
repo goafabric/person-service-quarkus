@@ -3,10 +3,10 @@ package org.goafabric.personservice.crossfunctional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.annotation.Priority;
-import javax.interceptor.AroundInvoke;
-import javax.interceptor.Interceptor;
-import javax.interceptor.InvocationContext;
+import jakarta.annotation.Priority;
+import jakarta.interceptor.AroundInvoke;
+import jakarta.interceptor.Interceptor;
+import jakarta.interceptor.InvocationContext;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.stream.Collectors;
@@ -19,7 +19,7 @@ public class DurationLogger {
 
     @AroundInvoke
     Object logInvocation(InvocationContext context) throws Exception {
-        final long startTime = System.currentTimeMillis();
+        var startTime = System.currentTimeMillis();
         final Object ret;
         try {
             ret = context.proceed();
@@ -31,7 +31,7 @@ public class DurationLogger {
     }
 
     private String toString(final Method method) {
-        final String parameterTypes = Arrays.stream(method.getParameterTypes())
+        var parameterTypes = Arrays.stream(method.getParameterTypes())
                 .map(Class::getSimpleName)
                 .collect(Collectors.joining(","));
         return String.format("%s.%s(%s)", method.getDeclaringClass().getSimpleName(),

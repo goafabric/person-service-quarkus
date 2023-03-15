@@ -1,6 +1,7 @@
-# 2.0.2
-- maven build (re) moved to doc/maven
-- Upgrade to Quarkus 2.15.3
+# 3.0.0
+- Upgrade to Quarkus 3.0.0
+- maven build (re) moved to doc/maven in favour of gradle
+- kicked lombok in favour of java records
 
 # 2.0.1
 - Upgrade to Quarkus 2.14.0

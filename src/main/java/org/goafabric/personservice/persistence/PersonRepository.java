@@ -6,7 +6,7 @@ import io.quarkus.runtime.Startup;
 import org.goafabric.personservice.persistence.domain.PersonBo;
 import org.goafabric.personservice.persistence.multitenancy.MultiTenantRepository;
 
-import javax.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.ApplicationScoped;
 import java.util.List;
 
 @ApplicationScoped

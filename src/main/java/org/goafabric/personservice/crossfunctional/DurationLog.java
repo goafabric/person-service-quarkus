@@ -1,6 +1,6 @@
 package org.goafabric.personservice.crossfunctional;
 
-import javax.interceptor.InterceptorBinding;
+import jakarta.interceptor.InterceptorBinding;
 import java.lang.annotation.*;
 
 

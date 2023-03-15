@@ -1,16 +1,8 @@
 package org.goafabric.personservice.controller.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+public record Address (
+        String id,
+        String street,
+        String city
+) {}
 
-@Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
-public class Address {
-    private String id;
-    private String street;
-    private String city;
-}

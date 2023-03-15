@@ -3,10 +3,10 @@ package org.goafabric.personservice.controller;
 import org.goafabric.personservice.controller.dto.Person;
 import org.goafabric.personservice.logic.PersonLogic;
 
-import javax.annotation.security.RolesAllowed;
-import javax.validation.Valid;
-import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
+import jakarta.annotation.security.RolesAllowed;
+import jakarta.validation.Valid;
+import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.MediaType;
 import java.util.List;
 
 @Path("/persons")

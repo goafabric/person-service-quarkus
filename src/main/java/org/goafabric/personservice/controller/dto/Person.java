@@ -1,29 +1,12 @@
 package org.goafabric.personservice.controller.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Null;
+import jakarta.validation.constraints.Size;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Null;
-import javax.validation.constraints.Size;
-
-@Data
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
-public class Person {
-    @Null
-    private String id;
-
-    @NotNull
-    @Size(min = 3, max = 255)
-    private String firstName;
-
-    @NotNull
-    @Size(min = 3, max = 255)
-    private String lastName;
-
-    private Address address;
-}
+public record Person (
+    @Null String id,
+    @NotNull @Size(min = 3, max = 255) String firstName,
+    @NotNull @Size(min = 3, max = 255) String lastName,
+    Address address
+) {}

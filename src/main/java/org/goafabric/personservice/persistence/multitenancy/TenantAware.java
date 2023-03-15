@@ -1,12 +1,11 @@
 package org.goafabric.personservice.persistence.multitenancy;
 
 import org.goafabric.personservice.crossfunctional.HttpInterceptor;
-import org.goafabric.personservice.persistence.audit.AuditJpaListener;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @MappedSuperclass
-@EntityListeners(AuditJpaListener.class)
+@EntityListeners(AuditListener.class)
 public abstract class TenantAware {
     @Access(AccessType.PROPERTY)
     @Column(name = "tenant_id")

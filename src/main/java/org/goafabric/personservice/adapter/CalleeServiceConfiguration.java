@@ -5,7 +5,7 @@ import org.eclipse.microprofile.rest.client.ext.ClientHeadersFactory;
 import org.goafabric.personservice.crossfunctional.HttpInterceptor;
 import org.jboss.resteasy.specimpl.MultivaluedMapImpl;
 
-import javax.ws.rs.core.MultivaluedMap;
+import jakarta.ws.rs.core.MultivaluedMap;
 import java.util.Base64;
 
 public class CalleeServiceConfiguration implements ClientHeadersFactory {
