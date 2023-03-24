@@ -14,7 +14,7 @@ dependencies {
 		testImplementation 'org.assertj:assertj-core:3.4.1'
 	}
 
-	implementation enforcedPlatform('io.quarkus:quarkus-bom:3.0.0.Alpha5')
+	implementation enforcedPlatform('io.quarkus:quarkus-bom:3.0.0.Beta1')
 }
 
 group = 'org.goafabric'
