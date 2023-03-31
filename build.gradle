@@ -40,6 +40,9 @@ dependencies {
 	//security
 	implementation 'io.quarkus:quarkus-elytron-security-properties-file'
 
+	//crosscutting
+	implementation 'io.quarkus:quarkus-hibernate-validator'
+
 	//persistence
 	implementation 'io.quarkus:quarkus-hibernate-orm-panache'
 	implementation 'io.quarkus:quarkus-jdbc-postgresql'
