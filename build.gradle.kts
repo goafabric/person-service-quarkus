@@ -88,7 +88,7 @@ task<Exec>("dockerImageNative") { dependsOn("quarkusBuild")
 		System.setProperty("quarkus.jib.base-native-image", "registry.access.redhat.com/ubi8/ubi-minimal:8.5")
 		System.setProperty("quarkus.container-image.image", "${dockerRegistry}/${project.name}${archSuffix}:${project.version}")
 
-		commandLine("docker", "push", "${dockerRegistry}/${project.name}-native${archSuffix}:${project.version}")
+		commandLine("docker", "push", "${dockerRegistry}/${project.name}${archSuffix}:${project.version}")
 		finalizedBy("testNative")
 	}
 }
