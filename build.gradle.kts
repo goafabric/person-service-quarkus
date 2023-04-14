@@ -62,6 +62,7 @@ dependencies {
 	testImplementation("io.rest-assured:rest-assured")
 	testImplementation("io.quarkus:quarkus-rest-client-jackson")
 	testImplementation("io.quarkus:quarkus-jacoco")
+	testImplementation("org.assertj:assertj-core")
 }
 
 tasks.withType<Test> {
