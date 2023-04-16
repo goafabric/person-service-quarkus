@@ -74,7 +74,7 @@ tasks.withType<Test> {
 
 val dockerRegistry = "goafabric"
 
-task<Exec>("dockerImageNative") { dependsOn("quarkusBuild")
+task<Exec>("dockerImageNative") { group = "build" ; dependsOn("quarkusBuild")
 	if (gradle.startParameter.taskNames.contains("dockerImageNative")) {
 		val archSuffix = if (System.getProperty("os.arch").equals("aarch64")) "-arm64v8" else ""
 
