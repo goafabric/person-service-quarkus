@@ -31,7 +31,7 @@ public class AuditListener {
 
     record AuditEvent (
             String id,
-            String tenantId,
+            String companyId,
             String referenceId,
             String type,
             DbOperation operation,
@@ -123,11 +123,11 @@ public class AuditListener {
         public void insertAudit(AuditListener.AuditEvent auditEvent, Object object) { //we cannot use jpa because of the dynamic table name
             try {
                 final String sql = "INSERT INTO " + getTableName(object) + "_audit"
-                        + " (id, tenant_id, reference_id, operation, created_by, created_at, modified_by, modified_at, oldvalue, newvalue)"
+                        + " (id, company_id, reference_id, operation, created_by, created_at, modified_by, modified_at, oldvalue, newvalue)"
                         + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
                 try (Connection con = dataSource.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
                     ps.setString(1, auditEvent.id());
-                    ps.setString(2, auditEvent.tenantId());
+                    ps.setString(2, auditEvent.companyId());
                     ps.setString(3, auditEvent.referenceId());
                     ps.setString(4, String.valueOf(auditEvent.operation()));
                     ps.setString(5, auditEvent.createdBy());

@@ -13,6 +13,9 @@ public class AddressBo extends AuditAware {
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     public String id;
 
+    @Column(name = "company_id")
+    public String companyId = "1";
+
     public String street;
     public String city;
 
