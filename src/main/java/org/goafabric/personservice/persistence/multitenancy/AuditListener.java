@@ -8,6 +8,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.inject.spi.CDI;
 import jakarta.persistence.*;
 import jakarta.transaction.Transactional;
+import org.eclipse.microprofile.config.ConfigProvider;
 import org.goafabric.personservice.crossfunctional.HttpInterceptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,6 +26,12 @@ import java.util.UUID;
 
 @RegisterForReflection
 public class AuditListener {
+    @MappedSuperclass
+    @EntityListeners(AuditListener.class)
+    public static abstract class AuditAware {
+        public abstract String getId();
+    }
+
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
     private enum DbOperation { CREATE, READ, UPDATE, DELETE }
@@ -144,6 +151,7 @@ public class AuditListener {
         }
 
         private String getTableName(Object object) {
+            final String schema = ConfigProvider.getConfig().getValue("multi-tenancy.schema-prefix", String.class) + HttpInterceptor.getTenantId() + ".";
             return object.getClass().getSimpleName().replaceAll("Bo", "").toLowerCase();
         }
     }
