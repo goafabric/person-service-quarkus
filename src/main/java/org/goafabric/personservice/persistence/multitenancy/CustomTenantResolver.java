@@ -32,7 +32,7 @@ public class CustomTenantResolver implements TenantResolver {
     static class FlywayConfig {
         public FlywayConfig() {
             final Flyway flyway = CDI.current().select(Flyway.class).get();
-            final String schemas = ConfigProvider.getConfig().getValue("quarkus.flyway.schemas", String.class);
+            final String schemas = ConfigProvider.getConfig().getValue("flyway.schemas", String.class);
             String schema_prefix = "";
             Arrays.asList(schemas.split(",")).forEach(schema -> {
                         Flyway.configure()
