@@ -17,6 +17,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class PersonLogicIT {
     @Inject
     PersonLogic personLogic;
+    
 
     @Test
     public void findById() {
