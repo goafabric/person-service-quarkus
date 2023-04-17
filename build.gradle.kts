@@ -74,7 +74,7 @@ tasks.withType<Test> {
 
 val dockerRegistry = "goafabric"
 
-tasks.register("dockerImageNative") { group = "build" ; dependsOn("quarkusBuild")
+task<Exec>("dockerImageNative") { group = "build" ; dependsOn("quarkusBuild")
 	if (gradle.startParameter.taskNames.contains("dockerImageNative")) {
 		val archSuffix = if (System.getProperty("os.arch").equals("aarch64")) "-arm64v8" else ""
 
@@ -89,8 +89,7 @@ tasks.register("dockerImageNative") { group = "build" ; dependsOn("quarkusBuild"
 		System.setProperty("quarkus.jib.base-native-image", "registry.access.redhat.com/ubi8/ubi-minimal:8.5")
 		System.setProperty("quarkus.container-image.image", "${dockerRegistry}/${project.name}${archSuffix}:${project.version}")
 
-		exec { commandLine("docker", "push", "${dockerRegistry}/${project.name}${archSuffix}:${project.version}") }
-
+		commandLine("docker", "push", "${dockerRegistry}/${project.name}${archSuffix}:${project.version}")
 		finalizedBy("testNative")
 	}
 }
