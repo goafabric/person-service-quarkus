@@ -46,24 +46,24 @@ public class AuditListener {
 
     @PostLoad
     public void afterRead(Object object) {
-        insertAudit(DbOperation.READ, ((TenantAware) object).getId(), object, object);
+        insertAudit(DbOperation.READ, ((AuditAware) object).getId(), object, object);
     }
 
     @PostPersist
     public void afterCreate(Object object)  {
-        insertAudit(DbOperation.CREATE, ((TenantAware) object).getId(), null, object);
+        insertAudit(DbOperation.CREATE, ((AuditAware) object).getId(), null, object);
     }
 
     @PostUpdate
     public void afterUpdate(Object object) {
-        final String id = ((TenantAware) object).getId();
+        final String id = ((AuditAware) object).getId();
         insertAudit(DbOperation.UPDATE, id,
                 CDI.current().select(AuditJpaUpdater.class).get().findOldObject(object.getClass(), id), object);
     }
 
     @PostRemove
     public void afterDelete(Object object) {
-        insertAudit(DbOperation.DELETE, ((TenantAware) object).getId(), object, null);
+        insertAudit(DbOperation.DELETE, ((AuditAware) object).getId(), object, null);
     }
 
     private void insertAudit(final DbOperation operation, String referenceId, final Object oldObject, final Object newObject) {

@@ -1,13 +1,13 @@
 package org.goafabric.personservice.persistence.domain;
 
-import org.goafabric.personservice.persistence.multitenancy.TenantAware;
+import org.goafabric.personservice.persistence.multitenancy.AuditAware;
 import org.hibernate.annotations.GenericGenerator;
 
 import jakarta.persistence.*;
 
 @Entity
 @Table(name="address")
-public class AddressBo extends TenantAware {
+public class AddressBo extends AuditAware {
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")

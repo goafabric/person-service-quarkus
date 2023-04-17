@@ -5,6 +5,6 @@ import jakarta.persistence.MappedSuperclass;
 
 @MappedSuperclass
 @EntityListeners(AuditListener.class)
-public abstract class TenantAware {
+public abstract class AuditAware {
     public abstract String getId();
 }
