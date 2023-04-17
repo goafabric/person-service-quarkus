@@ -1,7 +1,6 @@
 package org.goafabric.personservice.persistence.multitenancy;
 
 import io.quarkus.hibernate.orm.PersistenceUnitExtension;
-import io.quarkus.hibernate.orm.runtime.tenant.TenantResolver;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.enterprise.inject.spi.CDI;
@@ -15,7 +14,7 @@ import java.util.Map;
 
 @PersistenceUnitExtension
 @RequestScoped
-public class CustomTenantResolver implements TenantResolver {
+public class TenantResolver implements io.quarkus.hibernate.orm.runtime.tenant.TenantResolver {
     @Inject FlywayConfig flywayConfig;
 
     @Override
