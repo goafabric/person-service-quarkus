@@ -65,7 +65,7 @@ public class PersonLogicIT {
 
     @Test
     void save() {
-        HttpInterceptor.setTenantId("4711");
+        HttpInterceptor.setTenantId("0");
 
         final Person person = personLogic.save(
                 new Person(null,
