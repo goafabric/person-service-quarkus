@@ -2,22 +2,14 @@ package org.goafabric.personservice.persistence;
 
 import io.quarkus.hibernate.orm.panache.PanacheRepositoryBase;
 import io.quarkus.panache.common.Parameters;
-import io.quarkus.runtime.Startup;
-import org.goafabric.personservice.persistence.domain.PersonBo;
-import org.goafabric.personservice.persistence.multitenancy.MultiTenantRepository;
-
 import jakarta.enterprise.context.ApplicationScoped;
+import org.goafabric.personservice.persistence.domain.PersonBo;
+
 import java.util.List;
 
 @ApplicationScoped
-public class PersonRepository extends MultiTenantRepository<PersonBo> {
+public class PersonRepository implements PanacheRepositoryBase<PersonBo, String> {
 
-    @ApplicationScoped @Startup
-    static class Delegate implements PanacheRepositoryBase<PersonBo, String> {}
-
-    public PersonRepository(Delegate delegate) {
-        super(delegate);
-    }
 
     public List<PersonBo> findByFirstName(String firstName) {
         return find("firstName", firstName).list();
@@ -33,6 +25,11 @@ public class PersonRepository extends MultiTenantRepository<PersonBo> {
         return count("lastName = :lastName",
                 Parameters.with("lastName", lastName)
                         .map());
+    }
+
+    public PersonBo save(PersonBo person) {
+        persist(person);
+        return person;
     }
 
 }

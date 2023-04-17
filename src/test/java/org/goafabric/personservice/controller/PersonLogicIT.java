@@ -17,6 +17,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class PersonLogicIT {
     @Inject
     PersonLogic personLogic;
+    
 
     @Test
     public void findById() {
@@ -29,8 +30,6 @@ public class PersonLogicIT {
         assertThat(person).isNotNull();
         assertThat(person.firstName()).isEqualTo(persons.get(0).firstName());
         assertThat(person.lastName()).isEqualTo(persons.get(0).lastName());
-
-        HttpInterceptor.setTenantId("5a2f");
     }
 
     @Test
@@ -65,11 +64,9 @@ public class PersonLogicIT {
         assertThat(personLogic.findByLastName("Simpson")).isNotNull().hasSize(2);
     }
 
-
     @Test
     void save() {
-
-        HttpInterceptor.setTenantId("4711");
+        HttpInterceptor.setTenantId("0");
 
         final Person person = personLogic.save(
                 new Person(null,
@@ -79,7 +76,7 @@ public class PersonLogicIT {
                 ));
 
         assertThat(person).isNotNull();
-
+        personLogic.delete(person.id());
     }
 
     private Address createAddress(String street) {

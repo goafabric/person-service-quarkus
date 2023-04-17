@@ -3,12 +3,11 @@ package org.goafabric.personservice;
 import io.quarkus.runtime.Quarkus;
 import io.quarkus.runtime.annotations.QuarkusMain;
 import io.quarkus.security.spi.runtime.AuthorizationController;
-import org.eclipse.microprofile.config.inject.ConfigProperty;
-
 import jakarta.annotation.Priority;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.inject.Alternative;
 import jakarta.interceptor.Interceptor;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 @QuarkusMain
 public class Application {
@@ -24,5 +23,6 @@ public class Application {
         boolean isAuthorizationEnabled;
         public boolean isAuthorizationEnabled() { return isAuthorizationEnabled; }
     }
+    
 
 }

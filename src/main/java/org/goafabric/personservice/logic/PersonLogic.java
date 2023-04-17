@@ -1,14 +1,13 @@
 package org.goafabric.personservice.logic;
 
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.transaction.Transactional;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.goafabric.personservice.adapter.CalleeServiceAdapter;
 import org.goafabric.personservice.controller.dto.Person;
 import org.goafabric.personservice.crossfunctional.DurationLog;
 import org.goafabric.personservice.persistence.PersonRepository;
-import org.goafabric.personservice.persistence.domain.PersonBo;
 
-import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.transaction.Transactional;
 import java.util.List;
 
 @ApplicationScoped
@@ -29,7 +28,7 @@ public class PersonLogic {
 
     public Person getById(String id) {
         return personMapper.map(
-                (PersonBo) personRepository.findById(id).firstResult());
+                personRepository.findById(id));
     }
 
     public List<Person> findAll() {
@@ -56,7 +55,12 @@ public class PersonLogic {
                 personRepository.save(personMapper.map(person)));
     }
 
+    public void delete(String id) {
+        personRepository.deleteById(id);
+    }
+
     public Person sayMyName(String name) {
         return new Person(null,
-                calleeServiceAdapter.sayMyName(name).message(), "", null);    }
+                calleeServiceAdapter.sayMyName(name).message(), "", null);
+    }
 }

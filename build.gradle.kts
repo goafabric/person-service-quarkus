@@ -1,5 +1,5 @@
 group = "org.goafabric"
-version = "3.0.0-SNAPSHOT"
+version = "3.0.0-mt-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_17
 
 plugins {
@@ -61,7 +61,7 @@ dependencies {
 	testImplementation("io.quarkus:quarkus-junit5")
 	testImplementation("io.rest-assured:rest-assured")
 	testImplementation("io.quarkus:quarkus-rest-client-jackson")
-	testImplementation("io.quarkus:quarkus-jacoco")
+	//testImplementation("io.quarkus:quarkus-jacoco")
 	testImplementation("org.assertj:assertj-core")
 }
 

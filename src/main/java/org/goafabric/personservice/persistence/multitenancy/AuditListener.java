@@ -8,6 +8,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.inject.spi.CDI;
 import jakarta.persistence.*;
 import jakarta.transaction.Transactional;
+import org.eclipse.microprofile.config.ConfigProvider;
 import org.goafabric.personservice.crossfunctional.HttpInterceptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,13 +26,19 @@ import java.util.UUID;
 
 @RegisterForReflection
 public class AuditListener {
+    @MappedSuperclass
+    @EntityListeners(AuditListener.class)
+    public static abstract class AuditAware {
+        public abstract String getId();
+    }
+
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
     private enum DbOperation { CREATE, READ, UPDATE, DELETE }
 
     record AuditEvent (
             String id,
-            String tenantId,
+            String companyId,
             String referenceId,
             String type,
             DbOperation operation,
@@ -46,24 +53,24 @@ public class AuditListener {
 
     @PostLoad
     public void afterRead(Object object) {
-        insertAudit(DbOperation.READ, ((TenantAware) object).getId(), object, object);
+        insertAudit(DbOperation.READ, ((AuditAware) object).getId(), object, object);
     }
 
     @PostPersist
     public void afterCreate(Object object)  {
-        insertAudit(DbOperation.CREATE, ((TenantAware) object).getId(), null, object);
+        insertAudit(DbOperation.CREATE, ((AuditAware) object).getId(), null, object);
     }
 
     @PostUpdate
     public void afterUpdate(Object object) {
-        final String id = ((TenantAware) object).getId();
+        final String id = ((AuditAware) object).getId();
         insertAudit(DbOperation.UPDATE, id,
                 CDI.current().select(AuditJpaUpdater.class).get().findOldObject(object.getClass(), id), object);
     }
 
     @PostRemove
     public void afterDelete(Object object) {
-        insertAudit(DbOperation.DELETE, ((TenantAware) object).getId(), object, null);
+        insertAudit(DbOperation.DELETE, ((AuditAware) object).getId(), object, null);
     }
 
     private void insertAudit(final DbOperation operation, String referenceId, final Object oldObject, final Object newObject) {
@@ -123,11 +130,11 @@ public class AuditListener {
         public void insertAudit(AuditListener.AuditEvent auditEvent, Object object) { //we cannot use jpa because of the dynamic table name
             try {
                 final String sql = "INSERT INTO " + getTableName(object) + "_audit"
-                        + " (id, tenant_id, reference_id, operation, created_by, created_at, modified_by, modified_at, oldvalue, newvalue)"
+                        + " (id, company_id, reference_id, operation, created_by, created_at, modified_by, modified_at, oldvalue, newvalue)"
                         + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
                 try (Connection con = dataSource.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
                     ps.setString(1, auditEvent.id());
-                    ps.setString(2, auditEvent.tenantId());
+                    ps.setString(2, auditEvent.companyId());
                     ps.setString(3, auditEvent.referenceId());
                     ps.setString(4, String.valueOf(auditEvent.operation()));
                     ps.setString(5, auditEvent.createdBy());
@@ -144,6 +151,7 @@ public class AuditListener {
         }
 
         private String getTableName(Object object) {
+            final String schema = ConfigProvider.getConfig().getValue("multi-tenancy.schema-prefix", String.class) + HttpInterceptor.getTenantId() + ".";
             return object.getClass().getSimpleName().replaceAll("Bo", "").toLowerCase();
         }
     }
