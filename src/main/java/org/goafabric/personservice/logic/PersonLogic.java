@@ -55,7 +55,12 @@ public class PersonLogic {
                 personRepository.save(personMapper.map(person)));
     }
 
+    public void delete(String id) {
+        personRepository.deleteById(id);
+    }
+
     public Person sayMyName(String name) {
         return new Person(null,
-                calleeServiceAdapter.sayMyName(name).message(), "", null);    }
+                calleeServiceAdapter.sayMyName(name).message(), "", null);
+    }
 }
