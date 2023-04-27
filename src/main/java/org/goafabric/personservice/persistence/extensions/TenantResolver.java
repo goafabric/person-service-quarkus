@@ -1,4 +1,4 @@
-package org.goafabric.personservice.persistence.multitenancy;
+package org.goafabric.personservice.persistence.extensions;
 
 import io.quarkus.hibernate.orm.PersistenceUnitExtension;
 import jakarta.enterprise.context.ApplicationScoped;
