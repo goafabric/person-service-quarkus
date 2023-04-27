@@ -5,7 +5,7 @@ java.sourceCompatibility = JavaVersion.VERSION_17
 plugins {
 	java
 	jacoco
-	id("io.quarkus") version "3.0.0.Beta1"
+	id("io.quarkus") version "3.0.0.Final"
 }
 
 repositories {
@@ -19,7 +19,7 @@ dependencies {
 		testImplementation("org.assertj:assertj-core:3.4.1")
 	}
 
-	implementation(enforcedPlatform("io.quarkus:quarkus-bom:3.0.0.Beta1"))
+	implementation(enforcedPlatform("io.quarkus:quarkus-bom:3.0.0.Final"))
 }
 dependencies {
 	//web
