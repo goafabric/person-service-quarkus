@@ -38,7 +38,6 @@ public class AuditListener {
 
     record AuditEvent (
             String id,
-            String companyId,
             String referenceId,
             String type,
             DbOperation operation,
@@ -88,7 +87,6 @@ public class AuditListener {
         final Date date = new Date(System.currentTimeMillis());
         return new AuditEvent(
                 UUID.randomUUID().toString(),
-                HttpInterceptor.getTenantId(),
                 referenceId,
                 newObject != null ? newObject.getClass().getSimpleName() : oldObject.getClass().getSimpleName(),
                 dbOperation,
@@ -130,19 +128,18 @@ public class AuditListener {
         public void insertAudit(AuditListener.AuditEvent auditEvent, Object object) { //we cannot use jpa because of the dynamic table name
             try {
                 final String sql = "INSERT INTO " + getTableName(object) + "_audit"
-                        + " (id, company_id, reference_id, operation, created_by, created_at, modified_by, modified_at, oldvalue, newvalue)"
-                        + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                        + " (id, reference_id, operation, created_by, created_at, modified_by, modified_at, oldvalue, newvalue)"
+                        + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
                 try (Connection con = dataSource.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
                     ps.setString(1, auditEvent.id());
-                    ps.setString(2, auditEvent.companyId());
-                    ps.setString(3, auditEvent.referenceId());
-                    ps.setString(4, String.valueOf(auditEvent.operation()));
-                    ps.setString(5, auditEvent.createdBy());
-                    ps.setDate(6, auditEvent.createdAt() != null ? new java.sql.Date(auditEvent.createdAt().getTime()) : null);
-                    ps.setString(7, auditEvent.modifiedBy());
-                    ps.setDate(8, auditEvent.modifiedAt() != null ? new java.sql.Date(auditEvent.modifiedAt().getTime()) : null);
-                    ps.setString(9, auditEvent.oldValue());
-                    ps.setString(10, auditEvent.newValue());
+                    ps.setString(2, auditEvent.referenceId());
+                    ps.setString(3, String.valueOf(auditEvent.operation()));
+                    ps.setString(4, auditEvent.createdBy());
+                    ps.setDate(5, auditEvent.createdAt() != null ? new java.sql.Date(auditEvent.createdAt().getTime()) : null);
+                    ps.setString(6, auditEvent.modifiedBy());
+                    ps.setDate(7, auditEvent.modifiedAt() != null ? new java.sql.Date(auditEvent.modifiedAt().getTime()) : null);
+                    ps.setString(8, auditEvent.oldValue());
+                    ps.setString(9, auditEvent.newValue());
                     ps.executeUpdate();
                 }
             } catch (Exception e) {

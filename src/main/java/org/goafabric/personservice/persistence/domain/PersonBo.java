@@ -11,9 +11,6 @@ public class PersonBo extends AuditListener.AuditAware {
     @GeneratedValue(generator = "uuid") @GenericGenerator(name = "uuid", strategy = "uuid2")
     public String id;
 
-    @Column(name = "company_id")
-    public String companyId = "1";
-
     @Column(name = "first_name")
     public String firstName;
 
