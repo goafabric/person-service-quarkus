@@ -31,7 +31,7 @@ services:
       #jaeger
       quarkus.jaeger.service-name: "person-service"
 
-      quarkus.jaeger.endpoint: "http://${_Values_host_docker_internal}:14268/api/traces"
+      quarkus.jaeger.endpoint: "http://host.docker.internal:14268/api/traces"
       quarkus.jaeger.sampler-type: "probabilistic"
       quarkus.jaeger.sampler-param: "1"
       quarkus.jaeger.propagation: "b3"
@@ -43,7 +43,7 @@ services:
       database.provisioning.goals: "-import-demo-data"
 
       #adapter
-      adapter.calleeservice.url: "http://${_Values_host_docker_internal}:50900"
+      adapter.calleeservice.url: "http://host.docker.internal:50900"
       adapter.timeout: "10000"
       adapter.circuitBreaker.enabled: "true"
 
