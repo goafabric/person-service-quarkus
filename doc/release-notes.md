@@ -1,3 +1,5 @@
+# 3.0.1
+
 # 3.0.0
 - Upgrade to Quarkus 3.0.0
 - maven build (re) moved to doc/maven in favour of gradle
