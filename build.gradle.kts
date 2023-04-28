@@ -2,6 +2,8 @@ group = "org.goafabric"
 version = "3.0.0-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_17
 
+val dockerRegistry = "goafabric"
+
 plugins {
 	java
 	jacoco
@@ -61,7 +63,7 @@ dependencies {
 	testImplementation("io.quarkus:quarkus-junit5")
 	testImplementation("io.rest-assured:rest-assured")
 	testImplementation("io.quarkus:quarkus-rest-client-jackson")
-	//testImplementation("io.quarkus:quarkus-jacoco")
+	testImplementation("io.quarkus:quarkus-jacoco")
 	testImplementation("org.assertj:assertj-core")
 }
 
@@ -72,7 +74,8 @@ tasks.withType<Test> {
 	systemProperty("java.util.logging.manager", "org.jboss.logmanager.LogManager")
 }
 
-val dockerRegistry = "goafabric"
+System.setProperty("quarkus.package.type", "jar")
+System.setProperty("quarkus.native.container-build", "false")
 
 tasks.register<Exec>("dockerImageNative") { group = "build" ; dependsOn("quarkusBuild", "testNative")
 	if (gradle.startParameter.taskNames.contains("dockerImageNative")) {
