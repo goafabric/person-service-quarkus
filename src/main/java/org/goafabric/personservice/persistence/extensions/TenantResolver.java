@@ -35,7 +35,7 @@ public class TenantResolver implements io.quarkus.hibernate.orm.runtime.tenant.T
         public FlywayConfig() {
             if (ConfigProvider.getConfig().getValue("multi-tenancy.migration.enabled", Boolean.class)) {
                 final Flyway flyway = CDI.current().select(Flyway.class).get();
-                final String schemas = ConfigProvider.getConfig().getValue("multi-tenancy.schemas", String.class);
+                final String schemas = ConfigProvider.getConfig().getValue("multi-tenancy.tenants", String.class);
                 final String schemaPrefix = ConfigProvider.getConfig().getValue("multi-tenancy.schema-prefix", String.class);
                 Arrays.asList(schemas.split(",")).forEach(schema -> {
                             Flyway.configure()
