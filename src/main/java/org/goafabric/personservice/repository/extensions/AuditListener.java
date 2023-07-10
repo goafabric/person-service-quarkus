@@ -149,7 +149,7 @@ public class AuditListener {
 
         private String getTableName(Object object) {
             final String schema = ConfigProvider.getConfig().getValue("multi-tenancy.schema-prefix", String.class) + HttpInterceptor.getTenantId() + ".";
-            return object.getClass().getSimpleName().replaceAll("Bo", "").toLowerCase();
+            return object.getClass().getSimpleName().replaceAll("Eo", "").toLowerCase();
         }
     }
 }

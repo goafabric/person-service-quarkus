@@ -11,10 +11,8 @@ public class PersonEo extends AuditListener.AuditAware {
     @GeneratedValue(generator = "uuid") @GenericGenerator(name = "uuid", strategy = "uuid2")
     public String id;
 
-    @Column(name = "first_name")
     public String firstName;
 
-    @Column(name = "last_name")
     public String lastName;
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
