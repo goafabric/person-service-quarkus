@@ -6,7 +6,8 @@ import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name="address")
-public class AddressEo extends AuditListener.AuditAware {
+@EntityListeners(AuditListener.class)
+public class AddressEo {
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
@@ -17,9 +18,4 @@ public class AddressEo extends AuditListener.AuditAware {
 
     @Version //optimistic locking
     public Long version;
-
-    @Override
-    public String getId() {
-        return id;
-    }
 }

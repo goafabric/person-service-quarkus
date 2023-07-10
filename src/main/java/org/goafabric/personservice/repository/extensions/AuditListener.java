@@ -26,12 +26,6 @@ import java.util.UUID;
 
 @RegisterForReflection
 public class AuditListener {
-    @MappedSuperclass
-    @EntityListeners(AuditListener.class)
-    public static abstract class AuditAware {
-        public abstract String getId();
-    }
-
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
     private enum DbOperation { CREATE, READ, UPDATE, DELETE }
@@ -52,24 +46,24 @@ public class AuditListener {
 
     @PostLoad
     public void afterRead(Object object) {
-        insertAudit(DbOperation.READ, ((AuditAware) object).getId(), object, object);
+        insertAudit(DbOperation.READ, getId(object), object, object);
     }
 
     @PostPersist
     public void afterCreate(Object object)  {
-        insertAudit(DbOperation.CREATE, ((AuditAware) object).getId(), null, object);
+        insertAudit(DbOperation.CREATE, getId(object), null, object);
     }
 
     @PostUpdate
     public void afterUpdate(Object object) {
-        final String id = ((AuditAware) object).getId();
+        final String id = getId(object);
         insertAudit(DbOperation.UPDATE, id,
                 CDI.current().select(AuditJpaUpdater.class).get().findOldObject(object.getClass(), id), object);
     }
 
     @PostRemove
     public void afterDelete(Object object) {
-        insertAudit(DbOperation.DELETE, ((AuditAware) object).getId(), object, null);
+        insertAudit(DbOperation.DELETE, getId(object), object, null);
     }
 
     private void insertAudit(final DbOperation operation, String referenceId, final Object oldObject, final Object newObject) {
@@ -125,7 +119,7 @@ public class AuditListener {
             this.dataSource = dataSource;
         }
 
-        public void insertAudit(AuditListener.AuditEvent auditEvent, Object object) { //we cannot use jpa because of the dynamic table name
+        public void insertAudit(AuditEvent auditEvent, Object object) { //we cannot use jpa because of the dynamic table name
             try {
                 final String sql = "INSERT INTO " + getTableName(object) + "_audit"
                         + " (id, reference_id, operation, created_by, created_at, modified_by, modified_at, oldvalue, newvalue)"
@@ -151,5 +145,9 @@ public class AuditListener {
             final String schema = ConfigProvider.getConfig().getValue("multi-tenancy.schema-prefix", String.class) + HttpInterceptor.getTenantId() + ".";
             return object.getClass().getSimpleName().replaceAll("Eo", "").toLowerCase();
         }
+    }
+
+    private static String getId(Object object) {
+        return String.valueOf(CDI.current().select(EntityManagerFactory.class).get().getPersistenceUnitUtil().getIdentifier(object));
     }
 }

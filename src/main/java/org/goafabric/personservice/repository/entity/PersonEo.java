@@ -6,7 +6,8 @@ import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "person")
-public class PersonEo extends AuditListener.AuditAware {
+@EntityListeners(AuditListener.class)
+public class PersonEo {
     @Id
     @GeneratedValue(generator = "uuid") @GenericGenerator(name = "uuid", strategy = "uuid2")
     public String id;
@@ -19,8 +20,4 @@ public class PersonEo extends AuditListener.AuditAware {
     @JoinColumn(name = "address_id", referencedColumnName = "id")
     public AddressEo address;
 
-    @Override
-    public String getId() {
-        return id;
-    }
 }
