@@ -9,7 +9,7 @@ import jakarta.enterprise.inject.spi.CDI;
 import jakarta.persistence.*;
 import jakarta.transaction.Transactional;
 import org.eclipse.microprofile.config.ConfigProvider;
-import org.goafabric.personservice.crossfunctional.HttpInterceptor;
+import org.goafabric.personservice.extensions.HttpInterceptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

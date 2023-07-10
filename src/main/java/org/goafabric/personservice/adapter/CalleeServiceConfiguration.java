@@ -2,7 +2,7 @@ package org.goafabric.personservice.adapter;
 
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.eclipse.microprofile.rest.client.ext.ClientHeadersFactory;
-import org.goafabric.personservice.crossfunctional.HttpInterceptor;
+import org.goafabric.personservice.extensions.HttpInterceptor;
 import org.jboss.resteasy.specimpl.MultivaluedMapImpl;
 
 import jakarta.ws.rs.core.MultivaluedMap;
