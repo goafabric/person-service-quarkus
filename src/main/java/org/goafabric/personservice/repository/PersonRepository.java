@@ -1,9 +1,9 @@
-package org.goafabric.personservice.persistence;
+package org.goafabric.personservice.repository;
 
 import io.quarkus.hibernate.orm.panache.PanacheRepositoryBase;
 import io.quarkus.panache.common.Parameters;
 import jakarta.enterprise.context.ApplicationScoped;
-import org.goafabric.personservice.persistence.domain.PersonBo;
+import org.goafabric.personservice.repository.entity.PersonBo;
 
 import java.util.List;
 

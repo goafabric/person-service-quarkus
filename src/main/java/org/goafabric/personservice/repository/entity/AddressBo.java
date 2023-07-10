@@ -1,7 +1,7 @@
-package org.goafabric.personservice.persistence.domain;
+package org.goafabric.personservice.repository.entity;
 
 import jakarta.persistence.*;
-import org.goafabric.personservice.persistence.extensions.AuditListener;
+import org.goafabric.personservice.repository.extensions.AuditListener;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity

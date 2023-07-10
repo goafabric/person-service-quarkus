@@ -1,4 +1,4 @@
-package org.goafabric.personservice.persistence.extensions;
+package org.goafabric.personservice.repository.extensions;
 
 import io.quarkus.hibernate.orm.PersistenceUnitExtension;
 import jakarta.enterprise.context.ApplicationScoped;
