@@ -2,6 +2,7 @@ package org.goafabric.personservice.repository.extensions;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import io.quarkus.arc.Unremovable;
 import io.quarkus.runtime.annotations.RegisterForReflection;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -94,7 +95,7 @@ public class AuditListener {
     }
 
     private String getJsonValue(final Object object) throws JsonProcessingException {
-        return new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(object);
+        return new ObjectMapper().registerModule(new JavaTimeModule()).writerWithDefaultPrettyPrinter().writeValueAsString(object);
     }
     
     @ApplicationScoped @Unremovable
@@ -121,8 +122,8 @@ public class AuditListener {
 
         public void insertAudit(AuditEvent auditEvent, Object object) { //we cannot use jpa because of the dynamic table name
             try {
-                final String sql = "INSERT INTO " + getTableName(object) + "_audit"
-                        + " (id, reference_id, operation, created_by, created_at, modified_by, modified_at, oldvalue, newvalue)"
+                final String sql = "INSERT INTO audit_trail"
+                        + " (id, object_id, operation, created_by, created_at, modified_by, modified_at, oldvalue, newvalue)"
                         + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
                 try (Connection con = dataSource.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
                     ps.setString(1, auditEvent.id());
