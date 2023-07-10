@@ -6,7 +6,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "person")
-public class PersonBo extends AuditListener.AuditAware {
+public class PersonEo extends AuditListener.AuditAware {
     @Id
     @GeneratedValue(generator = "uuid") @GenericGenerator(name = "uuid", strategy = "uuid2")
     public String id;
@@ -19,7 +19,7 @@ public class PersonBo extends AuditListener.AuditAware {
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id", referencedColumnName = "id")
-    public AddressBo address;
+    public AddressEo address;
 
     @Override
     public String getId() {

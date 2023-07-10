@@ -6,7 +6,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name="address")
-public class AddressBo extends AuditListener.AuditAware {
+public class AddressEo extends AuditListener.AuditAware {
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
