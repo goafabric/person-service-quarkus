@@ -31,9 +31,10 @@ dependencies {
 
 	//monitoring
 	implementation("io.quarkus:quarkus-smallrye-health")
-	implementation("io.quarkus:quarkus-smallrye-openapi")
-	implementation("io.quarkus:quarkus-smallrye-opentracing")
 	implementation("io.quarkus:quarkus-micrometer-registry-prometheus")
+	implementation("io.quarkus:quarkus-smallrye-openapi")
+	implementation("io.quarkus:quarkus-opentelemetry")
+	implementation("io.opentelemetry.instrumentation:opentelemetry-jdbc")
 
 	//security
 	implementation("io.quarkus:quarkus-elytron-security-properties-file")
