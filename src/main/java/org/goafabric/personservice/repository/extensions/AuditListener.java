@@ -1,7 +1,8 @@
-package org.goafabric.personservice.persistence.extensions;
+package org.goafabric.personservice.repository.extensions;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import io.quarkus.arc.Unremovable;
 import io.quarkus.runtime.annotations.RegisterForReflection;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -9,7 +10,7 @@ import jakarta.enterprise.inject.spi.CDI;
 import jakarta.persistence.*;
 import jakarta.transaction.Transactional;
 import org.eclipse.microprofile.config.ConfigProvider;
-import org.goafabric.personservice.crossfunctional.HttpInterceptor;
+import org.goafabric.personservice.extensions.HttpInterceptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,12 +27,6 @@ import java.util.UUID;
 
 @RegisterForReflection
 public class AuditListener {
-    @MappedSuperclass
-    @EntityListeners(AuditListener.class)
-    public static abstract class AuditAware {
-        public abstract String getId();
-    }
-
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
     private enum DbOperation { CREATE, READ, UPDATE, DELETE }
@@ -52,24 +47,24 @@ public class AuditListener {
 
     @PostLoad
     public void afterRead(Object object) {
-        insertAudit(DbOperation.READ, ((AuditAware) object).getId(), object, object);
+        insertAudit(DbOperation.READ, getId(object), object, object);
     }
 
     @PostPersist
     public void afterCreate(Object object)  {
-        insertAudit(DbOperation.CREATE, ((AuditAware) object).getId(), null, object);
+        insertAudit(DbOperation.CREATE, getId(object), null, object);
     }
 
     @PostUpdate
     public void afterUpdate(Object object) {
-        final String id = ((AuditAware) object).getId();
+        final String id = getId(object);
         insertAudit(DbOperation.UPDATE, id,
                 CDI.current().select(AuditJpaUpdater.class).get().findOldObject(object.getClass(), id), object);
     }
 
     @PostRemove
     public void afterDelete(Object object) {
-        insertAudit(DbOperation.DELETE, ((AuditAware) object).getId(), object, null);
+        insertAudit(DbOperation.DELETE, getId(object), object, null);
     }
 
     private void insertAudit(final DbOperation operation, String referenceId, final Object oldObject, final Object newObject) {
@@ -100,7 +95,7 @@ public class AuditListener {
     }
 
     private String getJsonValue(final Object object) throws JsonProcessingException {
-        return new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(object);
+        return new ObjectMapper().registerModule(new JavaTimeModule()).writerWithDefaultPrettyPrinter().writeValueAsString(object);
     }
     
     @ApplicationScoped @Unremovable
@@ -125,10 +120,10 @@ public class AuditListener {
             this.dataSource = dataSource;
         }
 
-        public void insertAudit(AuditListener.AuditEvent auditEvent, Object object) { //we cannot use jpa because of the dynamic table name
+        public void insertAudit(AuditEvent auditEvent, Object object) { //we cannot use jpa because of the dynamic table name
             try {
-                final String sql = "INSERT INTO " + getTableName(object) + "_audit"
-                        + " (id, reference_id, operation, created_by, created_at, modified_by, modified_at, oldvalue, newvalue)"
+                final String sql = "INSERT INTO audit_trail"
+                        + " (id, object_id, operation, created_by, created_at, modified_by, modified_at, oldvalue, newvalue)"
                         + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
                 try (Connection con = dataSource.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
                     ps.setString(1, auditEvent.id());
@@ -149,7 +144,11 @@ public class AuditListener {
 
         private String getTableName(Object object) {
             final String schema = ConfigProvider.getConfig().getValue("multi-tenancy.schema-prefix", String.class) + HttpInterceptor.getTenantId() + ".";
-            return object.getClass().getSimpleName().replaceAll("Bo", "").toLowerCase();
+            return object.getClass().getSimpleName().replaceAll("Eo", "").toLowerCase();
         }
+    }
+
+    private static String getId(Object object) {
+        return String.valueOf(CDI.current().select(EntityManagerFactory.class).get().getPersistenceUnitUtil().getIdentifier(object));
     }
 }

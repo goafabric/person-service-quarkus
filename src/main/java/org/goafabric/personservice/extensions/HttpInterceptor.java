@@ -1,4 +1,4 @@
-package org.goafabric.personservice.crossfunctional;
+package org.goafabric.personservice.extensions;
 
 import io.quarkus.security.identity.SecurityIdentity;
 

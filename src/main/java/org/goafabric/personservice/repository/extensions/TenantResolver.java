@@ -1,4 +1,4 @@
-package org.goafabric.personservice.persistence.extensions;
+package org.goafabric.personservice.repository.extensions;
 
 import io.quarkus.hibernate.orm.PersistenceUnitExtension;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -8,7 +8,7 @@ import jakarta.inject.Inject;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.flywaydb.core.Flyway;
-import org.goafabric.personservice.crossfunctional.HttpInterceptor;
+import org.goafabric.personservice.extensions.HttpInterceptor;
 
 import java.util.Arrays;
 import java.util.Map;

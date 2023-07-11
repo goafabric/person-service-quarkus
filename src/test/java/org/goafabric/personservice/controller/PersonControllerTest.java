@@ -2,7 +2,7 @@ package org.goafabric.personservice.controller;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
-import org.goafabric.personservice.controller.dto.Person;
+import org.goafabric.personservice.controller.vo.Person;
 import org.junit.jupiter.api.Test;
 
 import java.util.Base64;

@@ -4,9 +4,9 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.goafabric.personservice.adapter.CalleeServiceAdapter;
-import org.goafabric.personservice.controller.dto.Person;
-import org.goafabric.personservice.crossfunctional.DurationLog;
-import org.goafabric.personservice.persistence.PersonRepository;
+import org.goafabric.personservice.controller.vo.Person;
+import org.goafabric.personservice.extensions.DurationLog;
+import org.goafabric.personservice.repository.PersonRepository;
 
 import java.util.List;
 
