@@ -28,7 +28,7 @@ public class HttpInterceptor implements ContainerRequestFilter, ContainerRespons
 
     @Override
     public void filter(ContainerRequestContext request) throws IOException {
-        tenantId.set(request.getHeaderString(request.getHeaderString("X-TenantId")));
+        tenantId.set(request.getHeaderString("X-TenantId"));
         userName.set(request.getHeaderString("X-Auth-Request-Preferred-Username") != null ? request.getHeaderString("X-Auth-Request-Preferred-Username")
                 :  securityIdentity != null ? securityIdentity.getPrincipal().getName() : "");
         //MDC.put("tenantId", getTenantId());
