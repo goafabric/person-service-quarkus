@@ -1,13 +1,14 @@
 group = "org.goafabric"
-version = "3.2.0-SNAPSHOT"
+version = "3.4.1-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_17
 
 val dockerRegistry = "goafabric"
+jacoco.toolVersion = "0.8.10"
 
 plugins {
 	java
 	jacoco
-	id("io.quarkus") version "3.2.0.Final"
+	id("io.quarkus") version "3.4.1"
 }
 
 repositories {
@@ -16,12 +17,12 @@ repositories {
 
 dependencies {
 	constraints {
-		implementation("org.mapstruct:mapstruct:1.5.3.Final")
-		annotationProcessor("org.mapstruct:mapstruct-processor:1.5.3.Final")
+		implementation("org.mapstruct:mapstruct:1.5.5.Final")
+		annotationProcessor("org.mapstruct:mapstruct-processor:1.5.5.Final")
 		testImplementation("org.assertj:assertj-core:3.4.1")
 	}
 
-	implementation(enforcedPlatform("io.quarkus:quarkus-bom:3.2.0.Final"))
+	implementation(enforcedPlatform("io.quarkus:quarkus-bom:3.4.1"))
 }
 dependencies {
 	//web
