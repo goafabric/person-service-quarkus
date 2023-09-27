@@ -17,8 +17,8 @@ jobs:
     - name: Set up JDK 
       uses: actions/setup-java@v3
       with:
-        distribution: 'temurin'
-        java-version: '17'
+        distribution: 'azul'
+        java-version: '20'
         
     - name: Native Image
       uses: gradle/gradle-build-action@v2
