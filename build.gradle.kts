@@ -19,7 +19,7 @@ dependencies {
 	constraints {
 		implementation("org.mapstruct:mapstruct:1.5.5.Final")
 		annotationProcessor("org.mapstruct:mapstruct-processor:1.5.5.Final")
-		testImplementation("org.assertj:assertj-core:3.4.0")
+		testImplementation("org.assertj:assertj-core:3.4.1")
 	}
 
 	implementation(enforcedPlatform("io.quarkus:quarkus-bom:3.4.0"))
