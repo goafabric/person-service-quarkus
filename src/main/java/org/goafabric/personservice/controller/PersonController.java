@@ -1,6 +1,6 @@
 package org.goafabric.personservice.controller;
 
-import org.goafabric.personservice.controller.vo.Person;
+import org.goafabric.personservice.controller.dto.Person;
 import org.goafabric.personservice.logic.PersonLogic;
 
 import jakarta.annotation.security.RolesAllowed;
