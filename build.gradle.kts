@@ -87,7 +87,7 @@ tasks.register<Exec>("dockerImageNative") { group = "build" ; dependsOn("quarkus
 			System.setProperty("quarkus.jib.platforms", "linux/arm64/v8")
 		}
 
-		System.setProperty("quarkus.native.builder-image", "quay.io/quarkus/ubi-quarkus-mandrel-builder-image:jdk-20")
+		System.setProperty("quarkus.native.builder-image", "quay.io/quarkus/ubi-quarkus-mandrel-builder-image:jdk-21")
 		System.setProperty("quarkus.package.type", "native")
 		System.setProperty("quarkus.native.container-build", "true")
 		System.setProperty("quarkus.container-image.build", "true")
