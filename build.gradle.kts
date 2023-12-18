@@ -8,7 +8,7 @@ jacoco.toolVersion = "0.8.10"
 plugins {
 	java
 	jacoco
-	id("io.quarkus") version "3.5.0"
+	id("io.quarkus") version "3.6.3"
 }
 
 repositories {
@@ -22,7 +22,7 @@ dependencies {
 		testImplementation("org.assertj:assertj-core:3.5.0")
 	}
 
-	implementation(enforcedPlatform("io.quarkus:quarkus-bom:3.4.0"))
+	implementation(enforcedPlatform("io.quarkus:quarkus-bom:3.6.3"))
 }
 dependencies {
 	//web
