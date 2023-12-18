@@ -1,6 +1,6 @@
 group = "org.goafabric"
 version = "3.5.0-SNAPSHOT"
-java.sourceCompatibility = JavaVersion.VERSION_20
+java.sourceCompatibility = JavaVersion.VERSION_21
 
 val dockerRegistry = "goafabric"
 jacoco.toolVersion = "0.8.10"
@@ -95,6 +95,6 @@ tasks.register<Exec>("dockerImageNative") { group = "build" ; dependsOn("quarkus
 		System.setProperty("quarkus.jib.base-native-image", "registry.access.redhat.com/ubi8/ubi-minimal:8.5")
 		System.setProperty("quarkus.container-image.image", "${dockerRegistry}/${project.name}${archSuffix}:${project.version}")
 
-		commandLine("docker", "push", "${dockerRegistry}/${project.name}${archSuffix}:${project.version}")
+		commandLine("/bin/sh", "-c", "docker push ${dockerRegistry}/${project.name}${archSuffix}:${project.version}")
 	}
 }
