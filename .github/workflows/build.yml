@@ -8,20 +8,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Login to Docker Hub
-      uses: docker/login-action@v2
-      with:
-        username: ${{ secrets.DOCKER_HUB_USERNAME }}
-        password: ${{ secrets.DOCKER_HUB_PASSWORD }}   
-    - uses: actions/checkout@v3
-    - name: Set up JDK 
-      uses: actions/setup-java@v3
-      with:
-        distribution: 'zulu'
-        java-version: '21'
-        
-    - name: Native Image
-      uses: gradle/gradle-build-action@v2
-      with:
-        gradle-version: 8.3
-        arguments: dockerImageNative
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_PASSWORD }}
+      - uses: actions/checkout@v4
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      - name: Native Image
+        uses: gradle/gradle-build-action@v3
+        with:
+          gradle-version: 8.6
+          arguments: dockerImageNative
