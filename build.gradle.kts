@@ -1,5 +1,5 @@
-group = "org.goafabric"
-version = "3.7.4-SNAPSHOT"
+val group: String by project
+val version: String by project
 java.sourceCompatibility = JavaVersion.VERSION_21
 
 val dockerRegistry = "goafabric"
@@ -8,6 +8,7 @@ plugins {
 	java
 	jacoco
 	id("io.quarkus") version "3.7.4"
+	id("net.researchgate.release") version "3.0.2"
 }
 
 repositories {
@@ -96,4 +97,9 @@ tasks.register<Exec>("dockerImageNative") { group = "build" ; dependsOn("quarkus
 
 		commandLine("/bin/sh", "-c", "docker push ${dockerRegistry}/${project.name}${archSuffix}:${project.version}")
 	}
+}
+
+configure<net.researchgate.release.ReleaseExtension> {
+	buildTasks.set(listOf("build", "test", "dockerImageNative"))
+	tagTemplate.set("v${version}".replace("-SNAPSHOT", ""))
 }

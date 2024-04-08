@@ -2,10 +2,55 @@ name: Java CI
 
 on: [push]
 
-jobs:
-  build:
+permissions:
+  contents: write
 
+jobs:
+  test:
     runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      - name: Test
+        uses: gradle/gradle-build-action@v3
+        with:
+          gradle-version: 8.7
+          arguments: build test
+
+  snapshot:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_PASSWORD }}
+      
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+          
+      - name: Container Images
+        uses: gradle/gradle-build-action@v3
+        with:
+          gradle-version: 8.7
+          arguments: dockerImageNative
+          
+  release:
+    runs-on: ubuntu-latest
+    needs: snapshot
+    if: github.ref == 'refs/heads/main'
 
     steps:
       - name: Login to Docker Hub
@@ -13,15 +58,22 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_PASSWORD }}
+      
       - uses: actions/checkout@v4
+
       - name: Set up JDK
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '21'
 
-      - name: Native Image
+      - name: Setup git config
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "<>"
+
+      - name: Release
         uses: gradle/gradle-build-action@v3
         with:
-          gradle-version: 8.6
-          arguments: dockerImageNative
+          gradle-version: 8.7
+          arguments: release -Prelease.useAutomaticVersion=true
