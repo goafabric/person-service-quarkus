@@ -1,3 +1,5 @@
+# 3.7.5
+
 # 3.7.4
 - Upgrade to Quarkus 3.7.4 
 - release plugin added
