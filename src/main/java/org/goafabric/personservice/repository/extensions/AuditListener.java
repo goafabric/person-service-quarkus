@@ -10,7 +10,7 @@ import jakarta.enterprise.inject.spi.CDI;
 import jakarta.persistence.*;
 import jakarta.transaction.Transactional;
 import org.eclipse.microprofile.config.ConfigProvider;
-import org.goafabric.personservice.extensions.HttpInterceptor;
+import org.goafabric.personservice.extensions.TenantContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -85,9 +85,9 @@ public class AuditListener {
                 referenceId,
                 newObject != null ? newObject.getClass().getSimpleName() : oldObject.getClass().getSimpleName(),
                 dbOperation,
-                (dbOperation == DbOperation.CREATE ? HttpInterceptor.getUserName() : null),
+                (dbOperation == DbOperation.CREATE ? TenantContext.getUserName() : null),
                 (dbOperation == DbOperation.CREATE ? date : null),
-                ((dbOperation == DbOperation.UPDATE || dbOperation == DbOperation.DELETE) ? HttpInterceptor.getUserName() : null),
+                ((dbOperation == DbOperation.UPDATE || dbOperation == DbOperation.DELETE) ? TenantContext.getUserName() : null),
                 ((dbOperation == DbOperation.UPDATE || dbOperation == DbOperation.DELETE) ? date : null),
                 (oldObject == null ? null : getJsonValue(oldObject)),
                 (newObject == null ? null : getJsonValue(newObject))
@@ -143,7 +143,7 @@ public class AuditListener {
         }
 
         private String getTableName(Object object) {
-            final String schema = ConfigProvider.getConfig().getValue("multi-tenancy.schema-prefix", String.class) + HttpInterceptor.getTenantId() + ".";
+            final String schema = ConfigProvider.getConfig().getValue("multi-tenancy.schema-prefix", String.class) + TenantContext.getTenantId() + ".";
             return object.getClass().getSimpleName().replaceAll("Eo", "").toLowerCase();
         }
     }

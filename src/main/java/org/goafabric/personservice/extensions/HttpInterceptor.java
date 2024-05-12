@@ -28,35 +28,17 @@ public class HttpInterceptor implements ContainerRequestFilter, ContainerRespons
 
     @Override
     public void filter(ContainerRequestContext request) throws IOException {
-        tenantId.set(request.getHeaderString("X-TenantId"));
-        userName.set(request.getHeaderString("X-Auth-Request-Preferred-Username") != null ? request.getHeaderString("X-Auth-Request-Preferred-Username")
-                :  securityIdentity != null ? securityIdentity.getPrincipal().getName() : "");
+        TenantContext.setContext(request);
         //MDC.put("tenantId", getTenantId());
         if (request instanceof PostMatchContainerRequestContext) {
             var method = ((PostMatchContainerRequestContext) request).getResourceMethod().getMethod();
-            log.info("{} called for user {} ", method.getDeclaringClass().getName() + "." + method.getName(), getUserName());
+            log.info("{} called for user {} ", method.getDeclaringClass().getName() + "." + method.getName(), TenantContext.getUserName());
         }
-
-
     }
 
     @Override
     public void filter(ContainerRequestContext containerRequestContext, ContainerResponseContext containerResponseContext) throws IOException {
-        tenantId.remove();
-        userName.remove();
+        TenantContext.removeContext();
         //MDC.remove("tenantId");
     }
-
-    public static void setTenantId(String tenantId) {
-        HttpInterceptor.tenantId.set(tenantId);
-    }
-
-    public static String getTenantId() {
-        return tenantId.get() != null ? tenantId.get() : "0"; //tdo
-    }
-
-    public static String getUserName() {
-        return userName.get();
-    }
-
 }
