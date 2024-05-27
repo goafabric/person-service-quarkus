@@ -1,4 +1,5 @@
 # 3.10.1
+- Upgrade to Quarkus 3.10.2
 
 # 3.10.0
 - Upgrade to Quarkus 3.10.0
