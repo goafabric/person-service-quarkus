@@ -14,5 +14,4 @@ public interface PersonRepository extends CrudRepository<PersonEo, String> {
 
     @Find
     List<PersonEo> findByLastName(String lastName);
-
 }

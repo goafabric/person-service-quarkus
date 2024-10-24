@@ -53,7 +53,6 @@ dependencies {
 	//jakarta data
 	implementation("io.quarkus:quarkus-hibernate-orm")
 	implementation("jakarta.data:jakarta.data-api:1.0.0")
-	//implementation("org.hibernate.orm:hibernate-core:6.6.0.Final")
 	annotationProcessor("org.hibernate.orm:hibernate-jpamodelgen:6.6.0.Final")
 
 	//adapter

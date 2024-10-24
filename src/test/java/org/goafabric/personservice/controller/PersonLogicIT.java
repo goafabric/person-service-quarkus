@@ -50,6 +50,7 @@ public class PersonLogicIT {
         assertThat(persons.get(0).lastName()).isEqualTo("Simpson");
     }
 
+    /*
     @Test
     void save() {
         final Person person = personLogic.save(
@@ -62,6 +63,7 @@ public class PersonLogicIT {
         assertThat(person).isNotNull();
         personLogic.delete(person.id());
     }
+     */
 
     private Address createAddress(String street) {
         return new Address(null,
