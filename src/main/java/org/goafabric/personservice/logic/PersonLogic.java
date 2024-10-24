@@ -44,13 +44,6 @@ public class PersonLogic {
                 personRepository.findByLastName(lastName));
     }
 
-    /*
-    public long countByLastName(String lastName) {
-        return personRepository.countByLastName(lastName);
-    }
-
-     */
-
     public Person save(Person person) {
         return personMapper.map(
                 personRepository.save(personMapper.map(person)));
