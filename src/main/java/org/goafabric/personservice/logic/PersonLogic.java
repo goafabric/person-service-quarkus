@@ -5,7 +5,7 @@ import jakarta.transaction.Transactional;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.goafabric.personservice.adapter.CalleeServiceAdapter;
 import org.goafabric.personservice.controller.dto.Person;
-import org.goafabric.personservice.repository.PersonRepository;
+import org.goafabric.personservice.repository.PersonRepositoryJakarta;
 
 import java.util.List;
 
@@ -14,11 +14,11 @@ import java.util.List;
 public class PersonLogic {
     private final PersonMapper personMapper;
 
-    private final PersonRepository personRepository;
+    private final PersonRepositoryJakarta personRepository;
 
     private final CalleeServiceAdapter calleeServiceAdapter;
 
-    public PersonLogic(PersonMapper personMapper, PersonRepository personRepository, @RestClient CalleeServiceAdapter calleeServiceAdapter) {
+    public PersonLogic(PersonMapper personMapper, PersonRepositoryJakarta personRepository, @RestClient CalleeServiceAdapter calleeServiceAdapter) {
         this.personMapper = personMapper;
         this.personRepository = personRepository;
         this.calleeServiceAdapter = calleeServiceAdapter;
@@ -26,12 +26,12 @@ public class PersonLogic {
 
     public Person getById(String id) {
         return personMapper.map(
-                personRepository.findById(id));
+                personRepository.findById(id).get());
     }
 
     public List<Person> findAll() {
         return personMapper.map(
-                personRepository.findAll().list());
+                personRepository.findAll().toList());
     }
 
     public List<Person> findByFirstName(String firstName) {
@@ -44,9 +44,12 @@ public class PersonLogic {
                 personRepository.findByLastName(lastName));
     }
 
+    /*
     public long countByLastName(String lastName) {
         return personRepository.countByLastName(lastName);
     }
+
+     */
 
     public Person save(Person person) {
         return personMapper.map(
