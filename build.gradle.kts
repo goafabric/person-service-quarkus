@@ -44,15 +44,16 @@ dependencies {
 	implementation("io.quarkus:quarkus-hibernate-validator")
 
 	//persistence
-	implementation("io.quarkus:quarkus-hibernate-orm-panache")
-	implementation("io.quarkus:quarkus-hibernate-orm")
 	implementation("io.quarkus:quarkus-jdbc-postgresql")
 	implementation("io.quarkus:quarkus-jdbc-h2")
 	implementation("io.quarkus:quarkus-flyway")
 	implementation("org.flywaydb:flyway-database-postgresql")
 	runtimeOnly("com.h2database:h2")
 
+	//jakarta data
+	implementation("io.quarkus:quarkus-hibernate-orm")
 	implementation("jakarta.data:jakarta.data-api:1.0.0")
+	//implementation("org.hibernate.orm:hibernate-core:6.6.0.Final")
 	annotationProcessor("org.hibernate.orm:hibernate-jpamodelgen:6.6.0.Final")
 
 	//adapter

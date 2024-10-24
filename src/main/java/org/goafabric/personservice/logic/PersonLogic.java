@@ -5,7 +5,7 @@ import jakarta.transaction.Transactional;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.goafabric.personservice.adapter.CalleeServiceAdapter;
 import org.goafabric.personservice.controller.dto.Person;
-import org.goafabric.personservice.repository.PersonRepositoryJakarta;
+import org.goafabric.personservice.repository.PersonRepository;
 
 import java.util.List;
 
@@ -14,11 +14,11 @@ import java.util.List;
 public class PersonLogic {
     private final PersonMapper personMapper;
 
-    private final PersonRepositoryJakarta personRepository;
+    private final PersonRepository personRepository;
 
     private final CalleeServiceAdapter calleeServiceAdapter;
 
-    public PersonLogic(PersonMapper personMapper, PersonRepositoryJakarta personRepository, @RestClient CalleeServiceAdapter calleeServiceAdapter) {
+    public PersonLogic(PersonMapper personMapper, PersonRepository personRepository, @RestClient CalleeServiceAdapter calleeServiceAdapter) {
         this.personMapper = personMapper;
         this.personRepository = personRepository;
         this.calleeServiceAdapter = calleeServiceAdapter;
