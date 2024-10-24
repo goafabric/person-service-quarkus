@@ -37,9 +37,6 @@ dependencies {
 	implementation("io.quarkus:quarkus-opentelemetry")
 	implementation("io.opentelemetry.instrumentation:opentelemetry-jdbc")
 
-	//security
-	implementation("io.quarkus:quarkus-elytron-security-properties-file")
-	
 	//crosscutting
 	implementation("io.quarkus:quarkus-hibernate-validator")
 
