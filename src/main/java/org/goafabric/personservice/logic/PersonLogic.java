@@ -5,7 +5,7 @@ import jakarta.transaction.Transactional;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.goafabric.personservice.adapter.CalleeServiceAdapter;
 import org.goafabric.personservice.controller.dto.Person;
-import org.goafabric.personservice.repository.PersonRepository;
+import org.goafabric.personservice.persistence.PersonRepository;
 
 import java.util.List;
 
@@ -61,7 +61,7 @@ public class PersonLogic {
     }
 
     public Person sayMyName(String name) {
-        return new Person(null,
+        return new Person(null, null,
                 calleeServiceAdapter.sayMyName(name).message(), "", null);
     }
 }

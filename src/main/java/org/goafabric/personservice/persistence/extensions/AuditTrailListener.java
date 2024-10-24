@@ -1,4 +1,4 @@
-package org.goafabric.personservice.repository.extensions;
+package org.goafabric.personservice.persistence.extensions;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -26,7 +26,7 @@ import java.util.UUID;
  */
 
 @RegisterForReflection
-public class AuditListener {
+public class AuditTrailListener {
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
     private enum DbOperation { CREATE, READ, UPDATE, DELETE }

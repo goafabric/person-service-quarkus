@@ -2,7 +2,6 @@ package org.goafabric.personservice.controller;
 
 import io.quarkus.test.junit.QuarkusTest;
 import jakarta.inject.Inject;
-import org.goafabric.personservice.controller.dto.Address;
 import org.goafabric.personservice.controller.dto.Person;
 import org.goafabric.personservice.logic.PersonLogic;
 import org.junit.jupiter.api.Test;
@@ -63,10 +62,11 @@ public class PersonLogicIT {
         assertThat(person).isNotNull();
         personLogic.delete(person.id());
     }
-     */
 
     private Address createAddress(String street) {
         return new Address(null,
                 street, "Springfield");
     }
+
+     */
 }
