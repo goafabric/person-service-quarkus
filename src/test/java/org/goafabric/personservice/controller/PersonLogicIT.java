@@ -2,10 +2,12 @@ package org.goafabric.personservice.controller;
 
 import io.quarkus.test.junit.QuarkusTest;
 import jakarta.inject.Inject;
+import org.goafabric.personservice.controller.dto.Address;
 import org.goafabric.personservice.controller.dto.Person;
 import org.goafabric.personservice.logic.PersonLogic;
 import org.junit.jupiter.api.Test;
 
+import java.util.Collections;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -49,14 +51,13 @@ public class PersonLogicIT {
         assertThat(persons.get(0).lastName()).isEqualTo("Simpson");
     }
 
-    /*
     @Test
     void save() {
         final Person person = personLogic.save(
-                new Person(null,
+                new Person(null, null,
                         "Homer",
                         "Simpson",
-                        createAddress("Evergreen Terrace")
+                        Collections.singletonList(createAddress("Evergreen Terrace"))
                 ));
 
         assertThat(person).isNotNull();
@@ -64,9 +65,8 @@ public class PersonLogicIT {
     }
 
     private Address createAddress(String street) {
-        return new Address(null,
+        return new Address(null, null,
                 street, "Springfield");
     }
 
-     */
 }
