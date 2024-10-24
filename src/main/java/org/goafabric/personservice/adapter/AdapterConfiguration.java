@@ -6,7 +6,7 @@ import org.eclipse.microprofile.rest.client.ext.ClientHeadersFactory;
 import org.goafabric.personservice.extensions.TenantContext;
 import org.jboss.resteasy.specimpl.MultivaluedMapImpl;
 
-public class CalleeServiceConfiguration implements ClientHeadersFactory {
+public class AdapterConfiguration implements ClientHeadersFactory {
     @ConfigProperty(name = "adapter.calleeservice.user.name")
     String user;
 
