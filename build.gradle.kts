@@ -7,7 +7,7 @@ val dockerRegistry = "goafabric"
 plugins {
 	java
 	jacoco
-	id("io.quarkus") version "3.14.1"
+	id("io.quarkus") version "3.15.0"
 	id("net.researchgate.release") version "3.0.2"
 }
 
@@ -22,7 +22,7 @@ dependencies {
 		testImplementation("org.assertj:assertj-core:3.5.0")
 	}
 
-	implementation(enforcedPlatform("io.quarkus:quarkus-bom:3.14.1"))
+	implementation(enforcedPlatform("io.quarkus:quarkus-bom:3.15.0"))
 }
 dependencies {
 	//web
