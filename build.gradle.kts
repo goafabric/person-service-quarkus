@@ -17,8 +17,8 @@ repositories {
 
 dependencies {
 	constraints {
-		implementation("org.mapstruct:mapstruct:1.5.5.Final")
-		annotationProcessor("org.mapstruct:mapstruct-processor:1.5.5.Final")
+		implementation("org.mapstruct:mapstruct:1.6.2")
+		annotationProcessor("org.mapstruct:mapstruct-processor:1.6.2")
 		testImplementation("org.assertj:assertj-core:3.5.0")
 	}
 
