@@ -1,6 +1,7 @@
 package org.goafabric.personservice.persistence.entity;
 
 import jakarta.persistence.*;
+import org.goafabric.personservice.extensions.TenantContext;
 import org.goafabric.personservice.persistence.extensions.AuditTrailListener;
 
 import java.util.List;
@@ -13,8 +14,7 @@ public class PersonEo {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
-    //@TenantId
-    private String organizationId = "1";
+    private String organizationId;
 
     private String firstName;
 
@@ -34,6 +34,7 @@ public class PersonEo {
         this.lastName = lastName;
         this.address = address;
         this.version = version;
+        this.organizationId = TenantContext.getOrganizationId();
     }
 
     PersonEo() {}

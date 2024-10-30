@@ -4,7 +4,9 @@ import io.quarkus.test.junit.QuarkusTest;
 import jakarta.inject.Inject;
 import org.goafabric.personservice.controller.dto.Address;
 import org.goafabric.personservice.controller.dto.Person;
+import org.goafabric.personservice.extensions.TenantContext;
 import org.goafabric.personservice.logic.PersonLogic;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.util.Collections;
@@ -17,7 +19,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class PersonLogicIT {
     @Inject
     PersonLogic personLogic;
-    
+
+    @BeforeAll
+    public static void init() {
+        TenantContext.setOrganizationId("1");
+    }
+
 
     @Test
     public void findById() {

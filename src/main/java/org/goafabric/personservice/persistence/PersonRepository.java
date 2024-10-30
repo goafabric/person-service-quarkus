@@ -10,8 +10,11 @@ import java.util.List;
 @Repository
 public interface PersonRepository extends CrudRepository<PersonEo, String> {
     @Find
-    List<PersonEo> findByFirstName(String firstName);
+    List<PersonEo> findAllByOrganizationId(String organizationId);
 
     @Find
-    List<PersonEo> findByLastName(String lastName);
+    List<PersonEo> findByFirstNameAndOrganizationId(String firstName, String organizationId);
+
+    @Find
+    List<PersonEo> findByLastNameAndOrganizationId(String lastName, String organizationId);
 }

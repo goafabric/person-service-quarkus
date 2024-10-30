@@ -5,6 +5,7 @@ import jakarta.transaction.Transactional;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.goafabric.personservice.adapter.CalleeServiceAdapter;
 import org.goafabric.personservice.controller.dto.Person;
+import org.goafabric.personservice.extensions.TenantContext;
 import org.goafabric.personservice.persistence.PersonRepository;
 
 import java.util.List;
@@ -31,17 +32,17 @@ public class PersonLogic {
 
     public List<Person> findAll() {
         return personMapper.map(
-                personRepository.findAll().toList());
+                personRepository.findAllByOrganizationId(TenantContext.getOrganizationId()));
     }
 
     public List<Person> findByFirstName(String firstName) {
         return personMapper.map(
-                personRepository.findByFirstName(firstName));
+                personRepository.findByFirstNameAndOrganizationId(firstName, TenantContext.getOrganizationId()));
     }
 
     public List<Person> findByLastName(String lastName) {
         return personMapper.map(
-                personRepository.findByLastName(lastName));
+                personRepository.findByLastNameAndOrganizationId(lastName, TenantContext.getOrganizationId()));
     }
 
     public Person save(Person person) {
