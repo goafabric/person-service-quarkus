@@ -8,7 +8,7 @@ plugins {
 	java
 	jacoco
 	id("io.quarkus") version "3.17.5"
-	id("net.researchgate.release") version "3.0.2"
+	id("net.researchgate.release") version "3.1.0"
 }
 
 repositories {
