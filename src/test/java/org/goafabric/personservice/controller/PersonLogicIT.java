@@ -22,7 +22,7 @@ public class PersonLogicIT {
 
     @BeforeAll
     public static void init() {
-        TenantContext.setOrganizationId("1");
+        TenantContext.setOrganizationId("0");
     }
 
 
