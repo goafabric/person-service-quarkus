@@ -48,9 +48,18 @@ dependencies {
 	runtimeOnly("com.h2database:h2")
 
 	//jakarta data
+	/*
 	implementation("io.quarkus:quarkus-hibernate-orm")
 	implementation("jakarta.data:jakarta.data-api:1.0.1")
 	annotationProcessor("org.hibernate.orm:hibernate-jpamodelgen:6.6.4.Final")
+	 */
+
+	//implementation("org.eclipse.jnosql.databases:jnosql-mongodb:1.1.1")
+
+	implementation("io.quarkiverse.jnosql:quarkus-jnosql-core:3.3.2")
+	implementation("io.quarkiverse.jnosql:quarkus-jnosql-document-mongodb:3.3.2")
+
+
 
 	//adapter
 	implementation("io.quarkus:quarkus-resteasy-client-jackson")

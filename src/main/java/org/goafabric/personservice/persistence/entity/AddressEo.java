@@ -1,21 +1,18 @@
 package org.goafabric.personservice.persistence.entity;
 
-import jakarta.persistence.*;
-import org.goafabric.personservice.persistence.extensions.AuditTrailListener;
 
+import jakarta.nosql.Entity;
+import jakarta.nosql.Id;
 
 @Entity
-@Table(name="address")
-@EntityListeners(AuditTrailListener.class)
 public class AddressEo {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
     private String street;
     private String city;
 
-    @Version //optimistic locking
+    //@Version //optimistic locking
     private Long version;
 
     public AddressEo(String id, String street, String city, Long version) {

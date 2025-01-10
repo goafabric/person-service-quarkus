@@ -1,17 +1,14 @@
 package org.goafabric.personservice.persistence.entity;
 
-import jakarta.persistence.*;
+import jakarta.nosql.Entity;
+import jakarta.nosql.Id;
 import org.goafabric.personservice.extensions.TenantContext;
-import org.goafabric.personservice.persistence.extensions.AuditTrailListener;
 
 import java.util.List;
 
 @Entity
-@Table(name = "person")
-@EntityListeners(AuditTrailListener.class)
 public class PersonEo {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
     private String organizationId;
@@ -20,11 +17,9 @@ public class PersonEo {
 
     private String lastName;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "person_id")
     private List<AddressEo> address;
 
-    @Version //optimistic locking
+    //@Version //optimistic locking
     private Long version;
 
 
