@@ -8,10 +8,10 @@ INSERT INTO address (id, person_id, street, city, version)
 VALUES ('88e13294-877a-49e3-8c72-ab5e34004ca4','5d103149-be15-4257-ab18-1d451d1e308a','Monty Mansion','Springfield ${tenantId}','0');
 
 INSERT INTO person (id,organization_id,first_name,last_name,version)
-VALUES ('392ecbba-7b30-40d9-b46a-564f7d8fd5c4','1','Homer','Simpson','0');
+VALUES ('392ecbba-7b30-40d9-b46a-564f7d8fd5c4','0','Homer','Simpson','0');
 
 INSERT INTO person (id,organization_id,first_name,last_name,version)
-VALUES ('50d5b605-55e1-41b4-bf8f-53e586715c3e','1','Bart','Simpson','0');
+VALUES ('50d5b605-55e1-41b4-bf8f-53e586715c3e','0','Bart','Simpson','0');
 
 INSERT INTO person (id,organization_id,first_name,last_name,version)
-VALUES ('5d103149-be15-4257-ab18-1d451d1e308a','1','Monty','Burns','0');
+VALUES ('5d103149-be15-4257-ab18-1d451d1e308a','0','Monty','Burns','0');
