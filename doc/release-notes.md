@@ -1,3 +1,6 @@
+# 3.19.0
+- Upgrade of Quarkus
+
 # 3.15.0
 - Upgrade to Quarkus 3.15.0
 - Parity with Spring Boot Application
