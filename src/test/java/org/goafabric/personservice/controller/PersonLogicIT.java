@@ -4,9 +4,12 @@ import io.quarkus.test.junit.QuarkusTest;
 import jakarta.inject.Inject;
 import org.goafabric.personservice.controller.dto.Address;
 import org.goafabric.personservice.controller.dto.Person;
+import org.goafabric.personservice.extensions.TenantContext;
 import org.goafabric.personservice.logic.PersonLogic;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import java.util.Collections;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -16,7 +19,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class PersonLogicIT {
     @Inject
     PersonLogic personLogic;
-    
+
+    @BeforeAll
+    public static void init() {
+        TenantContext.setOrganizationId("0");
+    }
+
 
     @Test
     public void findById() {
@@ -53,10 +61,10 @@ public class PersonLogicIT {
     @Test
     void save() {
         final Person person = personLogic.save(
-                new Person(null,
+                new Person(null, null,
                         "Homer",
                         "Simpson",
-                        createAddress("Evergreen Terrace")
+                        Collections.singletonList(createAddress("Evergreen Terrace"))
                 ));
 
         assertThat(person).isNotNull();
@@ -64,7 +72,8 @@ public class PersonLogicIT {
     }
 
     private Address createAddress(String street) {
-        return new Address(null,
+        return new Address(null, null,
                 street, "Springfield");
     }
+
 }

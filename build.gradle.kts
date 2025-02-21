@@ -7,8 +7,8 @@ val dockerRegistry = "goafabric"
 plugins {
 	java
 	jacoco
-	id("io.quarkus") version "3.10.0"
-	id("net.researchgate.release") version "3.0.2"
+	id("io.quarkus") version "3.18.3"
+	id("net.researchgate.release") version "3.1.0"
 }
 
 repositories {
@@ -17,12 +17,12 @@ repositories {
 
 dependencies {
 	constraints {
-		implementation("org.mapstruct:mapstruct:1.5.5.Final")
-		annotationProcessor("org.mapstruct:mapstruct-processor:1.5.5.Final")
-		testImplementation("org.assertj:assertj-core:3.5.0")
+		implementation("org.mapstruct:mapstruct:1.6.3")
+		annotationProcessor("org.mapstruct:mapstruct-processor:1.6.3")
+		testImplementation("org.assertj:assertj-core:3.27.3")
 	}
 
-	implementation(enforcedPlatform("io.quarkus:quarkus-bom:3.10.0"))
+	implementation(enforcedPlatform("io.quarkus:quarkus-bom:3.18.3"))
 }
 dependencies {
 	//web
@@ -37,19 +37,20 @@ dependencies {
 	implementation("io.quarkus:quarkus-opentelemetry")
 	implementation("io.opentelemetry.instrumentation:opentelemetry-jdbc")
 
-	//security
-	implementation("io.quarkus:quarkus-elytron-security-properties-file")
-	
 	//crosscutting
 	implementation("io.quarkus:quarkus-hibernate-validator")
 
 	//persistence
-	implementation("io.quarkus:quarkus-hibernate-orm-panache")
 	implementation("io.quarkus:quarkus-jdbc-postgresql")
 	implementation("io.quarkus:quarkus-jdbc-h2")
 	implementation("io.quarkus:quarkus-flyway")
 	implementation("org.flywaydb:flyway-database-postgresql")
 	runtimeOnly("com.h2database:h2")
+
+	//jakarta data
+	implementation("io.quarkus:quarkus-hibernate-orm")
+	implementation("jakarta.data:jakarta.data-api:1.0.1")
+	annotationProcessor("org.hibernate.orm:hibernate-jpamodelgen:6.6.7.Final")
 
 	//adapter
 	implementation("io.quarkus:quarkus-resteasy-client-jackson")
@@ -93,7 +94,7 @@ tasks.register<Exec>("dockerImageNative") { group = "build" ; dependsOn("quarkus
 		System.setProperty("quarkus.container-image.build", "true")
 
 		System.setProperty("quarkus.native.native-image-xmx", "4096m")
-		System.setProperty("quarkus.jib.base-native-image", "registry.access.redhat.com/ubi8/ubi-minimal:8.5")
+		System.setProperty("quarkus.jib.base-native-image", "registry.access.redhat.com/ubi8/ubi-minimal:8.10")
 		System.setProperty("quarkus.container-image.image", "${dockerRegistry}/${project.name}${archSuffix}:${project.version}")
 
 		commandLine("/bin/sh", "-c", "docker push ${dockerRegistry}/${project.name}${archSuffix}:${project.version}")

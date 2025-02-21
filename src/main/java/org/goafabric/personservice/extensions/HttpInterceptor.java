@@ -2,7 +2,6 @@ package org.goafabric.personservice.extensions;
 
 import io.opentelemetry.api.trace.Span;
 import io.opentelemetry.context.Context;
-import io.quarkus.security.identity.SecurityIdentity;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.ws.rs.container.ContainerRequestContext;
 import jakarta.ws.rs.container.ContainerRequestFilter;
@@ -20,11 +19,6 @@ import java.io.IOException;
 @ApplicationScoped
 public class HttpInterceptor implements ContainerRequestFilter, ContainerResponseFilter {
     private static final Logger log = LoggerFactory.getLogger("HttpInterceptor");
-    private final SecurityIdentity securityIdentity;
-
-    public HttpInterceptor(SecurityIdentity securityIdentity) {
-        this.securityIdentity = securityIdentity;
-    }
 
     private static final ThreadLocal<String> tenantId = new ThreadLocal<>();
     private static final ThreadLocal<String> userName = new ThreadLocal<>();

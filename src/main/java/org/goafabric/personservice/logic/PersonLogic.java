@@ -5,7 +5,8 @@ import jakarta.transaction.Transactional;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.goafabric.personservice.adapter.CalleeServiceAdapter;
 import org.goafabric.personservice.controller.dto.Person;
-import org.goafabric.personservice.repository.PersonRepository;
+import org.goafabric.personservice.extensions.TenantContext;
+import org.goafabric.personservice.persistence.PersonRepository;
 
 import java.util.List;
 
@@ -26,26 +27,22 @@ public class PersonLogic {
 
     public Person getById(String id) {
         return personMapper.map(
-                personRepository.findById(id));
+                personRepository.findById(id).get());
     }
 
     public List<Person> findAll() {
         return personMapper.map(
-                personRepository.findAll().list());
+                personRepository.findAllByOrganizationId(TenantContext.getOrganizationId()));
     }
 
     public List<Person> findByFirstName(String firstName) {
         return personMapper.map(
-                personRepository.findByFirstName(firstName));
+                personRepository.findByFirstNameAndOrganizationId(firstName, TenantContext.getOrganizationId()));
     }
 
     public List<Person> findByLastName(String lastName) {
         return personMapper.map(
-                personRepository.findByLastName(lastName));
-    }
-
-    public long countByLastName(String lastName) {
-        return personRepository.countByLastName(lastName);
+                personRepository.findByLastNameAndOrganizationId(lastName, TenantContext.getOrganizationId()));
     }
 
     public Person save(Person person) {
@@ -58,7 +55,7 @@ public class PersonLogic {
     }
 
     public Person sayMyName(String name) {
-        return new Person(null,
+        return new Person(null, null,
                 calleeServiceAdapter.sayMyName(name).message(), "", null);
     }
 }

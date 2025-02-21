@@ -14,7 +14,7 @@ import jakarta.ws.rs.QueryParam;
 @RegisterRestClient
 @Timeout
 @CircuitBreaker
-@RegisterClientHeaders(CalleeServiceConfiguration.class)
+@RegisterClientHeaders(AdapterConfiguration.class)
 public interface CalleeServiceAdapter {
     @GET
     @Path("sayMyName")

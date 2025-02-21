@@ -58,6 +58,10 @@ public class TenantContext {
         CONTEXT.set(new TenantContextRecord(tenant, CONTEXT.get().organizationId, CONTEXT.get().userName));
     }
 
+    public static void setOrganizationId(String organizationId) {
+        CONTEXT.set(new TenantContextRecord(CONTEXT.get().tenantId, organizationId, CONTEXT.get().userName));
+    }
+
     private static String getUserNameFromUserInfo(String userInfo) {
         try {
             return userInfo != null ? (String) new ObjectMapper().readValue(Base64.getUrlDecoder().decode(userInfo), Map.class).get("preferred_username") : null;
