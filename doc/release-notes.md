@@ -1,3 +1,5 @@
+# 3.20.0
+
 # 3.19.0
 - Upgrade of Quarkus
 
