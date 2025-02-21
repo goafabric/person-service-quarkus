@@ -34,7 +34,7 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_PASSWORD }}
-      
+
       - uses: actions/checkout@v4
 
       - name: Set up JDK
@@ -47,9 +47,9 @@ jobs:
         uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: 8.12
-          
+
       - name: Container Images
-        run: gradle jib dockerImageNative
+        run: gradle dockerImageNative
 
   snapshot-arm:
     runs-on: ubuntu-24.04-arm
@@ -75,7 +75,7 @@ jobs:
           gradle-version: 8.12
 
       - name: Container Images
-        run: gradle jib dockerImageNative
+        run: gradle dockerImageNative
         
   release:
     runs-on: ubuntu-latest
@@ -88,7 +88,7 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_PASSWORD }}
-      
+
       - uses: actions/checkout@v4
 
       - name: Set up JDK
