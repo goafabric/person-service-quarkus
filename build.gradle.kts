@@ -7,7 +7,7 @@ val dockerRegistry = "goafabric"
 plugins {
 	java
 	jacoco
-	id("io.quarkus") version "3.18.3"
+	id("io.quarkus") version "3.21.0"
 	id("net.researchgate.release") version "3.1.0"
 }
 
@@ -22,7 +22,7 @@ dependencies {
 		testImplementation("org.assertj:assertj-core:3.27.3")
 	}
 
-	implementation(enforcedPlatform("io.quarkus:quarkus-bom:3.18.3"))
+	implementation(enforcedPlatform("io.quarkus:quarkus-bom:3.21.0"))
 }
 dependencies {
 	//web
@@ -50,7 +50,7 @@ dependencies {
 	//jakarta data
 	implementation("io.quarkus:quarkus-hibernate-orm")
 	implementation("jakarta.data:jakarta.data-api:1.0.1")
-	annotationProcessor("org.hibernate.orm:hibernate-jpamodelgen:6.6.7.Final")
+	annotationProcessor("org.hibernate.orm:hibernate-jpamodelgen:6.6.12.Final")
 
 	//adapter
 	implementation("io.quarkus:quarkus-resteasy-client-jackson")
