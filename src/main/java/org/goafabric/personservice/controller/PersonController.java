@@ -5,6 +5,7 @@ import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import org.goafabric.personservice.controller.dto.Person;
+import org.goafabric.personservice.controller.dto.PersonSearch;
 import org.goafabric.personservice.logic.PersonLogic;
 
 import java.util.List;
@@ -58,10 +59,9 @@ public class PersonController {
 
     @GET
     @Path("/search")
-    public String searchUsers(@QueryParam("firstName") String firstName,
-                              @QueryParam("lastName") String lastName) {
-        System.out.println(firstName);
-        System.out.println(lastName);
+    public String searchUsers(@BeanParam PersonSearch personSearch) {
+        System.out.println(personSearch.getFirstName());
+        System.out.println(personSearch.getLastName());
         return "ok";
     }
 }
