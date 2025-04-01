@@ -1,12 +1,12 @@
 package org.goafabric.personservice.controller;
 
-import org.goafabric.personservice.controller.dto.Person;
-import org.goafabric.personservice.logic.PersonLogic;
-
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
+import org.goafabric.personservice.controller.dto.Person;
+import org.goafabric.personservice.logic.PersonLogic;
+
 import java.util.List;
 
 @Path("/persons")
@@ -54,5 +54,14 @@ public class PersonController {
     @Path("name")
     public Person sayMyName(@QueryParam("name") String name) {
         return personLogic.sayMyName(name);
+    }
+
+    @GET
+    @Path("/search")
+    public String searchUsers(@QueryParam("firstName") String firstName,
+                              @QueryParam("lastName") String lastName) {
+        System.out.println(firstName);
+        System.out.println(lastName);
+        return "ok";
     }
 }
