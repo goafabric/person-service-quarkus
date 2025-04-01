@@ -32,10 +32,10 @@ public class PersonLogicIT {
         assertThat(persons).isNotNull().hasSize(3);
 
         final Person person
-                = personLogic.getById(persons.get(0).id());
+                = personLogic.getById(persons.getFirst().id());
         assertThat(person).isNotNull();
-        assertThat(person.firstName()).isEqualTo(persons.get(0).firstName());
-        assertThat(person.lastName()).isEqualTo(persons.get(0).lastName());
+        assertThat(person.firstName()).isEqualTo(persons.getFirst().firstName());
+        assertThat(person.lastName()).isEqualTo(persons.getFirst().lastName());
     }
 
     @Test
@@ -47,15 +47,15 @@ public class PersonLogicIT {
     public void findByFirstName() {
         List<Person> persons = personLogic.findByFirstName("Monty");
         assertThat(persons).isNotNull().hasSize(1);
-        assertThat(persons.get(0).firstName()).isEqualTo("Monty");
-        assertThat(persons.get(0).lastName()).isEqualTo("Burns");
+        assertThat(persons.getFirst().firstName()).isEqualTo("Monty");
+        assertThat(persons.getFirst().lastName()).isEqualTo("Burns");
     }
 
     @Test
     public void findByLastName() {
         List<Person> persons = personLogic.findByLastName("Simpson");
         assertThat(persons).isNotNull().hasSize(2);
-        assertThat(persons.get(0).lastName()).isEqualTo("Simpson");
+        assertThat(persons.getFirst().lastName()).isEqualTo("Simpson");
     }
 
     @Test

@@ -20,38 +20,38 @@ public class PersonController {
     }
 
     @GET
-    @Path("getById/{id}")
+    @Path("/{id}")
     public Person getById(@PathParam("id") String id) {
         return personLogic.getById(id);
     }
 
     @GET
-    @Path("findAll")
+    @Path("")
     public List<Person> findAll() {
         return personLogic.findAll();
     }
 
     @GET
-    @Path("findByFirstName")
+    @Path("firstName")
     public List<Person> findByFirstName(@QueryParam("firstName") String firstName) {
         return personLogic.findByFirstName(firstName);
     }
 
     @GET
-    @Path("findByLastName")
+    @Path("lastName")
     public List<Person> findByLastName(@QueryParam("lastName") String lastName) {
         return personLogic.findByLastName(lastName);
     }
 
     @POST
-    @Path("save")
+    @Path("")
     @Consumes(MediaType.APPLICATION_JSON)
     public Person save(@Valid Person person) {
         return personLogic.save(person);
     }
 
     @GET
-    @Path("sayMyName")
+    @Path("name")
     public Person sayMyName(@QueryParam("name") String name) {
         return personLogic.sayMyName(name);
     }

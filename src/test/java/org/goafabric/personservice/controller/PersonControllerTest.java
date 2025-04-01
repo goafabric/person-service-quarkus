@@ -16,20 +16,20 @@ public class PersonControllerTest {
     public void findAll() {
         given()
           .auth().basic(new String(Base64.getDecoder().decode("YWRtaW4=")), new String(Base64.getDecoder().decode("YWRtaW4=")))
-          .when().get("/persons/findAll")
+          .when().get("/persons")
           .then()
              .statusCode(200);
 
         Person[] persons = RestAssured.given()
                 .auth().basic(new String(Base64.getDecoder().decode("YWRtaW4=")), new String(Base64.getDecoder().decode("YWRtaW4=")))
-                .get("/persons/findAll").as(Person[].class);
+                .get("/persons").as(Person[].class);
     }
 
     @Test
     public void findByFirstName() {
         given()
                 .auth().basic(new String(Base64.getDecoder().decode("YWRtaW4=")), new String(Base64.getDecoder().decode("YWRtaW4=")))
-                .when().get("/persons/findByFirstName?firstName=Homer")
+                .when().get("/persons/firstName?firstName=Homer")
                 .then()
                 .statusCode(200);
     }
@@ -38,7 +38,7 @@ public class PersonControllerTest {
     public void findByLastName() {
         given()
                 .auth().basic(new String(Base64.getDecoder().decode("YWRtaW4=")), new String(Base64.getDecoder().decode("YWRtaW4=")))
-                .when().get("/persons/findByLastName?lastName=Simpson")
+                .when().get("/persons/lastName?lastName=Simpson")
                 .then()
                 .statusCode(200);
     }
