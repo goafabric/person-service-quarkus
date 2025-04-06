@@ -1,5 +1,6 @@
 package org.goafabric.personservice.logic;
 
+import jakarta.data.page.PageRequest;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
@@ -49,13 +50,16 @@ public class PersonLogic {
     public List<Person> search(PersonSearch personSearch) {
         if (personSearch.getFirstName() != null) {
             return personMapper.map(
-                    personRepository.findByFirstNameAndOrganizationId(personSearch.getFirstName(), TenantContext.getOrganizationId()));
+                    personRepository.findByFirstNameAndOrganizationId(personSearch.getFirstName(), TenantContext.getOrganizationId()
+                    , PageRequest.ofPage(1, 3, true)));
         } else if (personSearch.getLastName() != null) {
             return personMapper.map(
-                    personRepository.findByLastNameAndOrganizationId(personSearch.getLastName(), TenantContext.getOrganizationId()));
+                    personRepository.findByLastNameAndOrganizationId(personSearch.getLastName(), TenantContext.getOrganizationId()
+                            , PageRequest.ofPage(1, 3, true)));
         }  else {
             return personMapper.map(
-                    personRepository.findAllByOrganizationId(TenantContext.getOrganizationId()));
+                    personRepository.findAllByOrganizationId(TenantContext.getOrganizationId()
+                    , PageRequest.ofPage(1, 3, true)));
         }
     }
 }

@@ -1,21 +1,21 @@
 package org.goafabric.personservice.persistence;
 
+import jakarta.data.page.Page;
+import jakarta.data.page.PageRequest;
 import jakarta.data.repository.CrudRepository;
 import jakarta.data.repository.Find;
 import jakarta.data.repository.Repository;
 import org.goafabric.personservice.persistence.entity.PersonEo;
 
-import java.util.List;
-
 @Repository
 public interface PersonRepository extends CrudRepository<PersonEo, String>  {
     @Find
-    List<PersonEo> findAllByOrganizationId(String organizationId);
+    Page<PersonEo> findAllByOrganizationId(String organizationId, PageRequest pageRequest);
 
     @Find
-    List<PersonEo> findByFirstNameAndOrganizationId(String firstName, String organizationId);
+    Page<PersonEo> findByFirstNameAndOrganizationId(String firstName, String organizationId, PageRequest pageRequest);
 
     @Find
-    List<PersonEo> findByLastNameAndOrganizationId(String lastName, String organizationId);
+    Page<PersonEo> findByLastNameAndOrganizationId(String lastName, String organizationId, PageRequest pageRequest);
 
 }
