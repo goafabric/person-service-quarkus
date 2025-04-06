@@ -1,13 +1,12 @@
 package org.goafabric.personservice.logic;
 
 import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.goafabric.personservice.adapter.CalleeServiceAdapter;
 import org.goafabric.personservice.controller.dto.Person;
 import org.goafabric.personservice.controller.dto.PersonSearch;
+import org.goafabric.personservice.extensions.TenantContext;
 import org.goafabric.personservice.persistence.PersonRepository;
 
 import java.util.List;
@@ -46,13 +45,17 @@ public class PersonLogic {
         return new Person(null, null,
                 calleeServiceAdapter.sayMyName(name).message(), "", null);
     }
-
-    @PersistenceContext
-    EntityManager em;
-
+    
     public List<Person> search(PersonSearch personSearch) {
-        return personMapper.map(
-                personRepository.findByOptionalNames(em, personSearch));
-
+        if (personSearch.getFirstName() != null) {
+            return personMapper.map(
+                    personRepository.findByFirstNameAndOrganizationId(personSearch.getFirstName(), TenantContext.getOrganizationId()));
+        } else if (personSearch.getLastName() != null) {
+            return personMapper.map(
+                    personRepository.findByLastNameAndOrganizationId(personSearch.getLastName(), TenantContext.getOrganizationId()));
+        }  else {
+            return personMapper.map(
+                    personRepository.findAllByOrganizationId(TenantContext.getOrganizationId()));
+        }
     }
 }
