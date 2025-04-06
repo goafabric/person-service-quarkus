@@ -48,18 +48,13 @@ public class PersonLogic {
     }
     
     public List<Person> search(PersonSearch personSearch, Integer page, Integer size) {
-        if (personSearch.getFirstName() != null) {
-            return personMapper.map(
-                    personRepository.findByFirstNameAndOrganizationId(personSearch.getFirstName(), TenantContext.getOrganizationId()
-                        , PageRequest.ofPage(page, size, true)));
-        } else if (personSearch.getLastName() != null) {
-            return personMapper.map(
-                    personRepository.findByLastNameAndOrganizationId(personSearch.getLastName(), TenantContext.getOrganizationId()
-                            , PageRequest.ofPage(page, size, true)));
-        }  else {
-            return personMapper.map(
-                    personRepository.findAllByOrganizationId(TenantContext.getOrganizationId()
-                            , PageRequest.ofPage(page, size, true)));
-        }
+        return personMapper.map(
+                personRepository.search(
+                        personSearch.getFirstName(),
+                        personSearch.getLastName(),
+                        TenantContext.getOrganizationId(),
+                        PageRequest.ofPage(page, size, true)
+                )
+        );
     }
 }
