@@ -26,6 +26,11 @@ public class PersonController {
         return personLogic.getById(id);
     }
 
+    @GET
+    @Path("")
+    public List<Person> find(@BeanParam PersonSearch personSearch) {
+        return personLogic.search(personSearch);
+    }
 
     @POST
     @Path("")
@@ -40,9 +45,4 @@ public class PersonController {
         return personLogic.sayMyName(name);
     }
 
-    @GET
-    @Path("")
-    public List<Person> search(@BeanParam PersonSearch personSearch) {
-        return personLogic.search(personSearch);
-    }
 }
