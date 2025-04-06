@@ -29,7 +29,7 @@ public class PersonLogicIT {
 
     @Test
     public void findById() {
-        List<Person> persons = personLogic.search(new PersonSearch(null, null));
+        List<Person> persons = personLogic.search(new PersonSearch(null, null), 1, 3);
         assertThat(persons).isNotNull().hasSize(3);
 
         final Person person
@@ -41,12 +41,12 @@ public class PersonLogicIT {
 
     @Test
     public void findAll() {
-        assertThat(personLogic.search(new PersonSearch(null, null))).isNotNull().hasSize(3);
+        assertThat(personLogic.search(new PersonSearch(null, null), 1, 3)).isNotNull().hasSize(3);
     }
 
     @Test
     public void findByFirstName() {
-        List<Person> persons =  personLogic.search(new PersonSearch("Monty", null));
+        List<Person> persons =  personLogic.search(new PersonSearch("Monty", null), 1, 3);
         assertThat(persons).isNotNull().hasSize(1);
         assertThat(persons.getFirst().firstName()).isEqualTo("Monty");
         assertThat(persons.getFirst().lastName()).isEqualTo("Burns");
@@ -54,7 +54,7 @@ public class PersonLogicIT {
 
     @Test
     public void findByLastName() {
-        List<Person> persons =  personLogic.search(new PersonSearch(null, "Simpson"));
+        List<Person> persons =  personLogic.search(new PersonSearch(null, "Simpson"), 1, 3);
         assertThat(persons).isNotNull().hasSize(2);
         assertThat(persons.getFirst().lastName()).isEqualTo("Simpson");
     }

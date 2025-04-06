@@ -28,8 +28,8 @@ public class PersonController {
 
     @GET
     @Path("")
-    public List<Person> find(@BeanParam PersonSearch personSearch) {
-        return personLogic.search(personSearch);
+    public List<Person> find(@BeanParam PersonSearch personSearch, @QueryParam("page") Integer page, @QueryParam("size") Integer size) {
+        return personLogic.search(personSearch, page, size);
     }
 
     @POST
