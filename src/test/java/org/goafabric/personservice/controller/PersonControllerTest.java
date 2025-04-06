@@ -29,7 +29,7 @@ public class PersonControllerTest {
     public void findByFirstName() {
         given()
                 .auth().basic(new String(Base64.getDecoder().decode("YWRtaW4=")), new String(Base64.getDecoder().decode("YWRtaW4=")))
-                .when().get("/persons/firstName?firstName=Homer")
+                .when().get("/persons?firstName=Homer")
                 .then()
                 .statusCode(200);
     }
@@ -38,7 +38,7 @@ public class PersonControllerTest {
     public void findByLastName() {
         given()
                 .auth().basic(new String(Base64.getDecoder().decode("YWRtaW4=")), new String(Base64.getDecoder().decode("YWRtaW4=")))
-                .when().get("/persons/lastName?lastName=Simpson")
+                .when().get("/persons?lastName=Simpson")
                 .then()
                 .statusCode(200);
     }

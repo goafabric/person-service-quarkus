@@ -9,6 +9,14 @@ public class PersonSearch {
     @QueryParam("lastName")
     private String lastName;
 
+    public PersonSearch(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
+    public PersonSearch() {
+    }
+
     public String getFirstName() {
         return firstName;
     }

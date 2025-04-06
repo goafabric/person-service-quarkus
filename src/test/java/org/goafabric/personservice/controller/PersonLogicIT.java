@@ -4,6 +4,7 @@ import io.quarkus.test.junit.QuarkusTest;
 import jakarta.inject.Inject;
 import org.goafabric.personservice.controller.dto.Address;
 import org.goafabric.personservice.controller.dto.Person;
+import org.goafabric.personservice.controller.dto.PersonSearch;
 import org.goafabric.personservice.extensions.TenantContext;
 import org.goafabric.personservice.logic.PersonLogic;
 import org.junit.jupiter.api.BeforeAll;
@@ -28,7 +29,7 @@ public class PersonLogicIT {
 
     @Test
     public void findById() {
-        List<Person> persons = personLogic.findAll();
+        List<Person> persons = personLogic.search(new PersonSearch(null, null));
         assertThat(persons).isNotNull().hasSize(3);
 
         final Person person
@@ -40,12 +41,12 @@ public class PersonLogicIT {
 
     @Test
     public void findAll() {
-        assertThat(personLogic.findAll()).isNotNull().hasSize(3);
+        assertThat(personLogic.search(new PersonSearch(null, null))).isNotNull().hasSize(3);
     }
 
     @Test
     public void findByFirstName() {
-        List<Person> persons = personLogic.findByFirstName("Monty");
+        List<Person> persons =  personLogic.search(new PersonSearch("Monty", null));
         assertThat(persons).isNotNull().hasSize(1);
         assertThat(persons.getFirst().firstName()).isEqualTo("Monty");
         assertThat(persons.getFirst().lastName()).isEqualTo("Burns");
@@ -53,7 +54,7 @@ public class PersonLogicIT {
 
     @Test
     public void findByLastName() {
-        List<Person> persons = personLogic.findByLastName("Simpson");
+        List<Person> persons =  personLogic.search(new PersonSearch(null, "Simpson"));
         assertThat(persons).isNotNull().hasSize(2);
         assertThat(persons.getFirst().lastName()).isEqualTo("Simpson");
     }

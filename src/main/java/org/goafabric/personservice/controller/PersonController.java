@@ -26,23 +26,6 @@ public class PersonController {
         return personLogic.getById(id);
     }
 
-    @GET
-    @Path("")
-    public List<Person> findAll() {
-        return personLogic.findAll();
-    }
-
-    @GET
-    @Path("firstName")
-    public List<Person> findByFirstName(@QueryParam("firstName") String firstName) {
-        return personLogic.findByFirstName(firstName);
-    }
-
-    @GET
-    @Path("lastName")
-    public List<Person> findByLastName(@QueryParam("lastName") String lastName) {
-        return personLogic.findByLastName(lastName);
-    }
 
     @POST
     @Path("")
@@ -58,10 +41,8 @@ public class PersonController {
     }
 
     @GET
-    @Path("/search")
-    public String searchUsers(@BeanParam PersonSearch personSearch) {
-        System.out.println(personSearch.getFirstName());
-        System.out.println(personSearch.getLastName());
-        return "ok";
+    @Path("")
+    public List<Person> search(@BeanParam PersonSearch personSearch) {
+        return personLogic.search(personSearch);
     }
 }
