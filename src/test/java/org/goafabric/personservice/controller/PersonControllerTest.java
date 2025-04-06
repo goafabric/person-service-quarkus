@@ -10,19 +10,14 @@ import static io.restassured.RestAssured.given;
 @QuarkusTest
 public class PersonControllerTest {
 
-    /*
     @Test
     public void findAll() {
         given()
           .when().get("/persons?page=1&size=3")
           .then()
              .statusCode(200);
-
-        RestAssured.given()
-                .get("/persons").as(Person[].class);
     }
 
-     */
 
     @Test
     public void findByFirstName() {
