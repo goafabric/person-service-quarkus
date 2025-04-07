@@ -12,13 +12,7 @@ import org.goafabric.personservice.persistence.entity.PersonEo;
 @Repository
 public interface PersonRepository extends CrudRepository<PersonEo, String>  {
     @Find
-    Page<PersonEo> findAllByOrganizationId(String organizationId, PageRequest pageRequest);
-
-    @Find
     Page<PersonEo> findByFirstNameAndOrganizationId(String firstName, String organizationId, PageRequest pageRequest);
-
-    @Find
-    Page<PersonEo> findByLastNameAndOrganizationId(String lastName, String organizationId, PageRequest pageRequest);
 
     @Query("SELECT p FROM PersonEo p WHERE p.organizationId = :organizationId " +
             "AND (:firstName IS NULL OR p.firstName = :firstName) " +
