@@ -2,11 +2,13 @@ package org.goafabric.personservice.controller;
 
 import io.quarkus.test.junit.QuarkusTest;
 import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
 import org.goafabric.personservice.controller.dto.Address;
 import org.goafabric.personservice.controller.dto.Person;
 import org.goafabric.personservice.controller.dto.PersonSearch;
 import org.goafabric.personservice.extensions.TenantContext;
 import org.goafabric.personservice.logic.PersonLogic;
+import org.goafabric.personservice.persistence.PersonRepository;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -20,6 +22,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class PersonLogicIT {
     @Inject
     PersonLogic personLogic;
+
+    @Inject
+    PersonRepository personRepository;
 
     @BeforeAll
     public static void init() {
@@ -77,4 +82,10 @@ public class PersonLogicIT {
                 street, "Springfield");
     }
 
+
+    @Test
+    @Transactional
+    void findByStreet() {
+        assertThat(personLogic.findByStreet("Monty Mansion", 1,3 )).isNotNull().hasSize(1);
+    }
 }

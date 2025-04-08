@@ -57,4 +57,10 @@ public class PersonLogic {
                 )
         );
     }
+
+    public List<Person> findByStreet(String street, Integer page, Integer size) {
+        return personMapper.map(
+                personRepository.findByAddressStreetAndOrganizationId(street, TenantContext.getOrganizationId(), PageRequest.ofPage(page, size, true))
+        );
+    }
 }
