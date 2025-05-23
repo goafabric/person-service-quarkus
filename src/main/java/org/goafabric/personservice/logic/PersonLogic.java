@@ -7,7 +7,7 @@ import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.goafabric.personservice.adapter.CalleeServiceAdapter;
 import org.goafabric.personservice.controller.dto.Person;
 import org.goafabric.personservice.controller.dto.PersonSearch;
-import org.goafabric.personservice.extensions.TenantContext;
+import org.goafabric.personservice.extensions.UserContext;
 import org.goafabric.personservice.persistence.PersonRepository;
 
 import java.util.List;
@@ -52,7 +52,7 @@ public class PersonLogic {
                 personRepository.search(
                         personSearch.getFirstName(),
                         personSearch.getLastName(),
-                        TenantContext.getOrganizationId(),
+                        UserContext.getOrganizationId(),
                         PageRequest.ofPage(page, size, true)
                 )
         );
@@ -60,7 +60,7 @@ public class PersonLogic {
 
     public List<Person> findByStreet(String street, Integer page, Integer size) {
         return personMapper.map(
-                personRepository.findByAddressStreetAndOrganizationId(street, TenantContext.getOrganizationId(), PageRequest.ofPage(page, size, true))
+                personRepository.findByAddressStreetAndOrganizationId(street, UserContext.getOrganizationId(), PageRequest.ofPage(page, size, true))
         );
     }
 }

@@ -6,7 +6,7 @@ import jakarta.transaction.Transactional;
 import org.goafabric.personservice.controller.dto.Address;
 import org.goafabric.personservice.controller.dto.Person;
 import org.goafabric.personservice.controller.dto.PersonSearch;
-import org.goafabric.personservice.extensions.TenantContext;
+import org.goafabric.personservice.extensions.UserContext;
 import org.goafabric.personservice.logic.PersonLogic;
 import org.goafabric.personservice.persistence.PersonRepository;
 import org.junit.jupiter.api.BeforeAll;
@@ -28,7 +28,7 @@ public class PersonLogicIT {
 
     @BeforeAll
     public static void init() {
-        TenantContext.setOrganizationId("0");
+        UserContext.setOrganizationId("0");
     }
 
 

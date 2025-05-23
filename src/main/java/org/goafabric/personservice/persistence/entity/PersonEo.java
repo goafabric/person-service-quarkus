@@ -1,7 +1,7 @@
 package org.goafabric.personservice.persistence.entity;
 
 import jakarta.persistence.*;
-import org.goafabric.personservice.extensions.TenantContext;
+import org.goafabric.personservice.extensions.UserContext;
 import org.goafabric.personservice.persistence.extensions.AuditTrailListener;
 
 import java.util.List;
@@ -34,7 +34,7 @@ public class PersonEo {
         this.lastName = lastName;
         this.address = address;
         this.version = version;
-        this.organizationId = TenantContext.getOrganizationId();
+        this.organizationId = UserContext.getOrganizationId();
     }
 
     PersonEo() {}
