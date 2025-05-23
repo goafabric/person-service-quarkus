@@ -22,7 +22,7 @@ dependencies {
 		testImplementation("org.assertj:assertj-core:3.27.3")
 	}
 
-	implementation(enforcedPlatform("io.quarkus:quarkus-bom:3.22.3"))
+	implementation(enforcedPlatform("io.quarkus:quarkus-bom:3.23.0"))
 }
 dependencies {
 	//web
