@@ -82,8 +82,6 @@ tasks.withType<Test> {
 
 tasks.register<Exec>("dockerImageNative") { group = "build" ; dependsOn("quarkusBuild", "testNative")
 	if (gradle.startParameter.taskNames.contains("dockerImageNative")) {
-		val archSuffix = if (System.getProperty("os.arch").equals("aarch64")) "-arm64v8" else ""
-
 		if (System.getProperty("os.arch").equals("aarch64")) {
 			System.setProperty("quarkus.jib.platforms", "linux/arm64/v8")
 		}
@@ -97,9 +95,9 @@ tasks.register<Exec>("dockerImageNative") { group = "build" ; dependsOn("quarkus
 
 		System.setProperty("quarkus.native.native-image-xmx", "4096m")
 		System.setProperty("quarkus.jib.base-native-image", "registry.access.redhat.com/ubi8/ubi-minimal:8.10")
-		System.setProperty("quarkus.container-image.image", "${dockerRegistry}/${project.name}${archSuffix}:${project.version}")
+		System.setProperty("quarkus.container-image.image", "${dockerRegistry}/${project.name}:${project.version}")
 
-		commandLine("/bin/sh", "-c", "docker push ${dockerRegistry}/${project.name}${archSuffix}:${project.version}")
+		commandLine("/bin/sh", "-c", "docker push ${dockerRegistry}/${project.name}:${project.version}")
 	}
 }
 
