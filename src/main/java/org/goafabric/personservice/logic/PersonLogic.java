@@ -1,14 +1,13 @@
 package org.goafabric.personservice.logic;
 
-import jakarta.data.page.PageRequest;
+import io.quarkus.panache.common.Page;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.goafabric.personservice.adapter.CalleeServiceAdapter;
 import org.goafabric.personservice.controller.dto.Person;
 import org.goafabric.personservice.controller.dto.PersonSearch;
-import org.goafabric.personservice.extensions.UserContext;
-import org.goafabric.personservice.persistence.PersonRepository;
+import org.goafabric.personservice.persistence.PersonRepositoryPanache;
 
 import java.util.List;
 
@@ -17,11 +16,11 @@ import java.util.List;
 public class PersonLogic {
     private final PersonMapper personMapper;
 
-    private final PersonRepository personRepository;
+    private final PersonRepositoryPanache personRepository;
 
     private final CalleeServiceAdapter calleeServiceAdapter;
 
-    public PersonLogic(PersonMapper personMapper, PersonRepository personRepository, @RestClient CalleeServiceAdapter calleeServiceAdapter) {
+    public PersonLogic(PersonMapper personMapper, PersonRepositoryPanache personRepository, @RestClient CalleeServiceAdapter calleeServiceAdapter) {
         this.personMapper = personMapper;
         this.personRepository = personRepository;
         this.calleeServiceAdapter = calleeServiceAdapter;
@@ -29,7 +28,7 @@ public class PersonLogic {
 
     public Person getById(String id) {
         return personMapper.map(
-                personRepository.findById(id).get());
+                personRepository.findById(id));
     }
 
 
@@ -49,18 +48,13 @@ public class PersonLogic {
     
     public List<Person> search(PersonSearch personSearch, Integer page, Integer size) {
         return personMapper.map(
-                personRepository.search(
-                        personSearch.getFirstName(),
-                        personSearch.getLastName(),
-                        UserContext.getOrganizationId(),
-                        PageRequest.ofPage(page, size, true)
-                )
+                personRepository.find(personSearch, Page.of(page, size))
         );
     }
 
     public List<Person> findByStreet(String street, Integer page, Integer size) {
         return personMapper.map(
-                personRepository.findByAddressStreetAndOrganizationId(street, UserContext.getOrganizationId(), PageRequest.ofPage(page, size, true))
+                personRepository.findByStreet(street, Page.of(page, size))
         );
     }
 }

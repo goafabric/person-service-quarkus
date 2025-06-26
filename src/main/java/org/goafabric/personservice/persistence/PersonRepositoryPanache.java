@@ -1,6 +1,7 @@
 package org.goafabric.personservice.persistence;
 
 import io.quarkus.hibernate.orm.panache.PanacheRepositoryBase;
+import io.quarkus.panache.common.Page;
 import jakarta.enterprise.context.ApplicationScoped;
 import org.goafabric.personservice.controller.dto.PersonSearch;
 import org.goafabric.personservice.persistence.entity.PersonEo;
@@ -11,14 +12,15 @@ import java.util.List;
 @ApplicationScoped
 public class PersonRepositoryPanache implements PanacheRepositoryBase<PersonEo, String> {
 
+    //todo missing filters with organizationid
 
-    public List<PersonEo> findByStreet(String street) {
-        return find("street", street).list();
+    public List<PersonEo> findByStreet(String street, Page page) {
+        return find("address.street", street).page(page).list();
     }
 
 
-    public List<PersonEo> find(PersonSearch search) {
-        var query = new StringBuilder("1=1");
+    public List<PersonEo> find(PersonSearch search, Page page) {
+        var query = new StringBuilder();
         var params = new HashMap<>();
 
         if (search.getFirstName() != null) {
