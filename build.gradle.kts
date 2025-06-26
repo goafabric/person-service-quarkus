@@ -7,7 +7,7 @@ val dockerRegistry = "goafabric"
 plugins {
 	java
 	jacoco
-	id("io.quarkus") version "3.23.2"
+	id("io.quarkus") version "3.24.1"
 	id("net.researchgate.release") version "3.1.0"
 }
 
@@ -22,7 +22,7 @@ dependencies {
 		testImplementation("org.assertj:assertj-core:3.27.3")
 	}
 
-	implementation(enforcedPlatform("io.quarkus:quarkus-bom:3.23.2"))
+	implementation(enforcedPlatform("io.quarkus:quarkus-bom:3.24.1"))
 }
 dependencies {
 	//web
@@ -52,7 +52,7 @@ dependencies {
 	//jakarta data
 	implementation("io.quarkus:quarkus-hibernate-orm")
 	implementation("jakarta.data:jakarta.data-api:1.0.1")
-	annotationProcessor("org.hibernate.orm:hibernate-jpamodelgen:6.6.17.Final")
+	annotationProcessor("org.hibernate.orm:hibernate-jpamodelgen:6.6.18.Final")
 
 	//adapter
 	implementation("io.quarkus:quarkus-resteasy-client-jackson")
@@ -82,8 +82,6 @@ tasks.withType<Test> {
 
 tasks.register<Exec>("dockerImageNative") { group = "build" ; dependsOn("quarkusBuild", "testNative")
 	if (gradle.startParameter.taskNames.contains("dockerImageNative")) {
-		val archSuffix = if (System.getProperty("os.arch").equals("aarch64")) "-arm64v8" else ""
-
 		if (System.getProperty("os.arch").equals("aarch64")) {
 			System.setProperty("quarkus.jib.platforms", "linux/arm64/v8")
 		}
@@ -97,9 +95,9 @@ tasks.register<Exec>("dockerImageNative") { group = "build" ; dependsOn("quarkus
 
 		System.setProperty("quarkus.native.native-image-xmx", "4096m")
 		System.setProperty("quarkus.jib.base-native-image", "registry.access.redhat.com/ubi8/ubi-minimal:8.10")
-		System.setProperty("quarkus.container-image.image", "${dockerRegistry}/${project.name}${archSuffix}:${project.version}")
+		System.setProperty("quarkus.container-image.image", "${dockerRegistry}/${project.name}:${project.version}")
 
-		commandLine("/bin/sh", "-c", "docker push ${dockerRegistry}/${project.name}${archSuffix}:${project.version}")
+		commandLine("/bin/sh", "-c", "docker push ${dockerRegistry}/${project.name}:${project.version}")
 	}
 }
 
