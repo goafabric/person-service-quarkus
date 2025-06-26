@@ -52,7 +52,7 @@ dependencies {
 	//jakarta data
 	implementation("io.quarkus:quarkus-hibernate-orm")
 	implementation("jakarta.data:jakarta.data-api:1.0.1")
-	annotationProcessor("org.hibernate.orm:hibernate-jpamodelgen:6.6.18.Final")
+	annotationProcessor("org.hibernate.orm:hibernate-jpamodelgen:7.0.0.Final")
 
 	//adapter
 	implementation("io.quarkus:quarkus-resteasy-client-jackson")
