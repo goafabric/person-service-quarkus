@@ -81,6 +81,6 @@ public class PersonLogicIT {
 
     @Test
     void findByStreet() {
-        //assertThat(personLogic.findByStreet("Monty Mansion", 1,3 )).isNotNull().hasSize(1);
+        //assertThat(personLogic.findByStreet("Monty Mansion", 0,3 )).isNotNull().hasSize(1);
     }
 }
