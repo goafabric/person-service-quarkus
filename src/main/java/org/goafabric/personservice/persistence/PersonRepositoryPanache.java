@@ -15,25 +15,26 @@ public class PersonRepositoryPanache implements PanacheRepositoryBase<PersonEo, 
     //todo missing filters with organizationid
 
     public List<PersonEo> findByStreet(String street, Page page) {
-        return find("address.street", street).page(page).list();
+        return find("address.street", street).list(); //page(page).list();
     }
 
 
     public List<PersonEo> find(PersonSearch search, Page page) {
         var query = new StringBuilder();
-        var params = new HashMap<>();
+        var params = new HashMap<String, Object>();
 
         if (search.getFirstName() != null) {
-            query.append(" and firstName = :firstName");
+            query.append("firstName = :firstName");
             params.put("firstName", search.getFirstName());
         }
 
         if (search.getLastName() != null) {
-            query.append(" and lastName = :lastName");
+            if (!query.isEmpty()) query.append(" and ");
+            query.append("lastName = :lastName");
             params.put("lastName", search.getLastName());
         }
 
-        return find(query.toString(), params).list();
+        return find(query.toString(), params).list(); //.page(page).list();
     }
 
 
