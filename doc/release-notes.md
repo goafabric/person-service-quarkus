@@ -1,3 +1,6 @@
+# 3.24.2
+- Upgrade of Quarkus
+
 # 3.24.1
 - Upgrade of Quarkus
 - Replaced Panache with Jakarta DAta
