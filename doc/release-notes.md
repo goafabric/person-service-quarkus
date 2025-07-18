@@ -1,3 +1,7 @@
+# 3.24.1
+- Upgrade of Quarkus
+- Replaced Panache with Jakarta DAta
+
 # 3.22.3
 - Upgrade of Quarkus
 - Native images are now arm only
