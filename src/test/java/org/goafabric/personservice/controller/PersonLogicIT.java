@@ -2,10 +2,13 @@ package org.goafabric.personservice.controller;
 
 import io.quarkus.test.junit.QuarkusTest;
 import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
 import org.goafabric.personservice.controller.dto.Address;
 import org.goafabric.personservice.controller.dto.Person;
-import org.goafabric.personservice.extensions.TenantContext;
+import org.goafabric.personservice.controller.dto.PersonSearch;
+import org.goafabric.personservice.extensions.UserContext;
 import org.goafabric.personservice.logic.PersonLogic;
+import org.goafabric.personservice.persistence.PersonRepository;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -20,42 +23,45 @@ public class PersonLogicIT {
     @Inject
     PersonLogic personLogic;
 
+    @Inject
+    PersonRepository personRepository;
+
     @BeforeAll
     public static void init() {
-        TenantContext.setOrganizationId("0");
+        UserContext.setOrganizationId("0");
     }
 
 
     @Test
     public void findById() {
-        List<Person> persons = personLogic.findAll();
+        List<Person> persons = personLogic.search(new PersonSearch(null, null), 1, 3);
         assertThat(persons).isNotNull().hasSize(3);
 
         final Person person
-                = personLogic.getById(persons.get(0).id());
+                = personLogic.getById(persons.getFirst().id());
         assertThat(person).isNotNull();
-        assertThat(person.firstName()).isEqualTo(persons.get(0).firstName());
-        assertThat(person.lastName()).isEqualTo(persons.get(0).lastName());
+        assertThat(person.firstName()).isEqualTo(persons.getFirst().firstName());
+        assertThat(person.lastName()).isEqualTo(persons.getFirst().lastName());
     }
 
     @Test
     public void findAll() {
-        assertThat(personLogic.findAll()).isNotNull().hasSize(3);
+        assertThat(personLogic.search(new PersonSearch(null, null), 1, 3)).isNotNull().hasSize(3);
     }
 
     @Test
     public void findByFirstName() {
-        List<Person> persons = personLogic.findByFirstName("Monty");
+        List<Person> persons =  personLogic.search(new PersonSearch("Monty", null), 1, 3);
         assertThat(persons).isNotNull().hasSize(1);
-        assertThat(persons.get(0).firstName()).isEqualTo("Monty");
-        assertThat(persons.get(0).lastName()).isEqualTo("Burns");
+        assertThat(persons.getFirst().firstName()).isEqualTo("Monty");
+        assertThat(persons.getFirst().lastName()).isEqualTo("Burns");
     }
 
     @Test
     public void findByLastName() {
-        List<Person> persons = personLogic.findByLastName("Simpson");
+        List<Person> persons =  personLogic.search(new PersonSearch(null, "Simpson"), 1, 3);
         assertThat(persons).isNotNull().hasSize(2);
-        assertThat(persons.get(0).lastName()).isEqualTo("Simpson");
+        assertThat(persons.getFirst().lastName()).isEqualTo("Simpson");
     }
 
     @Test
@@ -76,4 +82,10 @@ public class PersonLogicIT {
                 street, "Springfield");
     }
 
+
+    @Test
+    @Transactional
+    void findByStreet() {
+        assertThat(personLogic.findByStreet("Monty Mansion", 1,3 )).isNotNull().hasSize(1);
+    }
 }

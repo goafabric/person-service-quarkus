@@ -1,7 +1,7 @@
 services:
   application:
     container_name: ${_Values_root_name}-application
-    image:  ${_Values_image_repository}${_Values_server_arch}:${_Values_image_tag}
+    image:  ${_Values_image_repository}:${_Values_image_tag}
     restart: 'no'
     ports:
       - "${_Values_service_port}:${_Values_service_port}"
@@ -60,7 +60,7 @@ services:
 
   postgres:
     container_name: ${_Values_root_name}-postgres
-    image: postgres:16.2
+    image: postgres:17.4
     restart: 'no'
     ports:
       - 50810:5432
@@ -92,7 +92,7 @@ services:
     networks:
       - ${_Values_root_name}-net
     volumes:
-      - ./nginx/nginx${_Values_nginx_oidc}.conf:/etc/nginx/nginx.conf
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
       - ./nginx/ssl:/etc/ssl/
     depends_on:
       application:

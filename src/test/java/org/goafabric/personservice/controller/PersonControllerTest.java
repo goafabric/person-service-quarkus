@@ -1,8 +1,6 @@
 package org.goafabric.personservice.controller;
 
 import io.quarkus.test.junit.QuarkusTest;
-import io.restassured.RestAssured;
-import org.goafabric.personservice.controller.dto.Person;
 import org.junit.jupiter.api.Test;
 
 import java.util.Base64;
@@ -15,21 +13,17 @@ public class PersonControllerTest {
     @Test
     public void findAll() {
         given()
-          .auth().basic(new String(Base64.getDecoder().decode("YWRtaW4=")), new String(Base64.getDecoder().decode("YWRtaW4=")))
-          .when().get("/persons/findAll")
+          .when().get("/persons?page=1&size=3")
           .then()
              .statusCode(200);
-
-        Person[] persons = RestAssured.given()
-                .auth().basic(new String(Base64.getDecoder().decode("YWRtaW4=")), new String(Base64.getDecoder().decode("YWRtaW4=")))
-                .get("/persons/findAll").as(Person[].class);
     }
+
 
     @Test
     public void findByFirstName() {
         given()
                 .auth().basic(new String(Base64.getDecoder().decode("YWRtaW4=")), new String(Base64.getDecoder().decode("YWRtaW4=")))
-                .when().get("/persons/findByFirstName?firstName=Homer")
+                .when().get("/persons?firstName=Homer&page=1&size=3")
                 .then()
                 .statusCode(200);
     }
@@ -38,7 +32,7 @@ public class PersonControllerTest {
     public void findByLastName() {
         given()
                 .auth().basic(new String(Base64.getDecoder().decode("YWRtaW4=")), new String(Base64.getDecoder().decode("YWRtaW4=")))
-                .when().get("/persons/findByLastName?lastName=Simpson")
+                .when().get("/persons?lastName=Simpson&page=1&size=3")
                 .then()
                 .statusCode(200);
     }

@@ -25,22 +25,22 @@ public class HttpInterceptor implements ContainerRequestFilter, ContainerRespons
 
     @Override
     public void filter(ContainerRequestContext request) throws IOException {
-        TenantContext.setContext(request);
+        UserContext.setContext(request);
         configureLogsAndTracing();
         if (request instanceof PostMatchContainerRequestContext) {
             var method = ((PostMatchContainerRequestContext) request).getResourceMethod().getMethod();
-            log.info("{} called for user {} ", method.getDeclaringClass().getName() + "." + method.getName(), TenantContext.getUserName());
+            log.info("{} called for user {} ", method.getDeclaringClass().getName() + "." + method.getName(), UserContext.getUserName());
         }
     }
 
     @Override
     public void filter(ContainerRequestContext containerRequestContext, ContainerResponseContext containerResponseContext) throws IOException {
-        TenantContext.removeContext();
+        UserContext.removeContext();
         MDC.remove("tenantId");
     }
 
     private static void configureLogsAndTracing() {
-        MDC.put("tenantId", TenantContext.getTenantId());
-        Span.fromContext(Context.current()).setAttribute("tenant.id", TenantContext.getTenantId());
+        MDC.put("tenantId", UserContext.getTenantId());
+        Span.fromContext(Context.current()).setAttribute("tenant.id", UserContext.getTenantId());
     }
 }

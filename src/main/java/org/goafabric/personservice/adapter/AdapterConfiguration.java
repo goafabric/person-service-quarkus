@@ -3,7 +3,7 @@ package org.goafabric.personservice.adapter;
 import jakarta.ws.rs.core.MultivaluedMap;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.eclipse.microprofile.rest.client.ext.ClientHeadersFactory;
-import org.goafabric.personservice.extensions.TenantContext;
+import org.goafabric.personservice.extensions.UserContext;
 import org.jboss.resteasy.specimpl.MultivaluedMapImpl;
 
 public class AdapterConfiguration implements ClientHeadersFactory {
@@ -16,7 +16,7 @@ public class AdapterConfiguration implements ClientHeadersFactory {
     @Override
     public MultivaluedMap<String, String> update(MultivaluedMap<String, String> multivaluedMap, MultivaluedMap<String, String> multivaluedMap1) {
         final MultivaluedMap<String, String> result = new MultivaluedMapImpl<>();
-        TenantContext.getAdapterHeaderMap().forEach(result::add);
+        UserContext.getAdapterHeaderMap().forEach(result::add);
         return result;
     }
 }
