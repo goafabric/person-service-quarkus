@@ -19,7 +19,7 @@ dependencies {
 	constraints {
 		implementation("org.mapstruct:mapstruct:1.6.3")
 		annotationProcessor("org.mapstruct:mapstruct-processor:1.6.3")
-		testImplementation("org.assertj:assertj-core:3.27.3")
+		testImplementation("org.assertj:assertj-core:3.27.4")
 	}
 
 	implementation(enforcedPlatform("io.quarkus:quarkus-bom:3.25.1"))
@@ -52,7 +52,7 @@ dependencies {
 	//jakarta data
 	implementation("io.quarkus:quarkus-hibernate-orm")
 	implementation("jakarta.data:jakarta.data-api:1.0.1")
-	annotationProcessor("org.hibernate.orm:hibernate-jpamodelgen:7.0.9.Final")
+	annotationProcessor("org.hibernate.orm:hibernate-jpamodelgen:7.1.0.Final")
 
 	//adapter
 	implementation("io.quarkus:quarkus-resteasy-client-jackson")
