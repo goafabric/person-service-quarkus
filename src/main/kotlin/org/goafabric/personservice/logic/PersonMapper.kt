@@ -1,6 +1,5 @@
 //package org.goafabric.personservice.logic
 //
-//import jakarta.data.page.Page
 //import org.goafabric.personservice.controller.dto.Person
 //import org.goafabric.personservice.persistence.entity.PersonEo
 //import org.mapstruct.Mapper
@@ -12,5 +11,5 @@
 //
 //    fun map(value: Person): PersonEo
 //
-//    fun map(value: Page<PersonEo>): MutableList<Person>
+//    fun map(value: List<PersonEo>): List<Person>
 //}
