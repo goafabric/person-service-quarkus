@@ -9,10 +9,10 @@ import org.goafabric.personservice.extensions.UserContext.organizationId
 import org.goafabric.personservice.persistence.entity.PersonEo
 
 @ApplicationScoped
-class PersonRepositoryPanache : PanacheRepositoryBase<PersonEo?, String?> {
-    fun find(search: PersonSearch, page: Page?): MutableList<PersonEo?>? {
+class PersonRepositoryPanache : PanacheRepositoryBase<PersonEo, String> {
+    fun find(search: PersonSearch, page: Page): MutableList<PersonEo> {
         val query = StringBuilder()
-        val params = HashMap<String?, Any?>()
+        val params = HashMap<String, Any>()
 
         if (search.firstName != null) {
             query.append("firstName = :firstName")
@@ -27,11 +27,11 @@ class PersonRepositoryPanache : PanacheRepositoryBase<PersonEo?, String?> {
             params.put("lastName", search.lastName)
         }
 
-        return findWithOrganization(query.toString(), params)!!.page<PersonEo?>(page).list<PersonEo?>()
+        return findWithOrganization(query.toString(), params)!!.page<PersonEo>(page).list<PersonEo>()
     }
 
     //we assume here that findById and deleteByWork because the UUID should be unique across all organizations, doesnt work for counts though
-    private fun findWithOrganization(query: String, params: MutableMap<String?, Any?>): PanacheQuery<PersonEo?>? {
+    private fun findWithOrganization(query: String, params: MutableMap<String, Any>): PanacheQuery<PersonEo> {
         val findQuery = StringBuilder(query)
         if (!findQuery.isEmpty()) {
             findQuery.append(" and ")
@@ -42,12 +42,12 @@ class PersonRepositoryPanache : PanacheRepositoryBase<PersonEo?, String?> {
     }
 
 
-    fun findByStreet(street: String?, page: Page?): MutableList<PersonEo?>? {
+    fun findByStreet(street: String, page: Page): MutableList<PersonEo> {
         check(!true) { "NYI" }
-        return find("address.street", street).page<PersonEo?>(page).list<PersonEo?>()
+        return find("address.street", street).page<PersonEo>(page).list<PersonEo>()
     }
 
-    fun save(person: PersonEo?): PersonEo? {
+    fun save(person: PersonEo): PersonEo {
         persist(person)
         return person
     }

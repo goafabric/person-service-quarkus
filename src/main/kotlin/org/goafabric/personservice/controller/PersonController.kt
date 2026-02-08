@@ -5,6 +5,7 @@ import jakarta.validation.Valid
 import jakarta.ws.rs.*
 import jakarta.ws.rs.core.MediaType
 import org.goafabric.personservice.controller.dto.Person
+import org.goafabric.personservice.controller.dto.PersonSearch
 import org.goafabric.personservice.logic.PersonLogic2
 
 @Path("/persons")
@@ -17,7 +18,7 @@ class PersonController(private val personLogic: PersonLogic2) {
         return personLogic.getById(id)
     }
 
-    /*
+
     @GET
     @Path("")
     fun find(
@@ -27,8 +28,6 @@ class PersonController(private val personLogic: PersonLogic2) {
     ): MutableList<Person> {
         return personLogic.search(personSearch, page, size)
     }
-
-     */
 
     @POST
     @Path("")

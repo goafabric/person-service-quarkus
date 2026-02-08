@@ -12,7 +12,6 @@ class PersonEo (
     @GeneratedValue(strategy = GenerationType.UUID)
     var id: String?,
 
-    @TenantId
     var organizationId: String?,
 
     var firstName: String?,
