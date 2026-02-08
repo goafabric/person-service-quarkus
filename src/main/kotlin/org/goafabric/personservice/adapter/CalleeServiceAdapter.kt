@@ -17,13 +17,13 @@ import org.eclipse.microprofile.rest.client.inject.RegisterRestClient
 interface CalleeServiceAdapter {
     @GET
     @Path("sayMyName")
-    fun sayMyName(@QueryParam("name") name: String?): Callee?
+    fun sayMyName(@QueryParam("name") name: String): Callee
 
     @GET
     @Path("sayMyOtherName/{name}")
-    fun sayMyOtherName(@PathParam("name") name: String?): Callee?
+    fun sayMyOtherName(@PathParam("name") name: String): Callee
 
     @GET
     @Path("setSleepTime")
-    fun setSleepTime(@QueryParam("sleepTime") sleepTime: Long?): Callee?
+    fun setSleepTime(@QueryParam("sleepTime") sleepTime: Long): Callee
 }

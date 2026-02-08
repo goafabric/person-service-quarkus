@@ -9,20 +9,20 @@ import jakarta.data.repository.Repository
 import org.goafabric.personservice.persistence.entity.PersonEo
 
 @Repository
-interface PersonRepository : CrudRepository<PersonEo?, String?> {
+interface PersonRepository : CrudRepository<PersonEo, String> {
     @Find
     fun findByLastNameAndOrganizationId(
-        lastName: String?,
-        organizationId: String?,
-        pageable: PageRequest?
-    ): Page<PersonEo?>?
+        lastName: String,
+        organizationId: String,
+        pageable: PageRequest
+    ): Page<PersonEo>
 
     @Query("SELECT DISTINCT p FROM PersonEo p JOIN p.address a WHERE a.street = :street and p.organizationId = :organizationId")
     fun findByAddressStreetAndOrganizationId(
-        street: String?,
-        organizationId: String?,
-        pageable: PageRequest?
-    ): Page<PersonEo?>?
+        street: String,
+        organizationId: String,
+        pageable: PageRequest
+    ): Page<PersonEo>
 
     @Query(
         ("SELECT p FROM PersonEo p WHERE p.organizationId = :organizationId " +
@@ -32,7 +32,7 @@ interface PersonRepository : CrudRepository<PersonEo?, String?> {
     fun search(
         firstName: String?,
         lastName: String?,
-        organizationId: String?,
-        pageable: PageRequest?
-    ): Page<PersonEo?>?
+        organizationId: String,
+        pageable: PageRequest
+    ): Page<PersonEo>
 }

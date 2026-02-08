@@ -18,30 +18,27 @@ class PersonLogic(
     private val personRepository: PersonRepository,
     @param:RestClient private val calleeServiceAdapter: CalleeServiceAdapter
 ) {
-    fun getById(id: String?): Person? {
+    fun getById(id: String): Person {
         return personMapper.map(
             personRepository.findById(id).get()
         )
     }
 
-    fun save(person: Person?): Person? {
+    fun save(person: Person): Person {
         return personMapper.map(
-            personRepository.save<PersonEo?>(personMapper.map(person))
+            personRepository.save<PersonEo>(personMapper.map(person))
         )
     }
 
-    fun delete(id: String?) {
+    fun delete(id: String) {
         personRepository.deleteById(id)
     }
 
-    fun sayMyName(name: String?): Person {
-        return Person(
-            null, null,
-            calleeServiceAdapter.sayMyName(name)!!.message!!, "", null
-        )
+    fun sayMyName (name : String) : Person {
+        return Person(firstName = calleeServiceAdapter.sayMyName(name).message, lastName = "", address = emptyList())
     }
 
-    fun search(personSearch: PersonSearch, page: Int, size: Int): MutableList<Person?>? {
+    fun search(personSearch: PersonSearch, page: Int, size: Int): MutableList<Person> {
         return personMapper.map(
             personRepository.search(
                 personSearch.firstName,
@@ -52,7 +49,7 @@ class PersonLogic(
         )
     }
 
-    fun findByStreet(street: String?, page: Int, size: Int): MutableList<Person?>? {
+    fun findByStreet(street: String, page: Int, size: Int): MutableList<Person> {
         return personMapper.map(
             personRepository.findByAddressStreetAndOrganizationId(
                 street,

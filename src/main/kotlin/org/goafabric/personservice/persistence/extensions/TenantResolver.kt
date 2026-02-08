@@ -16,9 +16,9 @@ import java.util.function.Consumer
 
 @PersistenceUnitExtension
 @RequestScoped
-class TenantResolver : TenantResolver {
+class TenantResolver: TenantResolver {
     @Inject
-    var flywayConfig: FlywayConfig? = null
+    internal var flywayConfig: FlywayConfig? = null
 
     @ConfigProperty(name = "multi-tenancy.schema-prefix")
     var schemaPrefix: String? = null
@@ -32,14 +32,14 @@ class TenantResolver : TenantResolver {
     }
 
     @ApplicationScoped
-    internal class FlywayConfig {
+    internal class FlywayConfig() {
         init {
-            if (ConfigProvider.getConfig().getValue<Boolean?>("multi-tenancy.migration.enabled", Boolean::class.java)) {
-                val flyway = CDI.current().select<Flyway>(Flyway::class.java).get()
+            if (ConfigProvider.getConfig().getValue("multi-tenancy.migration.enabled", Boolean::class.java)) {
+                val flyway = CDI.current().select(Flyway::class.java).get()
                 val schemas = ConfigProvider.getConfig().getValue<String>("multi-tenancy.tenants", String::class.java)
                 val schemaPrefix =
                     ConfigProvider.getConfig().getValue<String?>("multi-tenancy.schema-prefix", String::class.java)
-                Arrays.asList<String>(*schemas.split(",".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray())
+                Arrays.asList(*schemas.split(",".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray())
                     .forEach(
                         Consumer { schema: String? ->
                             Flyway.configure()

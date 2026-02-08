@@ -67,7 +67,7 @@ dependencies {
 
 	//code generation
 	implementation("org.mapstruct:mapstruct")
-	annotationProcessor("org.mapstruct:mapstruct-processor")
+	kapt("org.mapstruct:mapstruct-processor:1.6.3")
 
 	//kotlin
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
