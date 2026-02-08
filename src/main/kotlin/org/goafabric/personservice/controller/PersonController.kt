@@ -5,19 +5,19 @@ import jakarta.validation.Valid
 import jakarta.ws.rs.*
 import jakarta.ws.rs.core.MediaType
 import org.goafabric.personservice.controller.dto.Person
-import org.goafabric.personservice.controller.dto.PersonSearch
-import org.goafabric.personservice.logic.PersonLogic
+import org.goafabric.personservice.logic.PersonLogic2
 
 @Path("/persons")
 @Produces(MediaType.APPLICATION_JSON)
 @RolesAllowed("standard_role")
-class PersonController(private val personLogic: PersonLogic) {
+class PersonController(private val personLogic: PersonLogic2) {
     @GET
     @Path("/{id}")
     fun getById(@PathParam("id") id: String): Person {
         return personLogic.getById(id)
     }
 
+    /*
     @GET
     @Path("")
     fun find(
@@ -27,6 +27,8 @@ class PersonController(private val personLogic: PersonLogic) {
     ): MutableList<Person> {
         return personLogic.search(personSearch, page, size)
     }
+
+     */
 
     @POST
     @Path("")

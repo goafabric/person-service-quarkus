@@ -1,3 +1,4 @@
+/*
 package org.goafabric.personservice.persistence.extensions
 
 import io.quarkus.hibernate.orm.PersistenceUnitExtension
@@ -54,4 +55,4 @@ class TenantResolver: io.quarkus.hibernate.orm.runtime.tenant.TenantResolver {
             }
         }
     }
-}
+}*/
