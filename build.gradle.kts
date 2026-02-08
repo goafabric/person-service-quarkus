@@ -1,6 +1,10 @@
-val group: String by project
-val version: String by project
-java.sourceCompatibility = JavaVersion.VERSION_21
+import org.gradle.kotlin.dsl.withType
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
+val javaVersion = "25"
+java.sourceCompatibility = JavaVersion.toVersion(javaVersion)
+tasks.withType<KotlinCompile>().all { compilerOptions { jvmTarget.set(JvmTarget.fromTarget(javaVersion)) } }
 
 val dockerRegistry = "goafabric"
 
@@ -96,7 +100,7 @@ tasks.register<Exec>("dockerImageNative") { group = "build" ; dependsOn("quarkus
 			System.setProperty("quarkus.jib.platforms", "linux/arm64/v8")
 		}
 
-		System.setProperty("quarkus.native.builder-image", "quay.io/quarkus/ubi-quarkus-mandrel-builder-image:jdk-21")
+		System.setProperty("quarkus.native.builder-image", "quay.io/quarkus/ubi-quarkus-mandrel-builder-image:jdk-25")
 		System.setProperty("quarkus.package.jar.enabled", "false")
 
 		System.setProperty("quarkus.native.enabled", "true")
