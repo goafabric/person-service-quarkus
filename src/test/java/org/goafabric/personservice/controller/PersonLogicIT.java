@@ -38,10 +38,10 @@ public class PersonLogicIT {
         assertThat(persons).isNotNull().hasSize(3);
 
         final Person person
-                = personLogic.getById(persons.getFirst().id());
+                = personLogic.getById(persons.getFirst().id);
         assertThat(person).isNotNull();
-        assertThat(person.firstName()).isEqualTo(persons.getFirst().firstName());
-        assertThat(person.lastName()).isEqualTo(persons.getFirst().lastName());
+        assertThat(person.firstName).isEqualTo(persons.getFirst().firstName);
+        assertThat(person.lastName).isEqualTo(persons.getFirst().lastName);
     }
 
     @Test
@@ -53,15 +53,15 @@ public class PersonLogicIT {
     public void findByFirstName() {
         List<Person> persons =  personLogic.search(new PersonSearch("Monty", null), 1, 3);
         assertThat(persons).isNotNull().hasSize(1);
-        assertThat(persons.getFirst().firstName()).isEqualTo("Monty");
-        assertThat(persons.getFirst().lastName()).isEqualTo("Burns");
+        assertThat(persons.getFirst().firstName).isEqualTo("Monty");
+        assertThat(persons.getFirst().lastName).isEqualTo("Burns");
     }
 
     @Test
     public void findByLastName() {
         List<Person> persons =  personLogic.search(new PersonSearch(null, "Simpson"), 1, 3);
         assertThat(persons).isNotNull().hasSize(2);
-        assertThat(persons.getFirst().lastName()).isEqualTo("Simpson");
+        assertThat(persons.getFirst().lastName).isEqualTo("Simpson");
     }
 
     @Test
@@ -74,7 +74,7 @@ public class PersonLogicIT {
                 ));
 
         assertThat(person).isNotNull();
-        personLogic.delete(person.id());
+        personLogic.delete(person.id);
     }
 
     private Address createAddress(String street) {

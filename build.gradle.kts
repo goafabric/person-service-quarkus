@@ -9,6 +9,10 @@ plugins {
 	jacoco
 	id("io.quarkus") version "3.31.2"
 	id("net.researchgate.release") version "3.1.0"
+
+	kotlin("jvm") version "2.3.0"
+	kotlin("plugin.jpa") version "2.3.0"
+	kotlin("kapt") version "2.3.0"
 }
 
 repositories {
@@ -65,12 +69,18 @@ dependencies {
 	implementation("org.mapstruct:mapstruct")
 	annotationProcessor("org.mapstruct:mapstruct-processor")
 
+	//kotlin
+	implementation("org.jetbrains.kotlin:kotlin-reflect")
+	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+
 	//test
 	testImplementation("io.quarkus:quarkus-junit5")
 	testImplementation("io.rest-assured:rest-assured")
 	testImplementation("io.quarkus:quarkus-resteasy-client-jackson")
 	testImplementation("io.quarkus:quarkus-jacoco")
 	testImplementation("org.assertj:assertj-core")
+	//testImplementation("com.tngtech.archunit:archunit-junit5")
 }
 
 tasks.withType<Test> {
