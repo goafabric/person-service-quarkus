@@ -2,13 +2,12 @@ package org.goafabric.personservice.persistence.entity;
 
 import jakarta.persistence.*;
 import org.goafabric.personservice.extensions.UserContext;
-import org.goafabric.personservice.persistence.extensions.AuditTrailListener;
 
 import java.util.List;
 
 @Entity
 @Table(name = "person")
-@EntityListeners(AuditTrailListener.class)
+//@EntityListeners(AuditTrailListener.class)
 public class PersonEo {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
