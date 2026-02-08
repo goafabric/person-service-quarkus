@@ -41,8 +41,8 @@ class PersonLogic2(
     }
 
     fun save(person: Person): Person {
-        //return personRepository.save(map(person))
-        return Person(firstName = "homer", lastName = "simpson", address = emptyList())
+        return map(personRepository.save(map(person)))
+        //return Person(firstName = "homer", lastName = "simpson", address = emptyList())
     }
 
     fun delete(id: String) {
