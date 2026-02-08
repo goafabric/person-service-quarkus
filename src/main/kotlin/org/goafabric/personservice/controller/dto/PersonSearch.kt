@@ -1,3 +1,6 @@
 package org.goafabric.personservice.controller.dto
 
-data class PersonSearch(val firstName: String? = null, val lastName: String? = null)
+import jakarta.ws.rs.QueryParam
+
+class PersonSearch(@param:QueryParam("firstName") var firstName: String? = null,
+                   @param:QueryParam("lastName") var lastName: String? = null)

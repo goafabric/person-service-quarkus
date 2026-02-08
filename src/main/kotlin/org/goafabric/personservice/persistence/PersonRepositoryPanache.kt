@@ -16,7 +16,7 @@ class PersonRepositoryPanache : PanacheRepositoryBase<PersonEo, String> {
 
         if (search.firstName != null) {
             query.append("firstName = :firstName")
-            params.put("firstName", search.firstName)
+            params.put("firstName", search.firstName!!)
         }
 
         if (search.lastName != null) {
@@ -24,7 +24,7 @@ class PersonRepositoryPanache : PanacheRepositoryBase<PersonEo, String> {
                 query.append(" and ")
             }
             query.append("lastName = :lastName")
-            params.put("lastName", search.lastName)
+            params.put("lastName", search.lastName!!)
         }
 
         return findWithOrganization(query.toString(), params)!!.page<PersonEo>(page).list<PersonEo>()

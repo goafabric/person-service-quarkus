@@ -4,7 +4,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 val javaVersion = "25"
 java.sourceCompatibility = JavaVersion.toVersion(javaVersion)
-tasks.withType<KotlinCompile>().all { compilerOptions { jvmTarget.set(JvmTarget.fromTarget(javaVersion)) } }
+tasks.withType<KotlinCompile>().all { compilerOptions { jvmTarget.set(JvmTarget.fromTarget(javaVersion)); javaParameters = true } }
 
 val dockerRegistry = "goafabric"
 
