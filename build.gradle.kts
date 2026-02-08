@@ -57,11 +57,6 @@ dependencies {
 	runtimeOnly("com.h2database:h2")
 
 	implementation("io.quarkus:quarkus-hibernate-orm-panache")
-	
-	//jakarta data
-	implementation("io.quarkus:quarkus-hibernate-orm")
-	implementation("jakarta.data:jakarta.data-api:1.0.1")
-	annotationProcessor("org.hibernate.orm:hibernate-jpamodelgen:7.2.3.Final")
 
 	//adapter
 	implementation("io.quarkus:quarkus-resteasy-client-jackson")

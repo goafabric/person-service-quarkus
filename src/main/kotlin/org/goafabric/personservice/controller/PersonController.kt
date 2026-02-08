@@ -6,12 +6,12 @@ import jakarta.ws.rs.*
 import jakarta.ws.rs.core.MediaType
 import org.goafabric.personservice.controller.dto.Person
 import org.goafabric.personservice.controller.dto.PersonSearch
-import org.goafabric.personservice.logic.PersonLogic2
+import org.goafabric.personservice.logic.PersonLogic
 
 @Path("/persons")
 @Produces(MediaType.APPLICATION_JSON)
 @RolesAllowed("standard_role")
-class PersonController(private val personLogic: PersonLogic2) {
+class PersonController(private val personLogic: PersonLogic) {
     @GET
     @Path("/{id}")
     fun getById(@PathParam("id") id: String): Person {
