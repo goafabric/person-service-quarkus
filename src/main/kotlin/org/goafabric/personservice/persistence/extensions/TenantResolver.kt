@@ -16,7 +16,7 @@ import java.util.function.Consumer
 
 @PersistenceUnitExtension
 @RequestScoped
-class TenantResolver: TenantResolver {
+class TenantResolver: io.quarkus.hibernate.orm.runtime.tenant.TenantResolver {
     @Inject
     internal var flywayConfig: FlywayConfig? = null
 
