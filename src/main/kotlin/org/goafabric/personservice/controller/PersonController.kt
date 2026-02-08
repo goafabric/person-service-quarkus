@@ -25,7 +25,7 @@ class PersonController(private val personLogic: PersonLogic2) {
         @BeanParam personSearch: PersonSearch,
         @QueryParam("page") page: Int,
         @QueryParam("size") size: Int
-    ): MutableList<Person> {
+    ): List<Person> {
         return personLogic.search(personSearch, page, size)
     }
 
