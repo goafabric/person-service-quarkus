@@ -17,6 +17,7 @@ plugins {
 	kotlin("jvm") version "2.3.0"
 	kotlin("plugin.jpa") version "2.3.0"
 	kotlin("kapt") version "2.3.0"
+	kotlin("plugin.allopen") version "2.3.0"
 }
 
 repositories {
@@ -118,4 +119,12 @@ tasks.register<Exec>("dockerImageNative") { group = "build" ; dependsOn("quarkus
 configure<net.researchgate.release.ReleaseExtension> {
 	buildTasks.set(listOf("build", "test", "dockerImageNative"))
 	tagTemplate.set("v${version}".replace("-SNAPSHOT", ""))
+}
+
+
+allOpen {
+	annotation("jakarta.ws.rs.Path")
+	annotation("jakarta.enterprise.context.ApplicationScoped")
+	annotation("jakarta.persistence.Entity")
+	annotation("io.quarkus.test.junit.QuarkusTest")
 }
