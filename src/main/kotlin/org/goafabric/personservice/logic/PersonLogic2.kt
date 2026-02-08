@@ -5,11 +5,13 @@ import jakarta.transaction.Transactional
 import org.eclipse.microprofile.rest.client.inject.RestClient
 import org.goafabric.personservice.adapter.CalleeServiceAdapter
 import org.goafabric.personservice.controller.dto.Person
+import org.goafabric.personservice.persistence.PersonRepositoryPanache
 import org.goafabric.personservice.persistence.entity.PersonEo
 
 @Transactional
 @ApplicationScoped
 class PersonLogic2(
+    private val personRepository: PersonRepositoryPanache,
     @param:RestClient private val calleeServiceAdapter: CalleeServiceAdapter) {
     fun getById(id: String): Person {
         return Person(firstName = "homer", lastName = "simpson", address = emptyList())
