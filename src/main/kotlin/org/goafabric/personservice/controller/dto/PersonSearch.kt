@@ -9,10 +9,10 @@ class PersonSearch {
     @QueryParam("lastName")
     var lastName: String? = null
 
-    constructor(lastName: String?, firstName: String?) {
-        this.lastName = lastName
-        this.firstName = firstName
-    }
 
     constructor()
+    constructor(firstName: String?, lastName: String?) {
+        this.firstName = firstName
+        this.lastName = lastName
+    }
 }

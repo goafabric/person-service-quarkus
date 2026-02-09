@@ -1,5 +1,2 @@
-- TenantResolver
-- BeanParamater
-- Mapper
 - AuditListener
 - Kafka

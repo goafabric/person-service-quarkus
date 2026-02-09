@@ -1,6 +1,7 @@
 package org.goafabric.personservice.persistence.entity
 
 import jakarta.persistence.*
+import org.goafabric.personservice.extensions.UserContext
 import org.hibernate.annotations.TenantId
 
 
@@ -12,7 +13,7 @@ class PersonEo (
     @GeneratedValue(strategy = GenerationType.UUID)
     var id: String?,
 
-    var organizationId: String?,
+    var organizationId: String?= UserContext.organizationId,
 
     var firstName: String?,
     var lastName: String?,

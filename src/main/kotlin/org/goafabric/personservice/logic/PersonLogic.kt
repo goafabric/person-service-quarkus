@@ -29,7 +29,8 @@ class PersonLogic(
 
     fun save(person: Person): Person {
         return personMapper.map(
-            personMapper.map(person))
+            personRepository.save(
+                personMapper.map(person)))
     }
 
     fun delete(id: String) {

@@ -7,18 +7,18 @@ import org.assertj.core.api.Assertions
 import org.goafabric.personservice.controller.dto.Address
 import org.goafabric.personservice.controller.dto.Person
 import org.goafabric.personservice.controller.dto.PersonSearch
-import org.goafabric.personservice.extensions.UserContext
 import org.goafabric.personservice.logic.PersonLogic
-import org.goafabric.personservice.persistence.PersonRepository
-import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
 
 @QuarkusTest
-class PersonLogicIT(@Inject val personLogic: PersonLogic) {
+class PersonLogicIT {
+
+    @Inject
+    lateinit var personLogic: PersonLogic
 
     @Test
     fun findById() {
-        val persons: List<Person> = personLogic.search(PersonSearch(null, null), 1, 3)
+        val persons: List<Person> = personLogic.search(PersonSearch(null, null), 0, 3)
         Assertions.assertThat<Person>(persons).isNotNull().hasSize(3)
 
         val person = personLogic.getById(persons.first().id!!)
@@ -29,12 +29,12 @@ class PersonLogicIT(@Inject val personLogic: PersonLogic) {
 
     @Test
     fun findAll() {
-        Assertions.assertThat<Person>(personLogic.search(PersonSearch(null, null), 1, 3)).isNotNull().hasSize(3)
+        Assertions.assertThat<Person>(personLogic.search(PersonSearch(null, null), 0, 3)).isNotNull().hasSize(3)
     }
 
     @Test
     fun findByFirstName() {
-        val persons: List<Person> = personLogic.search(PersonSearch("Monty", null), 1, 3)
+        val persons: List<Person> = personLogic.search(PersonSearch("Monty", null), 0, 3)
         Assertions.assertThat<Person>(persons).isNotNull().hasSize(1)
         Assertions.assertThat(persons.first().firstName).isEqualTo("Monty")
         Assertions.assertThat(persons.first().lastName).isEqualTo("Burns")
@@ -42,7 +42,7 @@ class PersonLogicIT(@Inject val personLogic: PersonLogic) {
 
     @Test
     fun findByLastName() {
-        val persons: List<Person> = personLogic.search(PersonSearch(null, "Simpson"), 1, 3)
+        val persons: List<Person> = personLogic.search(PersonSearch(null, "Simpson"), 0, 3)
         Assertions.assertThat<Person>(persons).isNotNull().hasSize(2)
         Assertions.assertThat(persons.first().lastName).isEqualTo("Simpson")
     }
