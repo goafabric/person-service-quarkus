@@ -11,6 +11,7 @@ import org.goafabric.personservice.persistence.entity.PersonEo
 @ApplicationScoped
 class PersonRepository : PanacheRepositoryBase<PersonEo, String> {
     fun find(search: PersonSearch, page: Page): List<PersonEo> {
+        
         val query = StringBuilder()
         val params = HashMap<String, Any>()
 
@@ -29,6 +30,25 @@ class PersonRepository : PanacheRepositoryBase<PersonEo, String> {
 
         return findWithOrganization(query.toString(), params).page<PersonEo>(page).list<PersonEo>()
     }
+
+    /*
+    fun find(search: PersonSearch, page: Page): MutableList<PersonEo> {
+        val conditions = mutableListOf<String>()
+        val params = mutableMapOf<String, Any>()
+
+        search.firstName?.let {
+            conditions += "firstName = :firstName"; params["firstName"] = it
+        }
+
+        search.lastName?.let {
+            conditions += "lastName = :lastName"; params["lastName"] = it
+        }
+
+        return findWithOrganization(conditions.joinToString(" and "), params)
+            .page<PersonEo>(page).list()
+    }
+
+     */
 
     //we assume here that findById and deleteByWork because the UUID should be unique across all organizations, doesnt work for counts though
     private fun findWithOrganization(query: String, params: MutableMap<String, Any>): PanacheQuery<PersonEo> {
