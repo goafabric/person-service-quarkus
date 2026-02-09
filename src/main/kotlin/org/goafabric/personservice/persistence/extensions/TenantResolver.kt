@@ -39,7 +39,7 @@ class TenantResolver: io.quarkus.hibernate.orm.runtime.tenant.TenantResolver {
                 val schemas = ConfigProvider.getConfig().getValue<String>("multi-tenancy.tenants", String::class.java)
                 val schemaPrefix =
                     ConfigProvider.getConfig().getValue<String?>("multi-tenancy.schema-prefix", String::class.java)
-                Arrays.asList(*schemas.split(",".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray())
+                listOf(*schemas.split(",".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray())
                     .forEach(
                         Consumer { schema: String? ->
                             Flyway.configure()
