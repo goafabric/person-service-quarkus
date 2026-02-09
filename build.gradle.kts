@@ -9,7 +9,6 @@ tasks.withType<KotlinCompile>().all { compilerOptions { jvmTarget.set(JvmTarget.
 val dockerRegistry = "goafabric"
 
 plugins {
-	java
 	jacoco
 	id("io.quarkus") version "3.31.2"
 	id("net.researchgate.release") version "3.1.0"
@@ -106,7 +105,7 @@ tasks.register<Exec>("dockerImageNative") { group = "build" ; dependsOn("quarkus
 		System.setProperty("quarkus.container-image.build", "true")
 
 		System.setProperty("quarkus.native.native-image-xmx", "4096m")
-		System.setProperty("quarkus.jib.base-native-image", "registry.access.redhat.com/ubi8/ubi-minimal:8.10")
+		//System.setProperty("quarkus.jib.base-native-image", "registry.access.redhat.com/ubi8/ubi-minimal:8.10")
 		System.setProperty("quarkus.container-image.image", "${dockerRegistry}/${project.name}:${project.version}")
 
 		commandLine("/bin/sh", "-c", "docker push ${dockerRegistry}/${project.name}:${project.version}")
