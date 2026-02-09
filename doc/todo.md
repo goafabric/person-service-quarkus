@@ -1,3 +1,3 @@
-- Repository
+- Repository: https://quarkus.io/guides/hibernate-panache-next#our-first-repository
 - Kafka
 - Organization
