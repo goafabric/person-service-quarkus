@@ -16,7 +16,7 @@ class PersonRepository : PanacheRepositoryBase<PersonEo, String> {
 
         if (search.firstName != null) {
             query.append("firstName = :firstName")
-            params.put("firstName", search.firstName!!)
+            params["firstName"] = search.firstName!!
         }
 
         if (search.lastName != null) {

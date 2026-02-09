@@ -2,6 +2,7 @@ native mode
 - lower memory usage in native mode vs spring (20mb vs 100mb)
 - much better native image support
 - tests are run in native mode by default (so native build is tested)
+- much lower memory during build time (4G vs 7G) and faster builds
 
 unified structure
 - unified library experience that are verified optimized and verified native 
