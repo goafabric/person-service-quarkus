@@ -8,13 +8,13 @@ import org.goafabric.personservice.adapter.CalleeServiceAdapter
 import org.goafabric.personservice.controller.dto.Person
 import org.goafabric.personservice.controller.dto.PersonSearch
 import org.goafabric.personservice.extensions.UserContext
-import org.goafabric.personservice.persistence.PersonRepositoryPanache
+import org.goafabric.personservice.persistence.PersonRepository
 import org.goafabric.personservice.persistence.entity.PersonEo
 
 @Transactional
 @ApplicationScoped
 class PersonLogic(
-    private val personRepository: PersonRepositoryPanache,
+    private val personRepository: PersonRepository,
     @param:RestClient private val calleeServiceAdapter: CalleeServiceAdapter) {
     fun getById(id: String): Person {
         return map(personRepository.findById(id))

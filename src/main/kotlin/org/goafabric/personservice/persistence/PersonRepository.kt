@@ -9,7 +9,7 @@ import org.goafabric.personservice.extensions.UserContext.organizationId
 import org.goafabric.personservice.persistence.entity.PersonEo
 
 @ApplicationScoped
-class PersonRepositoryPanache : PanacheRepositoryBase<PersonEo, String> {
+class PersonRepository : PanacheRepositoryBase<PersonEo, String> {
     fun find(search: PersonSearch, page: Page): MutableList<PersonEo> {
         val query = StringBuilder()
         val params = HashMap<String, Any>()
