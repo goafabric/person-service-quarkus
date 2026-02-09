@@ -1,6 +1,5 @@
 package org.goafabric.personservice.controller
 
-import jakarta.annotation.security.RolesAllowed
 import jakarta.validation.Valid
 import jakarta.ws.rs.*
 import jakarta.ws.rs.core.MediaType

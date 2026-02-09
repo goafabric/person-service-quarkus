@@ -28,6 +28,7 @@ val konvertVersion = "4.4.0"
 dependencies {
 	constraints {
 		testImplementation("org.assertj:assertj-core:3.27.7")
+		testImplementation("com.tngtech.archunit:archunit-junit5:1.4.1")
 	}
 
 	implementation(enforcedPlatform("io.quarkus:quarkus-bom:3.31.2"))
@@ -81,7 +82,7 @@ dependencies {
 	testImplementation("io.quarkus:quarkus-resteasy-client-jackson")
 	testImplementation("io.quarkus:quarkus-jacoco")
 	testImplementation("org.assertj:assertj-core")
-	//testImplementation("com.tngtech.archunit:archunit-junit5")
+	testImplementation("com.tngtech.archunit:archunit-junit5")
 }
 
 tasks.withType<Test> {
