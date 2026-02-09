@@ -24,10 +24,10 @@ class PersonRepository : PanacheRepositoryBase<PersonEo, String> {
                 query.append(" and ")
             }
             query.append("lastName = :lastName")
-            params.put("lastName", search.lastName!!)
+            params["lastName"] = search.lastName!!
         }
 
-        return findWithOrganization(query.toString(), params)!!.page<PersonEo>(page).list<PersonEo>()
+        return findWithOrganization(query.toString(), params).page<PersonEo>(page).list<PersonEo>()
     }
 
     //we assume here that findById and deleteByWork because the UUID should be unique across all organizations, doesnt work for counts though
@@ -37,7 +37,7 @@ class PersonRepository : PanacheRepositoryBase<PersonEo, String> {
             findQuery.append(" and ")
         }
         findQuery.append("organizationId = :organizationId")
-        params.put("organizationId", organizationId)
+        params["organizationId"] = organizationId
         return find(findQuery.toString(), params)
     }
 
