@@ -42,7 +42,7 @@ class TenantResolver: io.quarkus.hibernate.orm.runtime.tenant.TenantResolver {
                     .forEach(
                         Consumer { schema: String? ->
                             Flyway.configure()
-                                .configuration(flyway.getConfiguration())
+                                .configuration(flyway.configuration)
                                 .schemas(schemaPrefix + schema)
                                 .defaultSchema(schemaPrefix + schema)
                                 .placeholders(Map.of<String?, String?>("tenantId", schema))
