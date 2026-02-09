@@ -16,18 +16,18 @@ plugins {
 
 	kotlin("jvm") version "2.3.0"
 	kotlin("plugin.jpa") version "2.3.0"
-	kotlin("kapt") version "2.3.0"
 	kotlin("plugin.allopen") version "2.3.0"
+	
+	id("com.google.devtools.ksp").version("2.3.0")
 }
 
 repositories {
 	mavenCentral()
 }
 
+val konvertVersion = "4.4.0"
 dependencies {
 	constraints {
-		implementation("org.mapstruct:mapstruct:1.6.3")
-		annotationProcessor("org.mapstruct:mapstruct-processor:1.6.3")
 		testImplementation("org.assertj:assertj-core:3.27.7")
 	}
 
@@ -66,8 +66,10 @@ dependencies {
 	implementation("io.quarkus:quarkus-container-image-jib")
 
 	//code generation
-	implementation("org.mapstruct:mapstruct")
-	kapt("org.mapstruct:mapstruct-processor:1.6.3")
+	implementation("io.mcarle:konvert-api:$konvertVersion")
+	ksp("io.mcarle:konvert:$konvertVersion")
+	implementation("io.mcarle:konvert-cdi-annotations:$konvertVersion")
+	ksp("io.mcarle:konvert-cdi-injector:$konvertVersion")
 
 	//kotlin
 	implementation("org.jetbrains.kotlin:kotlin-reflect")

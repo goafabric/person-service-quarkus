@@ -14,34 +14,22 @@ import org.goafabric.personservice.persistence.entity.PersonEo
 @Transactional
 @ApplicationScoped
 class PersonLogic(
+    private val personMapper: PersonMapper,
     private val personRepository: PersonRepository,
     @param:RestClient private val calleeServiceAdapter: CalleeServiceAdapter) {
+
     fun getById(id: String): Person {
-        return map(personRepository.findById(id))
-        //return Person(firstName = "homer", lastName = "simpson", address = emptyList())
+        return personMapper.map(personRepository.findById(id))
     }
 
     fun search(personSearch: PersonSearch, page: Int, size: Int): List<Person> {
         val persons = personRepository.find(personSearch, Page.of(page, size))
-
-        return persons.map { person -> map(person) }
-
-        /*
-        return personMapper.map(
-            personRepository.search(
-                personSearch.firstName,
-                personSearch.lastName,
-                organizationId,
-                PageRequest.ofPage(page.toLong(), size, true)
-            )
-        )
-
-         */
+        return personMapper.map(persons)
     }
 
     fun save(person: Person): Person {
-        return map(personRepository.save(map(person)))
-        //return Person(firstName = "homer", lastName = "simpson", address = emptyList())
+        return personMapper.map(
+            personMapper.map(person))
     }
 
     fun delete(id: String) {
@@ -52,15 +40,5 @@ class PersonLogic(
         return Person(firstName = calleeServiceAdapter.sayMyName(name).message, lastName = "", address = emptyList())
     }
 
-    fun map(person: PersonEo): Person {
-        return Person(id = person.id, version = person.version,
-            firstName = person.firstName!!, lastName = person.lastName!!, address = emptyList())
-    }
-
-    fun map(person: Person): PersonEo {
-        return PersonEo(id = person.id, version = person.version,
-            organizationId = UserContext.organizationId,
-            firstName = person.firstName, lastName = person.lastName, address = emptyList())
-    }
 
 }
