@@ -1,4 +1,5 @@
 - TenantResolver
+- BeanParamater
+- Mapper
 - AuditListener
-- Rest Endpoints
 - Kafka
