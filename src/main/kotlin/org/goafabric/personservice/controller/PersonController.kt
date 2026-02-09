@@ -10,7 +10,6 @@ import org.goafabric.personservice.logic.PersonLogic
 
 @Path("/persons")
 @Produces(MediaType.APPLICATION_JSON)
-@RolesAllowed("standard_role")
 class PersonController(private val personLogic: PersonLogic) {
     @GET
     @Path("/{id}")
