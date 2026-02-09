@@ -10,7 +10,7 @@ import org.goafabric.personservice.persistence.entity.PersonEo
 
 @ApplicationScoped
 class PersonRepository : PanacheRepositoryBase<PersonEo, String> {
-    fun find(search: PersonSearch, page: Page): MutableList<PersonEo> {
+    fun find(search: PersonSearch, page: Page): List<PersonEo> {
         val query = StringBuilder()
         val params = HashMap<String, Any>()
 
