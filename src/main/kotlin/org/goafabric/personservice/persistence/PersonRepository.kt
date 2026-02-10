@@ -7,60 +7,26 @@ import jakarta.enterprise.context.ApplicationScoped
 import org.goafabric.personservice.controller.dto.PersonSearch
 import org.goafabric.personservice.extensions.UserContext.organizationId
 import org.goafabric.personservice.persistence.entity.PersonEo
+import kotlin.collections.mutableListOf
 
 @ApplicationScoped
 class PersonRepository : PanacheRepositoryBase<PersonEo, String> {
-    fun find(search: PersonSearch, page: Page): List<PersonEo> {
-        
-        val query = StringBuilder()
-        val params = HashMap<String, Any>()
-
-        if (search.firstName != null) {
-            query.append("firstName = :firstName")
-            params["firstName"] = search.firstName!!
-        }
-
-        if (search.lastName != null) {
-            if (!query.isEmpty()) {
-                query.append(" and ")
-            }
-            query.append("lastName = :lastName")
-            params["lastName"] = search.lastName!!
-        }
-
-        return findWithOrganization(query.toString(), params).page<PersonEo>(page).list<PersonEo>()
-    }
-
-    /*
     fun find(search: PersonSearch, page: Page): MutableList<PersonEo> {
         val conditions = mutableListOf<String>()
         val params = mutableMapOf<String, Any>()
 
-        search.firstName?.let {
-            conditions += "firstName = :firstName"; params["firstName"] = it
-        }
+        search.firstName?.let { conditions += "firstName = :firstName"; params["firstName"] = it }
+        search.lastName?.let { conditions += "lastName = :lastName"; params["lastName"] = it }
 
-        search.lastName?.let {
-            conditions += "lastName = :lastName"; params["lastName"] = it
-        }
-
-        return findWithOrganization(conditions.joinToString(" and "), params)
-            .page<PersonEo>(page).list()
+        return findWithOrganization(conditions, params).page<PersonEo>(page).list()
     }
-
-     */
 
     //we assume here that findById and deleteByWork because the UUID should be unique across all organizations, doesnt work for counts though
-    private fun findWithOrganization(query: String, params: MutableMap<String, Any>): PanacheQuery<PersonEo> {
-        val findQuery = StringBuilder(query)
-        if (!findQuery.isEmpty()) {
-            findQuery.append(" and ")
-        }
-        findQuery.append("organizationId = :organizationId")
+    private fun findWithOrganization(conditions: MutableList<String>, params: MutableMap<String, Any>): PanacheQuery<PersonEo> {
+        conditions += "organizationId = :organizationId"
         params["organizationId"] = organizationId
-        return find(findQuery.toString(), params)
+        return find(conditions.joinToString(" and "), params)
     }
-
 
     fun findByStreet(street: String, page: Page): MutableList<PersonEo> {
         check(!true) { "NYI" }
