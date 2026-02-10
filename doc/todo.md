@@ -1,4 +1,3 @@
 - Repository: https://quarkus.io/guides/hibernate-panache-next#our-first-repository
-- DemoDataImport
 - Kafka
 - Organization
