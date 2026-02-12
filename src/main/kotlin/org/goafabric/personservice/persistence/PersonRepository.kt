@@ -1,13 +1,12 @@
 package org.goafabric.personservice.persistence
 
-import io.quarkus.hibernate.orm.panache.PanacheQuery
 import io.quarkus.hibernate.orm.panache.PanacheRepositoryBase
 import io.quarkus.panache.common.Page
 import jakarta.enterprise.context.ApplicationScoped
 import org.goafabric.personservice.controller.dto.PersonSearch
+import org.goafabric.personservice.extensions.UserContext
 import org.goafabric.personservice.extensions.UserContext.organizationId
 import org.goafabric.personservice.persistence.entity.PersonEo
-import kotlin.collections.mutableListOf
 
 @ApplicationScoped
 class PersonRepository : PanacheRepositoryBase<PersonEo, String> {
@@ -34,7 +33,7 @@ class PersonRepository : PanacheRepositoryBase<PersonEo, String> {
     }
 
     fun save(person: PersonEo): PersonEo {
-        persist(person)
+        persist(person.apply { organizationId = UserContext.organizationId })
         return person
     }
 }

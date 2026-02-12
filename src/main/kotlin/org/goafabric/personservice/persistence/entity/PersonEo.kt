@@ -1,7 +1,6 @@
 package org.goafabric.personservice.persistence.entity
 
 import jakarta.persistence.*
-import org.goafabric.personservice.extensions.UserContext
 import org.goafabric.personservice.persistence.extensions.AuditTrailListener
 
 @Entity
@@ -12,7 +11,7 @@ class PersonEo (
     @GeneratedValue(strategy = GenerationType.UUID)
     var id: String?,
 
-    var organizationId: String?= UserContext.organizationId,
+    var organizationId: String?,
 
     var firstName: String?,
     var lastName: String?,
