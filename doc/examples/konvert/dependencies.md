@@ -3,7 +3,7 @@ id("com.google.devtools.ksp").version("2.3.0")
 	
 	
 val konvertVersion = "4.4.0"
-//code generation
+//dependencies
 implementation("io.mcarle:konvert-api:$konvertVersion")
 ksp("io.mcarle:konvert:$konvertVersion")
 implementation("io.mcarle:konvert-cdi-annotations:$konvertVersion")

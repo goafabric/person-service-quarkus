@@ -16,8 +16,7 @@ plugins {
 	kotlin("jvm") version "2.3.0"
 	kotlin("plugin.jpa") version "2.3.0"
 	kotlin("plugin.allopen") version "2.3.0"
-	
-	id("com.google.devtools.ksp").version("2.3.0")
+	kotlin("kapt") version "2.3.0"
 }
 
 repositories {
@@ -66,10 +65,8 @@ dependencies {
 	implementation("io.quarkus:quarkus-container-image-jib")
 
 	//code generation
-	implementation("io.mcarle:konvert-api:$konvertVersion")
-	ksp("io.mcarle:konvert:$konvertVersion")
-	implementation("io.mcarle:konvert-cdi-annotations:$konvertVersion")
-	ksp("io.mcarle:konvert-cdi-injector:$konvertVersion")
+	implementation("org.mapstruct:mapstruct:1.6.3")
+	kapt("org.mapstruct:mapstruct-processor:1.6.3")
 
 	//kotlin
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
