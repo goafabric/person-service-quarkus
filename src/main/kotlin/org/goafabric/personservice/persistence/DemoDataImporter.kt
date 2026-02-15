@@ -1,4 +1,4 @@
-package org.goafabric.personservice.persistence.extensions
+package org.goafabric.personservice.persistence
 
 import io.quarkus.runtime.StartupEvent
 import jakarta.enterprise.context.ApplicationScoped
@@ -78,4 +78,3 @@ class DemoDataImporter(
         return Address(null, null, street, "Springfield " + UserContext.tenantId)
     }
 }
-
