@@ -55,7 +55,10 @@ dependencies {
 	implementation("org.flywaydb:flyway-database-postgresql")
 	runtimeOnly("com.h2database:h2")
 
-	implementation("io.quarkus:quarkus-hibernate-orm-panache")
+	//jakarta data
+	implementation("io.quarkus:quarkus-hibernate-panache-next")
+	implementation("jakarta.data:jakarta.data-api:1.0.1")
+	kapt("org.hibernate.orm:hibernate-processor:7.2.4.Final")
 
 	//adapter
 	implementation("io.quarkus:quarkus-resteasy-client-jackson")

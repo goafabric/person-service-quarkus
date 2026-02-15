@@ -44,7 +44,7 @@ class DemoDataImporter(
         listOf(*tenants.split(",".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()).forEach(
             Consumer { tenant: String ->
                 UserContext.tenantId = tenant
-                if (personLogic.search(PersonSearch(null, null), 0, 10).isEmpty()) {
+                if (personLogic.search(PersonSearch(null, null), 1, 10).isEmpty()) {
                     insertData()
                 }
             })
