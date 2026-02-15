@@ -1,3 +1,3 @@
-- Repository: https://quarkus.io/guides/hibernate-panache-next#our-first-repository
 - Kafka
 - Organization
+- PermissionInterceptor: https://www.the-main-thread.com/p/migrating-spring-aop-to-quarkus-cdi-interceptors
