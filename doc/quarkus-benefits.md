@@ -10,8 +10,13 @@ unified structure
 - quarkus was build from the ground up in 2019, with kubernetes and native in mind, while spring is starting to show its age
 - usually one simple solution to achieve a goal (e.g. rest calls) vs multiple confusing solutions (restclient, resttemplate, webclient ...)
 - application properties can be cleanly defined for dev only, no surprise that dev defaults are activated in prod
-                                    
- 
+                
+adoption
+- already widely adopted within the company
+
+issue reaction time
+- https://github.com/quarkusio/quarkus/issues/52524 (resolved 48 hours) vs https://github.com/spring-projects/spring-framework/issues/36001 (open for 2  months)
+
 migration path
 - rather simple because very similar to spring boot in both annotations and properties (e.g. @inject vs @autowired)
 - similar spring data repository solution
@@ -20,9 +25,8 @@ where spring still shines
 - spring batch for batch processing (e.g. catalogs)
 - feature richness of spring data jpa
 - kotlin support seems to be better
-              
 
-properties
+operational properties
 - spring.datasource.url => quarkus.datasource.jdbc.url
 - spring.datasource.username/password => quarkus.datasource.username/password
 - spring.application.name => quarkus.application.name
