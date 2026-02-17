@@ -3,11 +3,13 @@ package org.goafabric.personservice.persistence
 import io.quarkus.hibernate.panache.PanacheRepository
 import jakarta.data.page.Page
 import jakarta.data.page.PageRequest
+import jakarta.data.repository.Find
 import jakarta.data.repository.OrderBy
+import jakarta.data.repository.Query
+import jakarta.data.repository.Repository
 import org.goafabric.personservice.persistence.entity.PersonEo
-import org.hibernate.annotations.processing.Find
-import org.hibernate.annotations.processing.HQL
 
+@Repository
 interface PersonRepositoryPanache : PanacheRepository.Managed<PersonEo, String> {
     @Find
     @OrderBy("lastName")
@@ -17,7 +19,7 @@ interface PersonRepositoryPanache : PanacheRepository.Managed<PersonEo, String> 
         pageable: PageRequest
     ): Page<PersonEo>
 
-    @HQL(
+    @Query(
         ("SELECT p FROM PersonEo p WHERE p.organizationId = :organizationId " +
                 "AND (:firstName IS NULL OR p.firstName = :firstName) " +
                 "AND (:lastName IS NULL OR p.lastName = :lastName)")
