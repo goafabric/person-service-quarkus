@@ -9,16 +9,17 @@ import org.goafabric.personservice.controller.dto.Person
 import org.goafabric.personservice.controller.dto.PersonSearch
 import org.goafabric.personservice.extensions.UserContext
 import org.goafabric.personservice.persistence.PersonRepository
+import org.goafabric.personservice.persistence.PersonRepositoryPanache
 
 @Transactional
 @ApplicationScoped
 class PersonLogic(
     private val personMapper: PersonMapper,
-    private val personRepository: PersonRepository,
+    private val personRepository: PersonRepositoryPanache,
     @param:RestClient private val calleeServiceAdapter: CalleeServiceAdapter) {
 
     fun getById(id: String): Person {
-        return personMapper.map(personRepository.findById(id).get())
+        return personMapper.map(personRepository.findById(id))
     }
 
     fun search(personSearch: PersonSearch, page: Int, size: Int): List<Person> {

@@ -16,7 +16,7 @@ class PersonEo (
     var firstName: String?,
     var lastName: String?,
 
-    @OneToMany(cascade = [CascadeType.ALL], fetch = FetchType.EAGER)
+    @OneToMany(cascade = [CascadeType.ALL])
     @JoinColumn(name = "person_id")
     var address: List<AddressEo>?,
 
