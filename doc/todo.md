@@ -1,3 +1,4 @@
 - Kafka
 - Organization
 - PermissionInterceptor: https://www.the-main-thread.com/p/migrating-spring-aop-to-quarkus-cdi-interceptors
+- tests
