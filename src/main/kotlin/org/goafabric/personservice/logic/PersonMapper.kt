@@ -1,6 +1,8 @@
 package org.goafabric.personservice.logic
 
+import org.goafabric.personservice.controller.dto.Address
 import org.goafabric.personservice.controller.dto.Person
+import org.goafabric.personservice.persistence.entity.AddressEo
 import org.goafabric.personservice.persistence.entity.PersonEo
 import org.mapstruct.Mapper
 import org.mapstruct.ReportingPolicy
@@ -11,4 +13,6 @@ interface PersonMapper {
     fun map(value: Person): PersonEo
     fun map(values: List<PersonEo>): List<Person>
     fun map(values: Iterable<PersonEo>): List<Person>
+
+    fun map(value: AddressEo): Address
 }
