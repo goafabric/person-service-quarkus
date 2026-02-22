@@ -13,13 +13,13 @@ class PersonEo (
 
     var organizationId: String?,
 
-    var firstName: String?,
-    var lastName: String?,
+    var firstName: String,
+    var lastName: String,
 
     @OneToMany(cascade = [CascadeType.ALL])
     @JoinColumn(name = "person_id")
     var address: List<AddressEo>?,
 
     @Version //optimistic locking
-    var version: Long?
+    var version: Long
 )

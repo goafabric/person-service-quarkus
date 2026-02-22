@@ -9,13 +9,12 @@ import org.goafabric.personservice.controller.dto.Person
 import org.goafabric.personservice.controller.dto.PersonSearch
 import org.goafabric.personservice.extensions.UserContext
 import org.goafabric.personservice.persistence.PersonRepository
-import org.goafabric.personservice.persistence.PersonRepositoryPanache
 
 @Transactional
 @ApplicationScoped
 class PersonLogic(
     private val personMapper: PersonMapper,
-    private val personRepository: PersonRepositoryPanache,
+    private val personRepository: PersonRepository,
     @param:RestClient private val calleeServiceAdapter: CalleeServiceAdapter) {
 
     fun getById(id: String): Person {
