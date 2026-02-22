@@ -1,17 +1,11 @@
 package org.goafabric.personservice.adapter
 
 import jakarta.ws.rs.core.MultivaluedMap
-import org.eclipse.microprofile.config.inject.ConfigProperty
 import org.eclipse.microprofile.rest.client.ext.ClientHeadersFactory
 import org.goafabric.personservice.extensions.UserContext.adapterHeaderMap
 import org.jboss.resteasy.specimpl.MultivaluedMapImpl
 
 class AdapterConfiguration : ClientHeadersFactory {
-    @ConfigProperty(name = "adapter.calleeservice.user.name")
-    var user: String? = null
-
-    @ConfigProperty(name = "adapter.calleeservice.user.password")
-    var password: String? = null
 
     override fun update(
         multivaluedMap: MultivaluedMap<String?, String?>?,
