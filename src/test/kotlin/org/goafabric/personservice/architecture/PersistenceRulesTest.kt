@@ -24,7 +24,7 @@ object PersistenceRulesTest {
         )
 
         .layer("Controller").definedBy("..controller")
-        .layer("Logic").definedBy("..logic..")
+        .layer("Logic").definedBy("..logic")
         .layer("Persistence").definedBy("..persistence..")
 
         .whereLayer("Controller").mayNotBeAccessedByAnyLayer()

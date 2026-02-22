@@ -85,8 +85,8 @@ dependencies {
 	testImplementation("com.tngtech.archunit:archunit-junit5")
 
 	//kafka
-	//implementation("io.quarkus:quarkus-messaging-kafka")
-	//implementation("io.smallrye.reactive:smallrye-reactive-messaging-kafka")
+	implementation("io.quarkus:quarkus-messaging-kafka")
+	implementation("io.smallrye.reactive:smallrye-reactive-messaging-kafka")
 }
 
 tasks.withType<Test> {
