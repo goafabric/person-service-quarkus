@@ -6,6 +6,7 @@ import jakarta.enterprise.inject.Instance
 import jakarta.persistence.PostPersist
 import jakarta.persistence.PostRemove
 import jakarta.persistence.PostUpdate
+import org.apache.kafka.common.header.Headers
 import org.apache.kafka.common.header.internals.RecordHeaders
 import org.eclipse.microprofile.config.inject.ConfigProperty
 import org.eclipse.microprofile.reactive.messaging.Channel
@@ -18,6 +19,7 @@ import org.goafabric.personservice.persistence.entity.PersonEo
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.nio.charset.StandardCharsets
+
 
 @ApplicationScoped
 class KafkaPublisher(
@@ -76,10 +78,17 @@ class KafkaPublisher(
 
     /*
     @Incoming("person-in")
-    fun listen(person: Person) {
-        log.info("loopback person: " + person.toString())
+    fun listen(consumerRecord: ConsumerRecord<String, Person>)  {
+        setContext(
+            getValue(consumerRecord.headers(), "X-TenantId"), getValue(consumerRecord.headers(), "X-OrganizationId"),
+            getValue(consumerRecord.headers(), "X-Auth-Request-Preferred-Username"), null
+        )
+        log.info("loopback person: " + consumerRecord.value().toString())
     }
 
+     */
+
+    /*
     @Incoming("person-in")
     fun listen(address: Address) {
         log.info("loopback address: " + address.toString())
@@ -87,4 +96,7 @@ class KafkaPublisher(
 
      */
 
+    private fun getValue(headers: Headers, key: String): String {
+        return String(headers.lastHeader(key).value(), StandardCharsets.UTF_8)
+    }
 }
