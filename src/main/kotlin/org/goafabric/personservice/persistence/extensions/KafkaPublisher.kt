@@ -6,13 +6,17 @@ import jakarta.enterprise.inject.Instance
 import jakarta.persistence.PostPersist
 import jakarta.persistence.PostRemove
 import jakarta.persistence.PostUpdate
+import org.apache.kafka.clients.consumer.ConsumerRecord
 import org.apache.kafka.common.header.Headers
 import org.apache.kafka.common.header.internals.RecordHeaders
 import org.eclipse.microprofile.config.inject.ConfigProperty
 import org.eclipse.microprofile.reactive.messaging.Channel
 import org.eclipse.microprofile.reactive.messaging.Emitter
+import org.eclipse.microprofile.reactive.messaging.Incoming
 import org.eclipse.microprofile.reactive.messaging.Message
+import org.goafabric.personservice.controller.dto.Person
 import org.goafabric.personservice.extensions.UserContext
+import org.goafabric.personservice.extensions.UserContext.setContext
 import org.goafabric.personservice.logic.mapper.PersonMapper
 import org.goafabric.personservice.persistence.entity.AddressEo
 import org.goafabric.personservice.persistence.entity.PersonEo
@@ -76,6 +80,12 @@ class KafkaPublisher(
         personEmitter.get().send(Message.of(payload).addMetadata(metadata))
     }
 
+    @Incoming("person-in")
+    fun listen(person: Person)  {
+        log.info("loopback person: " + person.toString())
+    }
+
+
     /*
     @Incoming("person-in")
     fun listen(consumerRecord: ConsumerRecord<String, Person>)  {
@@ -87,6 +97,7 @@ class KafkaPublisher(
     }
 
      */
+
 
     /*
     @Incoming("person-in")
