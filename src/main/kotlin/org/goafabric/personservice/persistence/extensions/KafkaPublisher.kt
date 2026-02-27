@@ -23,7 +23,7 @@ import java.nio.charset.StandardCharsets
 
 @ApplicationScoped
 class KafkaPublisher(
-    @param:ConfigProperty(name = "mp.messaging.outgoing.person-out.enabled") private val kafkaEnabled: Boolean,
+    @param:ConfigProperty(name = "kafka.enabled") private val kafkaEnabled: Boolean,
     @param:Channel("person-out") private val personEmitter: Instance<Emitter<Any>>,
     private val personMapper: PersonMapper
 ) {
