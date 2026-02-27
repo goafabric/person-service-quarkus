@@ -10,7 +10,7 @@ val dockerRegistry = "goafabric"
 plugins {
 	java
 	jacoco
-	id("io.quarkus") version "3.31.3"
+	id("io.quarkus") version "3.32.1"
 	id("net.researchgate.release") version "3.1.0"
 
 	kotlin("jvm") version "2.3.0"
@@ -30,7 +30,7 @@ dependencies {
 		testImplementation("com.tngtech.archunit:archunit-junit5:1.4.1")
 	}
 
-	implementation(enforcedPlatform("io.quarkus:quarkus-bom:3.31.3"))
+	implementation(enforcedPlatform("io.quarkus:quarkus-bom:3.32.1"))
 }
 dependencies {
 	//web
