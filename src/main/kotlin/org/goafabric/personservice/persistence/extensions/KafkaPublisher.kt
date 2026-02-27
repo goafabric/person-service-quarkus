@@ -6,7 +6,6 @@ import jakarta.enterprise.inject.Instance
 import jakarta.persistence.PostPersist
 import jakarta.persistence.PostRemove
 import jakarta.persistence.PostUpdate
-import org.apache.kafka.clients.consumer.ConsumerRecord
 import org.apache.kafka.common.header.Headers
 import org.apache.kafka.common.header.internals.RecordHeaders
 import org.eclipse.microprofile.config.inject.ConfigProperty
@@ -16,7 +15,6 @@ import org.eclipse.microprofile.reactive.messaging.Incoming
 import org.eclipse.microprofile.reactive.messaging.Message
 import org.goafabric.personservice.controller.dto.Person
 import org.goafabric.personservice.extensions.UserContext
-import org.goafabric.personservice.extensions.UserContext.setContext
 import org.goafabric.personservice.logic.mapper.PersonMapper
 import org.goafabric.personservice.persistence.entity.AddressEo
 import org.goafabric.personservice.persistence.entity.PersonEo
@@ -27,7 +25,7 @@ import java.nio.charset.StandardCharsets
 
 @ApplicationScoped
 class KafkaPublisher(
-    @param:ConfigProperty(name = "mp.messaging.outgoing.person-out.enabled") private val kafkaEnabled: Boolean,
+    @param:ConfigProperty(name = "kafka.enabled") private val kafkaEnabled: Boolean,
     @param:Channel("person-out") private val personEmitter: Instance<Emitter<Any>>,
     private val personMapper: PersonMapper
 ) {
