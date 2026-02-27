@@ -6,14 +6,11 @@ import jakarta.enterprise.inject.Instance
 import jakarta.persistence.PostPersist
 import jakarta.persistence.PostRemove
 import jakarta.persistence.PostUpdate
-import org.apache.kafka.common.header.Headers
 import org.apache.kafka.common.header.internals.RecordHeaders
 import org.eclipse.microprofile.config.inject.ConfigProperty
 import org.eclipse.microprofile.reactive.messaging.Channel
 import org.eclipse.microprofile.reactive.messaging.Emitter
-import org.eclipse.microprofile.reactive.messaging.Incoming
 import org.eclipse.microprofile.reactive.messaging.Message
-import org.goafabric.personservice.controller.dto.Person
 import org.goafabric.personservice.extensions.UserContext
 import org.goafabric.personservice.logic.mapper.PersonMapper
 import org.goafabric.personservice.persistence.entity.AddressEo
@@ -26,7 +23,7 @@ import java.nio.charset.StandardCharsets
 @ApplicationScoped
 class KafkaPublisher(
     @param:ConfigProperty(name = "kafka.enabled") private val kafkaEnabled: Boolean,
-    @param:Channel("person-out") private val personEmitter: Instance<Emitter<Any>>,
+    @param:Channel("general") private val personEmitter: Instance<Emitter<Any>>,
     private val personMapper: PersonMapper
 ) {
     private val log: Logger = LoggerFactory.getLogger(this.javaClass)
@@ -78,34 +75,4 @@ class KafkaPublisher(
         personEmitter.get().send(Message.of(payload).addMetadata(metadata))
     }
 
-    @Incoming("person-in")
-    fun listen(person: Person)  {
-        log.info("loopback person: " + person.toString())
-    }
-
-
-    /*
-    @Incoming("person-in")
-    fun listen(consumerRecord: ConsumerRecord<String, Person>)  {
-        setContext(
-            getValue(consumerRecord.headers(), "X-TenantId"), getValue(consumerRecord.headers(), "X-OrganizationId"),
-            getValue(consumerRecord.headers(), "X-Auth-Request-Preferred-Username"), null
-        )
-        log.info("loopback person: " + consumerRecord.value().toString())
-    }
-
-     */
-
-
-    /*
-    @Incoming("person-in")
-    fun listen(address: Address) {
-        log.info("loopback address: " + address.toString())
-    }
-
-     */
-
-    private fun getValue(headers: Headers, key: String): String {
-        return String(headers.lastHeader(key).value(), StandardCharsets.UTF_8)
-    }
 }
