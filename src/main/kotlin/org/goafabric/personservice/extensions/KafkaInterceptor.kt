@@ -49,3 +49,7 @@ class KafkaInterceptor {
 
     }
 }
+
+fun ConsumerRecord<*,*>.operation(): String {
+    return KafkaInterceptor.getOperation(this)
+}
