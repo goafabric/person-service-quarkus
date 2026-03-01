@@ -3,6 +3,7 @@ package org.goafabric.personservice.controller
 import jakarta.enterprise.context.ApplicationScoped
 import org.apache.kafka.clients.consumer.ConsumerRecord
 import org.eclipse.microprofile.reactive.messaging.Incoming
+import org.goafabric.personservice.controller.dto.Address
 import org.goafabric.personservice.controller.dto.Person
 import org.goafabric.personservice.extensions.KafkaListener
 import org.goafabric.personservice.extensions.MyKafkaInterceptor
@@ -13,12 +14,20 @@ import org.slf4j.LoggerFactory
 class PersonConsumer {
     private val log: Logger = LoggerFactory.getLogger(this.javaClass)
 
-    @Incoming("person-in")
+    @Incoming("person")
     @KafkaListener
-    fun listen(consumerRecord: ConsumerRecord<String, Person>)  {
+    fun handlePerson(consumerRecord: ConsumerRecord<String, Person>)  {
         val operation = MyKafkaInterceptor.getOperation(consumerRecord.headers())
         log.info("loopback person: " + consumerRecord.value())
     }
+
+    @Incoming("address")
+    @KafkaListener
+    fun handleAddress(consumerRecord: ConsumerRecord<String, Address>)  {
+        val operation = MyKafkaInterceptor.getOperation(consumerRecord.headers())
+        log.info("loopback person: " + consumerRecord.value())
+    }
+
 
     /*
     @Incoming("person-in")
