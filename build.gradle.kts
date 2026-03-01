@@ -50,7 +50,7 @@ dependencies {
 	//jakarta data
 	implementation("io.quarkus:quarkus-hibernate-panache-next")
 	implementation("jakarta.data:jakarta.data-api:1.0.1")
-	annotationProcessor("org.hibernate.orm:hibernate-processor:7.2.5.Final")
+	annotationProcessor("org.hibernate.orm:hibernate-processor:7.2.6.Final")
 
 	//adapter
 	implementation("io.quarkus:quarkus-resteasy-client-jackson")
