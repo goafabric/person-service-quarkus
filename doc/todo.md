@@ -1,5 +1,7 @@
 - Kafka
-- Organization
-- tests
+  - Adopt Spring + Company
+
+- Tests
+
 - blob storage, redis
 - openrewrite
