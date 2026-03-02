@@ -76,6 +76,10 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 
+	//kafka
+	implementation("io.quarkus:quarkus-messaging-kafka")
+	implementation("io.smallrye.reactive:smallrye-reactive-messaging-kafka")
+
 	//test
 	testImplementation("io.quarkus:quarkus-junit5")
 	testImplementation("io.rest-assured:rest-assured")
@@ -84,9 +88,7 @@ dependencies {
 	testImplementation("org.assertj:assertj-core")
 	testImplementation("com.tngtech.archunit:archunit-junit5")
 
-	//kafka
-	implementation("io.quarkus:quarkus-messaging-kafka")
-	implementation("io.smallrye.reactive:smallrye-reactive-messaging-kafka")
+	testImplementation("io.quarkus:quarkus-test-kafka-companion")
 }
 
 tasks.withType<Test> {
