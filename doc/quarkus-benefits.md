@@ -41,7 +41,7 @@
 
 
 
-operational properties
+# operational properties
 - spring.datasource.url => quarkus.datasource.jdbc.url
 - spring.datasource.username/password => quarkus.datasource.username/password
 - spring.application.name => quarkus.application.name
