@@ -1,7 +1,8 @@
 # top advantages
 - quarkus was build from the ground up in 2019, with kubernetes and strong native support in mind
-- lower memory usage during build and runtime
+- lower memory usage during build and runtime, superior runtime performance
 - dev-ui that features "kafka-ui", database lookup ...
+- the combination of Quarkus, Kotlin + Native rivals modern languages like GO, in language and performance 
 
 # native mode
 - lower memory usage in native mode vs spring (20mb vs 100mb)
