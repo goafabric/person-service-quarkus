@@ -12,14 +12,15 @@ import java.util.concurrent.CountDownLatch
 @ApplicationScoped
 class PersonConsumer {
     private val log: Logger = LoggerFactory.getLogger(this.javaClass)
-    val latch: CountDownLatch = CountDownLatch(1)
+    val personLatch: CountDownLatch = CountDownLatch(1)
+    val addressLatch: CountDownLatch = CountDownLatch(1)
 
     @Incoming("person")
     @KafkaListener
     fun consumePerson(consumerRecord: ConsumerRecord<String, Person>)  {
         log.info("loopback event for person {} {}",
             consumerRecord.value(), consumerRecord.operation())
-       latch.countDown()
+       personLatch.countDown()
     }
 
     @Incoming("address")
@@ -27,7 +28,7 @@ class PersonConsumer {
     fun consumeAddress(consumerRecord: ConsumerRecord<String, Address>)  {
         log.info("loopback event for address {} {}",
             consumerRecord.value(), consumerRecord.operation())
-        latch.countDown()
+        addressLatch.countDown()
     }
 
 

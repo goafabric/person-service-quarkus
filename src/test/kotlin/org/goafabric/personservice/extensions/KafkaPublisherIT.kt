@@ -11,17 +11,13 @@ import java.util.concurrent.TimeUnit
 
 //https://quarkus.io/guides/kafka#testing-using-a-kafka-broker
 @QuarkusTest
-//@QuarkusTestResource(KafkaCompanionResource::class)
 class KafkaPublisherIT {
     @Inject
     lateinit var personLogic: PersonLogic
 
     @Inject
     lateinit var personConsumer: PersonConsumer
-
-    //@InjectKafkaCompanion
-    //lateinit var companion: KafkaCompanion
-
+    
     @Test
     fun save() {
         val person = personLogic.save(
@@ -29,13 +25,13 @@ class KafkaPublisherIT {
                 null, null,
                 "Homer",
                 "Simpson",
-                mutableListOf<Address>(createAddress("Evergreen Terrace"))
+                mutableListOf(createAddress("Evergreen Terrace"))
             )
         )
 
-        Assertions.assertThat<Person>(person).isNotNull()
-        Assertions.assertThat(personConsumer.latch.await(5, TimeUnit.SECONDS)).isTrue
-
+        Assertions.assertThat(person).isNotNull()
+        Assertions.assertThat(personConsumer.personLatch.await(5, TimeUnit.SECONDS)).isTrue
+        Assertions.assertThat(personConsumer.addressLatch.await(5, TimeUnit.SECONDS)).isTrue
     }
 
     private fun createAddress(street: String): Address {
@@ -44,17 +40,6 @@ class KafkaPublisherIT {
             street, "Springfield"
         )
     }
-
-
-    /*
-    @Test
-    @Transactional
-    fun findByStreet() {
-        Assertions.assertThat<Person>(personLogic.findByStreet("Monty Mansion", 1, 3)).isNotNull().hasSize(1)
-    }
-
-     */
-
 
 
 }
