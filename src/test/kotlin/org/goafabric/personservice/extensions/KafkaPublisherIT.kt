@@ -1,26 +1,23 @@
-/*
-package org.goafabric.personservice.controller
+package org.goafabric.personservice.extensions
 
-import io.quarkus.test.common.QuarkusTestResource
 import io.quarkus.test.junit.QuarkusTest
-import io.quarkus.test.kafka.InjectKafkaCompanion
-import io.quarkus.test.kafka.KafkaCompanionResource
-import io.smallrye.reactive.messaging.kafka.companion.KafkaCompanion
 import jakarta.inject.Inject
 import org.assertj.core.api.Assertions
 import org.goafabric.personservice.controller.dto.Address
 import org.goafabric.personservice.controller.dto.Person
 import org.goafabric.personservice.logic.PersonLogic
 import org.junit.jupiter.api.Test
-
+import java.util.concurrent.TimeUnit
 
 //https://quarkus.io/guides/kafka#testing-using-a-kafka-broker
 @QuarkusTest
-@QuarkusTestResource(KafkaCompanionResource::class)
+//@QuarkusTestResource(KafkaCompanionResource::class)
 class KafkaPublisherIT {
     @Inject
     lateinit var personLogic: PersonLogic
 
+    @Inject
+    lateinit var personConsumer: PersonConsumer
 
     //@InjectKafkaCompanion
     //lateinit var companion: KafkaCompanion
@@ -37,6 +34,7 @@ class KafkaPublisherIT {
         )
 
         Assertions.assertThat<Person>(person).isNotNull()
+        Assertions.assertThat(personConsumer.latch.await(5, TimeUnit.SECONDS)).isTrue
 
     }
 
@@ -48,15 +46,15 @@ class KafkaPublisherIT {
     }
 
 
-    */
-/*
+    /*
     @Test
     @Transactional
     fun findByStreet() {
         Assertions.assertThat<Person>(personLogic.findByStreet("Monty Mansion", 1, 3)).isNotNull().hasSize(1)
     }
 
-     *//*
+     */
+
+
 
 }
-*/
