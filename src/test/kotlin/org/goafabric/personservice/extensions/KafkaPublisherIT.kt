@@ -6,8 +6,12 @@ import org.assertj.core.api.Assertions
 import org.goafabric.personservice.controller.dto.Address
 import org.goafabric.personservice.controller.dto.Person
 import org.goafabric.personservice.logic.PersonLogic
+import org.junit.jupiter.api.Assumptions
+import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
+import org.testcontainers.DockerClientFactory
 import java.util.concurrent.TimeUnit
+
 
 //https://quarkus.io/guides/kafka#testing-using-a-kafka-broker
 @QuarkusTest
@@ -17,7 +21,18 @@ class KafkaPublisherIT {
 
     @Inject
     lateinit var personConsumer: PersonConsumer
-    
+
+    companion object {
+        @JvmStatic
+        @BeforeAll
+        fun checkDocker(): Unit {
+            Assumptions.assumeTrue(
+                DockerClientFactory.instance().isDockerAvailable,
+                "Docker is not running, skipping test"
+            )
+        }
+    }
+
     @Test
     fun save() {
         val person = personLogic.save(
