@@ -23,6 +23,7 @@ class PersonConsumer {
        personLatch.countDown()
     }
 
+    //For Quarkus we can only have a 1:1 relation between Topic:Entity, Custom KafkaListener for Intercepting the JWT
     @Incoming("address")
     @KafkaListener
     fun consumeAddress(consumerRecord: ConsumerRecord<String, Address>)  {
@@ -30,7 +31,5 @@ class PersonConsumer {
             consumerRecord.value(), consumerRecord.operation())
         addressLatch.countDown()
     }
-
-
 
 }

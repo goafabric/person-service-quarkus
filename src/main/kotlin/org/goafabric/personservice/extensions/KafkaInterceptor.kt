@@ -1,8 +1,12 @@
 package org.goafabric.personservice.extensions
 
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.module.kotlin.KotlinModule
 import io.opentelemetry.api.trace.Span
 import io.opentelemetry.context.Context
+import io.quarkus.jackson.ObjectMapperCustomizer
 import jakarta.annotation.Priority
+import jakarta.inject.Singleton
 import jakarta.interceptor.AroundInvoke
 import jakarta.interceptor.Interceptor
 import jakarta.interceptor.InvocationContext
@@ -50,6 +54,15 @@ class KafkaInterceptor {
     }
 }
 
+// extension function for get operation
 fun ConsumerRecord<*,*>.operation(): String {
     return KafkaInterceptor.getOperation(this)
+}
+
+//required for Kafka Deserializer to work with Data Classes + Kafka Consumer
+@Singleton
+class KotlinModuleCustomizer : ObjectMapperCustomizer {
+    override fun customize(objectMapper: ObjectMapper) {
+        objectMapper.registerModule(KotlinModule.Builder().build())
+    }
 }
