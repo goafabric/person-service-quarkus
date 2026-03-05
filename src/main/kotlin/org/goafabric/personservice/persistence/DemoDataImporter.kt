@@ -56,13 +56,13 @@ class DemoDataImporter(
             personLogic.save(
                 Person(
                     null, null, "Homer", "Simpson",
-                    listOf<Address>(createAddress("Evergreen Terrace No. " + i))
+                    listOf<Address>(createAddress("Evergreen Terrace No. $i"))
                 )
             )
             personLogic.save(
                 Person(
                     null, null, "Bart", "Simpson",
-                    listOf<Address>(createAddress("Everblue Terrace No. " + i))
+                    listOf<Address>(createAddress("Everblue Terrace No. $i"))
                 )
             )
             personLogic.save(

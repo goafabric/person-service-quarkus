@@ -13,7 +13,7 @@ import org.testcontainers.DockerClientFactory
 import java.util.concurrent.TimeUnit
 
 
-//https://quarkus.io/guides/kafka#testing-using-a-kafka-broker
+// When Docker is running, Kafka Broker will be automatically started for test, if not running, test will be skipped for now
 @QuarkusTest
 class KafkaPublisherIT {
     @Inject
