@@ -6,7 +6,6 @@ import jakarta.enterprise.inject.Instance
 import jakarta.persistence.PostPersist
 import jakarta.persistence.PostRemove
 import jakarta.persistence.PostUpdate
-import org.apache.kafka.common.header.Headers
 import org.apache.kafka.common.header.internals.RecordHeaders
 import org.eclipse.microprofile.config.inject.ConfigProperty
 import org.eclipse.microprofile.reactive.messaging.Channel
@@ -23,8 +22,8 @@ import java.nio.charset.StandardCharsets
 
 @ApplicationScoped
 class KafkaPublisher(
-    @param:ConfigProperty(name = "kafka.enabled") private val kafkaEnabled: Boolean,
-    @param:Channel("person-out") private val personEmitter: Instance<Emitter<Any>>,
+    @param:ConfigProperty(name = "mp.messaging.outgoing.general.enabled") private val kafkaEnabled: Boolean,
+    @param:Channel("general") private val personEmitter: Instance<Emitter<Any>>,
     private val personMapper: PersonMapper
 ) {
     private val log: Logger = LoggerFactory.getLogger(this.javaClass)
@@ -51,7 +50,7 @@ class KafkaPublisher(
 
         when (entity) {
             is PersonEo  -> publish("person", entity.id!!, operation, personMapper.map(entity))
-            is AddressEo -> publish("person", entity.id!!, operation, personMapper.map(entity))
+            is AddressEo -> publish("address", entity.id!!, operation, personMapper.map(entity))
             else -> error("Type " + entity::class)
         }
     }
@@ -76,27 +75,4 @@ class KafkaPublisher(
         personEmitter.get().send(Message.of(payload).addMetadata(metadata))
     }
 
-    /*
-    @Incoming("person-in")
-    fun listen(consumerRecord: ConsumerRecord<String, Person>)  {
-        setContext(
-            getValue(consumerRecord.headers(), "X-TenantId"), getValue(consumerRecord.headers(), "X-OrganizationId"),
-            getValue(consumerRecord.headers(), "X-Auth-Request-Preferred-Username"), null
-        )
-        log.info("loopback person: " + consumerRecord.value().toString())
-    }
-
-     */
-
-    /*
-    @Incoming("person-in")
-    fun listen(address: Address) {
-        log.info("loopback address: " + address.toString())
-    }
-
-     */
-
-    private fun getValue(headers: Headers, key: String): String {
-        return String(headers.lastHeader(key).value(), StandardCharsets.UTF_8)
-    }
 }
