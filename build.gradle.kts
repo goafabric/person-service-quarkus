@@ -26,6 +26,9 @@ repositories {
 
 dependencies {
 	constraints {
+		annotationProcessor("org.mapstruct:mapstruct-processor:1.6.3")
+		implementation("org.mapstruct:mapstruct:1.6.3")
+		kapt("org.mapstruct:mapstruct-processor:1.6.3")
 		testImplementation("org.assertj:assertj-core:3.27.7")
 		testImplementation("com.tngtech.archunit:archunit-junit5:1.4.1")
 	}
@@ -68,8 +71,8 @@ dependencies {
 	implementation("io.quarkus:quarkus-container-image-jib")
 
 	//code generation
-	implementation("org.mapstruct:mapstruct:1.6.3")
-	kapt("org.mapstruct:mapstruct-processor:1.6.3")
+	implementation("org.mapstruct:mapstruct")
+	kapt("org.mapstruct:mapstruct-processor")
 
 	//kotlin
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
