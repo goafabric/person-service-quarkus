@@ -14,10 +14,10 @@ plugins {
 	id("net.researchgate.release") version "3.1.0"
 	id("org.sonarqube") version "7.2.2.6593"
 
-	kotlin("jvm") version "2.3.0"
-	kotlin("plugin.jpa") version "2.3.0"
-	kotlin("plugin.allopen") version "2.3.0"
-	kotlin("kapt") version "2.3.0"
+	kotlin("jvm") version "2.3.10"
+	kotlin("plugin.jpa") version "2.3.10"
+	kotlin("plugin.allopen") version "2.3.10"
+	kotlin("kapt") version "2.3.10"
 }
 
 repositories {
@@ -29,6 +29,8 @@ dependencies {
 		annotationProcessor("org.mapstruct:mapstruct-processor:1.6.3")
 		implementation("org.mapstruct:mapstruct:1.6.3")
 		kapt("org.mapstruct:mapstruct-processor:1.6.3")
+		kapt("org.hibernate.orm:hibernate-processor:7.2.4.Final")
+
 		testImplementation("org.assertj:assertj-core:3.27.7")
 		testImplementation("com.tngtech.archunit:archunit-junit5:1.4.1")
 	}
@@ -60,8 +62,8 @@ dependencies {
 
 	//jakarta data
 	implementation("io.quarkus:quarkus-hibernate-panache-next")
-	implementation("jakarta.data:jakarta.data-api:1.0.1")
-	kapt("org.hibernate.orm:hibernate-processor:7.2.4.Final")
+	implementation("jakarta.data:jakarta.data-api")
+	kapt("org.hibernate.orm:hibernate-processor")
 
 	//adapter
 	implementation("io.quarkus:quarkus-resteasy-client-jackson")
