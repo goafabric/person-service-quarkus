@@ -105,7 +105,7 @@ tasks.withType<Test> {
 }
 tasks.jacocoTestReport { reports {csv.required.set(true); xml.required.set(true) } }
 
-tasks.register<Exec>("dockerImageNative") { group = "build" ; dependsOn("quarkusBuild", "testNative")
+tasks.register<Exec>("dockerImageNative") { description = "native image"; group = "build" ; dependsOn("quarkusBuild", "testNative")
 	if (gradle.startParameter.taskNames.contains("dockerImageNative")) {
 		if (System.getProperty("os.arch").equals("aarch64")) {
 			System.setProperty("quarkus.jib.platforms", "linux/arm64/v8")
