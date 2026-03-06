@@ -99,6 +99,7 @@ tasks.withType<Test> {
 	systemProperty("java.util.logging.manager", "org.jboss.logmanager.LogManager")
 	finalizedBy("jacocoTestReport")
 }
+tasks.jacocoTestReport { reports {csv.required.set(true); xml.required.set(true) } }
 
 tasks.register<Exec>("dockerImageNative") { group = "build" ; dependsOn("quarkusBuild", "testNative")
 	if (gradle.startParameter.taskNames.contains("dockerImageNative")) {
