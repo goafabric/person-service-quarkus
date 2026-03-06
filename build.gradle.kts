@@ -10,7 +10,7 @@ val dockerRegistry = "goafabric"
 plugins {
 	java
 	jacoco
-	id("io.quarkus") version "3.32.1"
+	id("io.quarkus") version "3.32.2"
 	id("net.researchgate.release") version "3.1.0"
 	id("org.sonarqube") version "7.2.2.6593"
 
@@ -24,14 +24,13 @@ repositories {
 	mavenCentral()
 }
 
-val konvertVersion = "4.4.0"
 dependencies {
 	constraints {
 		testImplementation("org.assertj:assertj-core:3.27.7")
 		testImplementation("com.tngtech.archunit:archunit-junit5:1.4.1")
 	}
 
-	implementation(enforcedPlatform("io.quarkus:quarkus-bom:3.32.1"))
+	implementation(enforcedPlatform("io.quarkus:quarkus-bom:3.32.2"))
 }
 dependencies {
 	//web
