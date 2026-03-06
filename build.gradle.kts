@@ -97,6 +97,7 @@ tasks.withType<Test> {
 	useJUnitPlatform()
 	exclude("**/*NRIT*")
 	systemProperty("java.util.logging.manager", "org.jboss.logmanager.LogManager")
+	finalizedBy("jacocoTestReport")
 }
 
 tasks.register<Exec>("dockerImageNative") { group = "build" ; dependsOn("quarkusBuild", "testNative")
