@@ -1,3 +1,4 @@
-- Tests
+- Quarkus Test Coverage + @Quarkus Integration test
 - Blob storage, Redis
-- openrewrite
+- OpenRewrite
+- Helm
