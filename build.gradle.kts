@@ -138,3 +138,9 @@ allOpen {
 	annotation("jakarta.persistence.Entity")
 	annotation("io.quarkus.test.junit.QuarkusTest")
 }
+
+sonar {
+	properties {
+		property("sonar.coverage.jacoco.xmlReportPaths", "${layout.buildDirectory.get().asFile}/jacoco-report/jacoco.xml")
+	}
+}
