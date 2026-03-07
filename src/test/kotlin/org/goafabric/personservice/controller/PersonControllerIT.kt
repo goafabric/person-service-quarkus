@@ -10,17 +10,20 @@ import org.goafabric.personservice.logic.PersonLogic
 import org.junit.jupiter.api.Test
 
 @QuarkusTest
-class PersonLogicIT {
+class PersonControllerIT {
+
+    @Inject
+    lateinit var personController: PersonController
 
     @Inject
     lateinit var personLogic: PersonLogic
 
     @Test
     fun findById() {
-        val persons: List<Person> = personLogic.search(PersonSearch(null, null), 1, 3)
+        val persons: List<Person> = personController.find(PersonSearch(null, null), 1, 3)
         Assertions.assertThat<Person>(persons).isNotNull().hasSize(3)
 
-        val person = personLogic.getById(persons.first().id!!)
+        val person = personController.getById(persons.first().id!!)
         Assertions.assertThat<Person>(person).isNotNull()
         Assertions.assertThat(person.firstName).isEqualTo(persons.first().firstName)
         Assertions.assertThat(person.lastName).isEqualTo(persons.first().lastName)
@@ -28,12 +31,12 @@ class PersonLogicIT {
 
     @Test
     fun findAll() {
-        Assertions.assertThat<Person>(personLogic.search(PersonSearch(null, null), 1, 3)).isNotNull().hasSize(3)
+        Assertions.assertThat<Person>(personController.find(PersonSearch(null, null), 1, 3)).isNotNull().hasSize(3)
     }
 
     @Test
     fun findByFirstName() {
-        val persons: List<Person> = personLogic.search(PersonSearch("Monty", null), 1, 3)
+        val persons: List<Person> = personController.find(PersonSearch("Monty", null), 1, 3)
         Assertions.assertThat<Person>(persons).isNotNull().hasSize(1)
         Assertions.assertThat(persons.first().firstName).isEqualTo("Monty")
         Assertions.assertThat(persons.first().lastName).isEqualTo("Burns")
@@ -41,14 +44,14 @@ class PersonLogicIT {
 
     @Test
     fun findByLastName() {
-        val persons: List<Person> = personLogic.search(PersonSearch(null, "Simpson"), 1, 3)
+        val persons: List<Person> = personController.find(PersonSearch(null, "Simpson"), 1, 3)
         Assertions.assertThat<Person>(persons).isNotNull().hasSize(2)
         Assertions.assertThat(persons.first().lastName).isEqualTo("Simpson")
     }
 
     @Test
     fun save() {
-        val person = personLogic.save(
+        val person = personController.save(
             Person(
                 null, null,
                 "Homer",

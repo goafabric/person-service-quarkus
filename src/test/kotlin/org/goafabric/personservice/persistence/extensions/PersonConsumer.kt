@@ -1,10 +1,12 @@
-package org.goafabric.personservice.extensions
+package org.goafabric.personservice.persistence.extensions
 
 import jakarta.enterprise.context.ApplicationScoped
 import org.apache.kafka.clients.consumer.ConsumerRecord
 import org.eclipse.microprofile.reactive.messaging.Incoming
 import org.goafabric.personservice.controller.dto.Address
 import org.goafabric.personservice.controller.dto.Person
+import org.goafabric.personservice.extensions.KafkaListener
+import org.goafabric.personservice.extensions.operation
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.util.concurrent.CountDownLatch

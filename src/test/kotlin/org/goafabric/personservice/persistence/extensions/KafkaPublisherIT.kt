@@ -1,4 +1,4 @@
-package org.goafabric.personservice.extensions
+package org.goafabric.personservice.persistence.extensions
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import io.quarkus.test.junit.QuarkusTest
