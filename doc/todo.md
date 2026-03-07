@@ -1,6 +1,5 @@
-- Quarkus Test Coverage + @Quarkus Integration test
 - Blob storage, Redis
-- OpenRewrite
 - Helm
+- JBeret Batch App, Invoice Process
 
 - https://quarkus.io/guides/datasource#in-memory-databases
