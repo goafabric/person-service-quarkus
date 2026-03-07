@@ -43,7 +43,6 @@ dependencies {
 	implementation("io.quarkus:quarkus-arc")
 	implementation("io.quarkus:quarkus-resteasy-jackson")
 	implementation("org.jboss.logmanager:log4j2-jboss-logmanager")
-	implementation("io.smallrye.config:smallrye-config-source-file-system")
 
 	//monitoring
 	implementation("io.quarkus:quarkus-smallrye-health")
@@ -54,6 +53,7 @@ dependencies {
 
 	//crosscutting
 	implementation("io.quarkus:quarkus-hibernate-validator")
+	implementation("io.smallrye.config:smallrye-config-source-file-system")
 
 	//persistence
 	implementation("io.quarkus:quarkus-jdbc-postgresql")
