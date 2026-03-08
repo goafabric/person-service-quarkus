@@ -23,9 +23,6 @@ services:
       quarkus.http.port: "${_Values_service_port}"
       quarkus.http.io-threads: "20"
 
-      #security
-      security.authentication.enabled: "false"
-
       #tracing
       quarkus.otel.exporter.otlp.traces.endpoint: "http://host.docker.internal:4317"
       quarkus.application.name: "callee-service"
@@ -45,9 +42,6 @@ services:
       quarkus.datasource.username: "person-service"
       quarkus.datasource.password: "person-service"
 
-      adapter.calleeservice.user: "YWRtaW4="
-      adapter.calleeservice.password: "YWRtaW4="
-
       #log levels
       quarkus.log.level: "INFO"
       quarkus.log.category."org.goafabric".level: "INFO"
@@ -60,7 +54,7 @@ services:
 
   postgres:
     container_name: ${_Values_root_name}-postgres
-    image: postgres:17.4
+    image: postgres:18.3
     restart: 'no'
     ports:
       - 50810:5432
