@@ -1,4 +1,4 @@
-package org.goafabric.personservice.persistence.extensions
+package org.goafabric.personservice.consumer
 
 import jakarta.enterprise.context.ApplicationScoped
 import org.apache.kafka.clients.consumer.ConsumerRecord
