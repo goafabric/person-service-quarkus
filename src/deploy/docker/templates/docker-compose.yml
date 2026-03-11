@@ -38,17 +38,19 @@ services:
       adapter.timeout: "10000"
       adapter.circuitBreaker.enabled: "true"
 
-      #secrets
-      quarkus.datasource.username: "person-service"
-      quarkus.datasource.password: "person-service"
-
       #kafka
       kafka.bootstrap.servers: "kafka:9092"
       mp.messaging.outgoing.general.enabled: "true"
 
       mp.messaging.connector.smallrye-kafka.security.protocol: "SASL_PLAINTEXT"
       mp.messaging.connector.smallrye-kafka.sasl.mechanism: "PLAIN"
-      mp.messaging.connector.smallrye-kafka.sasl.jaas.config: org.apache.kafka.common.security.plain.PlainLoginModule required username="admin" password="supersecret";
+      mp.messaging.connector.smallrye-kafka.sasl.jaas.config: org.apache.kafka.common.security.plain.PlainLoginModule required username="$${kafka.username}" password="$${kafka.password}";
+
+      #secrets
+      quarkus.datasource.username: "person-service"
+      quarkus.datasource.password: "person-service"
+      kafka.username: "admin"
+      kafka.password: "supersecret"
 
       #log levels
       QUARKUS_LOG_LEVEL: "INFO"
