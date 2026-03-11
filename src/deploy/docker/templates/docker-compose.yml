@@ -25,7 +25,7 @@ services:
 
       #tracing
       quarkus.otel.exporter.otlp.traces.endpoint: "http://host.docker.internal:4317"
-      quarkus.application.name: "callee-service"
+      quarkus.application.name: "person-service"
 
       #persistence
       quarkus.datasource.jdbc.url: "jdbc:postgresql://postgres:5432/person"
@@ -43,10 +43,10 @@ services:
       quarkus.datasource.password: "person-service"
 
       #log levels
-      quarkus.log.level: "INFO"
-      quarkus.log.category."org.goafabric".level: "INFO"
-      quarkus.log.category."org.flywaydb.core".level: "INFO"
-      quarkus.log.category."org.hibernate".level: "INFO"
+      QUARKUS_LOG_LEVEL: "INFO"
+      QUARKUS_LOG_CATEGORY__ORG_GOAFABRIC__LEVEL: "INFO"
+      QUARKUS_LOG_CATEGORY__ORG_FLYWAYDB_CORE__LEVEL: "INFO"
+      QUARKUS_LOG_CATEGORY__ORG_HIBERNATE__LEVEL: "INFO"
 
     depends_on:
       postgres:
