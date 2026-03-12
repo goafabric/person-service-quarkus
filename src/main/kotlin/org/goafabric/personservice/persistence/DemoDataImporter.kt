@@ -20,6 +20,7 @@ import java.util.stream.IntStream
 class DemoDataImporter(
     @param:ConfigProperty(name = "database.provisioning.goals") private val goals: String,
     @param:ConfigProperty(name = "multi-tenancy.tenants") private val tenants: String,
+    @param:ConfigProperty(name = "quarkus.azure.storage.blob.enabled") private val blobEnabled: Boolean,
     private val personLogic: PersonLogic,
     private val objectStorageLogic: ObjectStorageLogic
 ) {
@@ -75,15 +76,17 @@ class DemoDataImporter(
             )
         })
 
-        objectStorageLogic.put(
-            ObjectStorageLogic.ObjectEntry(
-                "hello_world.txt",
-                "text/plain",
-                "hello world".length.toLong(),
-                "hello world".toByteArray()
+        if (blobEnabled) {
+            objectStorageLogic.put(
+                ObjectStorageLogic.ObjectEntry(
+                    "hello_world.txt",
+                    "text/plain",
+                    "hello world".length.toLong(),
+                    "hello world".toByteArray()
+                )
             )
-        )
-        log.info("##blob: " + objectStorageLogic.getByKey("hello_world.txt").data.toString())
+            log.info("##blob: " + objectStorageLogic.getByKey("hello_world.txt").data.toString())
+        }
     }
 
     private fun createAddress(street: String): Address {
