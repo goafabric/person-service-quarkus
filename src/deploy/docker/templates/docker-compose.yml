@@ -49,12 +49,11 @@ services:
       #azure blob
       quarkus.azure.storage.blob.enabled: "true"
       azure.storage.blob.container-name: "person"
-      quarkus.azure.storage.blob.connection-string: DefaultEndpointsProtocol=http;AccountName=${azure.storage.blob.account-name};AccountKey=${azure.storage.blob.account-key};BlobEndpoint=http://localhost:10000/${azure.storage.blob.account-name}
-      #quarkus.azure.storage.blob.connection-string=DefaultEndpointsProtocol=https;AccountName=${azure.storage.blob.account-name};AccountKey=${azure.storage.blob.account-key};EndpointSuffix=core.windows.net
+      quarkus.azure.storage.blob.connection-string: DefaultEndpointsProtocol=http;AccountName=$${azure.storage.blob.account-name};AccountKey=$${azure.storage.blob.account-key};BlobEndpoint=http://azurite:10000/$${azure.storage.blob.account-name}
+      #quarkus.azure.storage.blob.connection-string=DefaultEndpointsProtocol=https;AccountName=$${azure.storage.blob.account-name};AccountKey=$${azure.storage.blob.account-key};EndpointSuffix=core.windows.net
 
       azure.storage.blob.account-name: devstoreaccount1
       azure.storage.blob.account-key: Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==
-
 
       #secrets
       quarkus.datasource.username: "person-service"
@@ -114,7 +113,7 @@ services:
 
   kafka:
     image: apache/kafka:4.1.0
-    container_name: kafka
+    container_name: ${_Values_root_name}-kafka
     ports:
       - "9092:9092"
     environment:
@@ -140,6 +139,14 @@ services:
 
     volumes:
       - ./config/kafka_server_jaas.conf:/opt/kafka/config/kafka_server_jaas.conf
+    networks:
+      - ${_Values_root_name}-net
+
+  azurite:
+    image: mcr.microsoft.com/azure-storage/azurite
+    container_name: ${_Values_root_name}-azurite
+    ports:
+      - "10000:10000"
     networks:
       - ${_Values_root_name}-net
 
