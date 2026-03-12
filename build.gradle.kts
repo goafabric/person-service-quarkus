@@ -86,6 +86,10 @@ dependencies {
 	implementation("io.quarkus:quarkus-messaging-kafka")
 	implementation("io.smallrye.reactive:smallrye-reactive-messaging-kafka")
 
+	//blob
+	implementation("io.quarkiverse.azureservices:quarkus-azure-storage-blob:1.2.2")
+
+
 	//test
 	testImplementation("io.quarkus:quarkus-junit5")
 	testImplementation("io.rest-assured:rest-assured")

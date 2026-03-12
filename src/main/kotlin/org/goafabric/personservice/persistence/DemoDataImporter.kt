@@ -8,6 +8,7 @@ import org.goafabric.personservice.controller.dto.Address
 import org.goafabric.personservice.controller.dto.Person
 import org.goafabric.personservice.controller.dto.PersonSearch
 import org.goafabric.personservice.extensions.UserContext
+import org.goafabric.personservice.logic.ObjectStorageLogic
 import org.goafabric.personservice.logic.PersonLogic
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -19,7 +20,8 @@ import java.util.stream.IntStream
 class DemoDataImporter(
     @param:ConfigProperty(name = "database.provisioning.goals") private val goals: String,
     @param:ConfigProperty(name = "multi-tenancy.tenants") private val tenants: String,
-    private val personLogic: PersonLogic
+    private val personLogic: PersonLogic,
+    private val objectStorageLogic: ObjectStorageLogic
 ) {
     private val log: Logger = LoggerFactory.getLogger(this.javaClass)
 
@@ -56,22 +58,32 @@ class DemoDataImporter(
             personLogic.save(
                 Person(
                     null, null, "Homer", "Simpson",
-                    listOf<Address>(createAddress("Evergreen Terrace No. $i"))
+                    listOf(createAddress("Evergreen Terrace No. $i"))
                 )
             )
             personLogic.save(
                 Person(
                     null, null, "Bart", "Simpson",
-                    listOf<Address>(createAddress("Everblue Terrace No. $i"))
+                    listOf(createAddress("Everblue Terrace No. $i"))
                 )
             )
             personLogic.save(
                 Person(
                     null, null, "Monty", "Burns",
-                    listOf<Address>(createAddress("Mammon Street No. 1000 on the corner of Croesus"))
+                    listOf(createAddress("Mammon Street No. 1000 on the corner of Croesus"))
                 )
             )
         })
+
+        objectStorageLogic.put(
+            ObjectStorageLogic.ObjectEntry(
+                "hello_world.txt",
+                "text/plain",
+                "hello world".length.toLong(),
+                "hello world".toByteArray()
+            )
+        )
+        log.info("##blob: " + objectStorageLogic.getByKey("hello_world.txt").data.toString())
     }
 
     private fun createAddress(street: String): Address {
