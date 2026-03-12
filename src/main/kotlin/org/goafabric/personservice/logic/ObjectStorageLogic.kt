@@ -12,7 +12,7 @@ import java.io.ByteArrayOutputStream
 class ObjectStorageLogic(@param:ConfigProperty(name = "azure.storage.blob.container-name") val container: String,
                          val blobServiceClient: BlobServiceClient) {
 
-    val directory: String get() = "${UserContext.tenantId}/"
+    val directory: String = "${UserContext.tenantId}/"
 
     fun getByKey(key: String): ObjectEntry {
         val outputStream = ByteArrayOutputStream()
@@ -40,6 +40,9 @@ class ObjectStorageLogic(@param:ConfigProperty(name = "azure.storage.blob.contai
             .upload(ByteArrayInputStream(objectEntry.data), true)
     }
 
+    fun getPath(key: String): String {
+        return "$directory$key"
+    }
 
     data class ObjectEntry(
         val key: String,
@@ -48,8 +51,5 @@ class ObjectStorageLogic(@param:ConfigProperty(name = "azure.storage.blob.contai
         val data: ByteArray
     )
 
-    fun getPath(key: String): String {
-        return "$directory$key"
-    }
 }
 

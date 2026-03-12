@@ -85,7 +85,7 @@ class DemoDataImporter(
                     "hello world".toByteArray()
                 )
             )
-            log.info("##blob: " + objectStorageLogic.getByKey("hello_world.txt").data.toString())
+            log.info("##blob: " + String(objectStorageLogic.getByKey("hello_world.txt").data))
         }
     }
 
