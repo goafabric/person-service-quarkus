@@ -9,12 +9,15 @@ import java.io.ByteArrayOutputStream
 
 
 @ApplicationScoped
-class ObjectStorageLogic(@param:ConfigProperty(name = "multi-tenancy.schema-prefix") var schemaPrefix: String,
-                               val blobServiceClient: BlobServiceClient) {
+class ObjectStorageLogic(@param:ConfigProperty(name = "azure.storage.blob.container-name") val container: String,
+                         val blobServiceClient: BlobServiceClient) {
+
+    val directory: String get() = "${UserContext.tenantId}/"
 
     fun getByKey(key: String): ObjectEntry {
         val outputStream = ByteArrayOutputStream()
-        val client = blobServiceClient.getBlobContainerClient(getBucketName()).getBlobClient(key)
+        val client = blobServiceClient.getBlobContainerClient(container)
+            .getBlobClient(getPath(key))
         client.downloadStream(outputStream)
         return ObjectEntry(
             key,
@@ -25,28 +28,28 @@ class ObjectStorageLogic(@param:ConfigProperty(name = "multi-tenancy.schema-pref
     }
 
     fun deleteByKey(key: String) {
-        val client = blobServiceClient.getBlobContainerClient(getBucketName()).getBlobClient(key)
+        val client = blobServiceClient.getBlobContainerClient(container)
+            .getBlobClient(getPath(key))
         client.delete()
     }
 
     fun put(objectEntry: ObjectEntry) {
-        blobServiceClient.createBlobContainerIfNotExists(getBucketName())
-        blobServiceClient.getBlobContainerClient(getBucketName())
-        blobServiceClient.getBlobContainerClient(getBucketName()).getBlobClient(objectEntry.objectName)
+        blobServiceClient.createBlobContainerIfNotExists(container)
+        blobServiceClient.getBlobContainerClient(container)
+            .getBlobClient(getPath(objectEntry.key))
             .upload(ByteArrayInputStream(objectEntry.data), true)
-    }
-
-    private fun getBucketName(): String {
-        return schemaPrefix.replace("_".toRegex(), "-") + UserContext.tenantId
     }
 
 
     data class ObjectEntry(
-        val objectName: String,
+        val key: String,
         val contentType: String,
         val objectSize: Long,
         val data: ByteArray
     )
 
+    fun getPath(key: String): String {
+        return "$directory$key"
+    }
 }
 
