@@ -53,7 +53,6 @@ dependencies {
 
 	//crosscutting
 	implementation("io.quarkus:quarkus-hibernate-validator")
-	implementation("io.smallrye.config:smallrye-config-source-file-system")
 
 	//persistence
 	implementation("io.quarkus:quarkus-jdbc-postgresql")
