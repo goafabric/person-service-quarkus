@@ -1,5 +1,5 @@
 - Blob storage
-- Helm / Compose with Kafka, Blob, Filesystem Secrets
+- Helm Chart
 - JBeret Batch App, Invoice Process
 
 - https://quarkus.io/guides/datasource#in-memory-databases
