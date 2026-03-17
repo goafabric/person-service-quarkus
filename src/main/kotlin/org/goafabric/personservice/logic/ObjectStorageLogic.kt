@@ -1,8 +1,10 @@
 package org.goafabric.personservice.logic
 
+import com.azure.storage.blob.BlobClientBuilder
 import com.azure.storage.blob.BlobServiceClient
 import com.azure.storage.blob.models.BlobHttpHeaders
 import jakarta.enterprise.context.ApplicationScoped
+import jakarta.enterprise.inject.Produces
 import org.eclipse.microprofile.config.inject.ConfigProperty
 import org.goafabric.personservice.extensions.UserContext
 import java.io.ByteArrayInputStream
@@ -13,7 +15,8 @@ import java.io.InputStream
 
 @ApplicationScoped
 class ObjectStorageLogic(@param:ConfigProperty(name = "azure.storage.blob.container-name") val container: String,
-                         val blobServiceClient: BlobServiceClient) {
+                         val blobServiceClient: BlobServiceClient,
+                         val blobClientBuilder: BlobClientBuilder) {
 
     val directory: String = "${UserContext.tenantId}/"
 
@@ -24,10 +27,10 @@ class ObjectStorageLogic(@param:ConfigProperty(name = "azure.storage.blob.contai
         val content = blobClient.downloadContent()
 
         return ObjectEntry(
-            key,
+            key = key,
             content.length,
-            blobClient.properties.contentType,
-            content.toStream()
+            contentType = blobClient.properties.contentType,
+            data = content.toStream()
         )
     }
 
@@ -47,15 +50,13 @@ class ObjectStorageLogic(@param:ConfigProperty(name = "azure.storage.blob.contai
     }
 
 
-    /*
     fun getByUrl(presignedUrl: String): PresignedObjectEntry {
-        val blobClient = blobServiceClient.getBlobContainerClient(container)
+        val blobClient = blobClientBuilder
             .endpoint(presignedUrl)
             .buildClient()
 
         val content = blobClient.openInputStream()
         val properties = blobClient.properties
-
 
         return PresignedObjectEntry(
             url = presignedUrl,
@@ -65,10 +66,14 @@ class ObjectStorageLogic(@param:ConfigProperty(name = "azure.storage.blob.contai
         )
     }
 
-     */
 
     fun getPath(key: String): String {
         return "$directory$key"
+    }
+
+    @Produces
+    fun blobClientBuilder(): BlobClientBuilder {
+        return BlobClientBuilder()
     }
 
     data class ObjectEntry(
