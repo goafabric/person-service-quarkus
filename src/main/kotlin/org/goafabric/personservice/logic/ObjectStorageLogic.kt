@@ -1,7 +1,6 @@
 package org.goafabric.personservice.logic
 
 import com.azure.storage.blob.BlobServiceClient
-import com.azure.storage.blob.models.BlobHttpHeaders
 import jakarta.enterprise.context.ApplicationScoped
 import org.eclipse.microprofile.config.inject.ConfigProperty
 import org.goafabric.personservice.extensions.UserContext
@@ -39,7 +38,7 @@ class ObjectStorageLogic(@param:ConfigProperty(name = "azure.storage.blob.contai
         val blobClient = blobServiceClient.getBlobContainerClient(container)
             .getBlobClient(getPath(objectEntry.key))
 
-        blobClient.setHttpHeaders(BlobHttpHeaders().setContentType(objectEntry.contentType))
+        //blobClient.setHttpHeaders(BlobHttpHeaders().setContentType(objectEntry.contentType))
         blobClient.upload(ByteArrayInputStream(objectEntry.data), true)
     }
 
