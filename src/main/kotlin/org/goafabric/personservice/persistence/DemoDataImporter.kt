@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory
 import java.util.function.Consumer
 import java.util.function.IntConsumer
 import java.util.stream.IntStream
+import kotlin.system.exitProcess
 
 @ApplicationScoped
 class DemoDataImporter(
@@ -39,7 +40,7 @@ class DemoDataImporter(
 
         if (goals.contains("-terminate")) {
             log.info("Terminating app ...")
-            System.exit(0)
+            exitProcess(0)
         }
     }
 
