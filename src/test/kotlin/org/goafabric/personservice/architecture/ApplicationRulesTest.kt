@@ -1,4 +1,4 @@
-package org.goafabric.calleeservice.architecture
+package org.goafabric.personservice.architecture
 
 import com.tngtech.archunit.core.importer.ImportOption
 import com.tngtech.archunit.core.importer.ImportOption.DoNotIncludeTests
@@ -90,7 +90,8 @@ object ApplicationRulesTest {
 
             "org.eclipse.microprofile..",
             "io.mcarle.konvert..",
-            "io.smallrye..", "org.apache.kafka.."
+            "io.smallrye..", "org.apache.kafka..",
+            "com.azure.core.."
         )
         .because("Only core and allowed libraries should be used to avoid unnecessary third-party dependencies")
 

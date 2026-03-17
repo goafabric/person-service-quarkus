@@ -7,6 +7,8 @@ import org.eclipse.microprofile.config.inject.ConfigProperty
 import org.goafabric.personservice.extensions.UserContext
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
+import java.io.Closeable
+import java.io.InputStream
 
 
 @ApplicationScoped
@@ -16,15 +18,16 @@ class ObjectStorageLogic(@param:ConfigProperty(name = "azure.storage.blob.contai
     val directory: String = "${UserContext.tenantId}/"
 
     fun getByKey(key: String): ObjectEntry {
-        val outputStream = ByteArrayOutputStream()
-        val client = blobServiceClient.getBlobContainerClient(container)
+        val blobClient = blobServiceClient.getBlobContainerClient(container)
             .getBlobClient(getPath(key))
-        client.downloadStream(outputStream)
+
+        val content = blobClient.downloadContent()
+
         return ObjectEntry(
             key,
-            client.properties.contentType,
-            outputStream.toByteArray().size.toLong(),
-            outputStream.toByteArray()
+            content.length,
+            blobClient.properties.contentType,
+            content.toStream()
         )
     }
 
@@ -39,9 +42,30 @@ class ObjectStorageLogic(@param:ConfigProperty(name = "azure.storage.blob.contai
         val blobClient = blobServiceClient.getBlobContainerClient(container)
             .getBlobClient(getPath(objectEntry.key))
 
-        blobClient.upload(ByteArrayInputStream(objectEntry.data), true)
+        blobClient.upload(objectEntry.data, objectEntry.sizeBytes)
         blobClient.setHttpHeaders(BlobHttpHeaders().setContentType(objectEntry.contentType))
     }
+
+
+    /*
+    fun getByUrl(presignedUrl: String): PresignedObjectEntry {
+        val blobClient = blobServiceClient.getBlobContainerClient(container)
+            .endpoint(presignedUrl)
+            .buildClient()
+
+        val content = blobClient.openInputStream()
+        val properties = blobClient.properties
+
+
+        return PresignedObjectEntry(
+            url = presignedUrl,
+            contentType = properties.contentType,
+            data = content,
+            sizeBytes = properties.blobSize,
+        )
+    }
+
+     */
 
     fun getPath(key: String): String {
         return "$directory$key"
@@ -49,10 +73,16 @@ class ObjectStorageLogic(@param:ConfigProperty(name = "azure.storage.blob.contai
 
     data class ObjectEntry(
         val key: String,
+        val sizeBytes: Long,
         val contentType: String,
-        val objectSize: Long,
-        val data: ByteArray
-    )
+        val data: InputStream,
+    ): Closeable by data
 
+    data class PresignedObjectEntry (
+        val url: String,
+        val sizeBytes: Long,
+        val contentType: String,
+        val data: InputStream,
+    ) : Closeable by data
 }
 

@@ -81,12 +81,12 @@ class DemoDataImporter(
             objectStorageLogic.put(
                 ObjectStorageLogic.ObjectEntry(
                     "hello_world.txt",
-                    "text/plain",
                     "hello world".length.toLong(),
-                    "hello world".toByteArray()
+                    "text/plain",
+                    "hello world".toByteArray().inputStream(),
                 )
             )
-            log.info("##blob: " + String(objectStorageLogic.getByKey("hello_world.txt").data))
+            //log.info("##blob: " + String(objectStorageLogic.getByKey("hello_world.txt").data.))
         }
     }
 

@@ -1,5 +1,6 @@
 package org.goafabric.personservice.logic
 
+import com.azure.core.util.BinaryData
 import com.azure.storage.blob.BlobClient
 import com.azure.storage.blob.BlobContainerClient
 import com.azure.storage.blob.BlobServiceClient
@@ -28,14 +29,22 @@ class ObjectStorageLogicTest {
         whenever(containerClient.getBlobClient(any())).thenReturn(blobClient)
         whenever(blobClient.exists()).thenReturn(true)
         whenever(blobClient.properties).thenReturn(blobProperties)
-        whenever(blobProperties.contentType).thenReturn("application/octet-stream")
+        whenever(blobProperties.contentType).thenReturn("text/plain")
     }
 
     @Test
     fun getByKey() {
+        val content = "test content".toByteArray()
+        val binaryData = mock<BinaryData>()
+        whenever(binaryData.toStream()).thenReturn(ByteArrayInputStream(content))
+        whenever(binaryData.length).thenReturn(content.size.toLong())
+
+        whenever(blobClient.downloadContent()).thenReturn(binaryData)
+        whenever(blobProperties.contentType).thenReturn("text/plain")
+
         val objectEntry = objectStorageLogic.getByKey("key")
         assertThat(objectEntry).isNotNull
-        verify(blobClient).downloadStream(any())
+        verify(blobClient).downloadContent()
     }
 
     @Test
@@ -46,8 +55,8 @@ class ObjectStorageLogicTest {
 
     @Test
     fun put() {
-        objectStorageLogic.put(ObjectStorageLogic.ObjectEntry("", "", 0L, byteArrayOf()))
-        verify(blobClient).upload(any<ByteArrayInputStream>(), eq(true))
+        objectStorageLogic.put(ObjectStorageLogic.ObjectEntry("", 0L, "", "".toByteArray().inputStream()))
+        verify(blobClient).upload(any<ByteArrayInputStream>(), eq(0L))
     }
 
     @Test
