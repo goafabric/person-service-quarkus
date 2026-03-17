@@ -98,6 +98,7 @@ dependencies {
 	testImplementation("com.tngtech.archunit:archunit-junit5")
 
 	testImplementation("io.quarkus:quarkus-test-kafka-companion")
+	testImplementation("org.mockito.kotlin:mockito-kotlin")
 }
 
 tasks.withType<Test> {
