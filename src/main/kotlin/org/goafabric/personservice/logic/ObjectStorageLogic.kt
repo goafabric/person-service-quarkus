@@ -4,6 +4,7 @@ import com.azure.storage.blob.BlobClientBuilder
 import com.azure.storage.blob.BlobServiceClient
 import com.azure.storage.blob.models.BlobHttpHeaders
 import jakarta.enterprise.context.ApplicationScoped
+import jakarta.enterprise.inject.Produces
 import org.eclipse.microprofile.config.inject.ConfigProperty
 import org.goafabric.personservice.extensions.UserContext
 import java.io.Closeable
@@ -62,7 +63,14 @@ class ObjectStorageLogic(@param:ConfigProperty(name = "azure.storage.blob.contai
 
 
     fun getPath(key: String): String {
-        return "${UserContext.tenantId}\"$key"
+        return "${UserContext.tenantId}/$key"
+    }
+
+    class BlobClientBuilderConfig {
+        @Produces
+        fun blobClientBuilder(): BlobClientBuilder {
+            return BlobClientBuilder()
+        }
     }
 
     data class ObjectEntry(
