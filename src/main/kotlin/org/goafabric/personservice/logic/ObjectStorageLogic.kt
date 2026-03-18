@@ -1,5 +1,6 @@
 package org.goafabric.personservice.logic
 
+import com.azure.storage.blob.BlobClientBuilder
 import com.azure.storage.blob.BlobServiceClient
 import com.azure.storage.blob.models.BlobHttpHeaders
 import jakarta.enterprise.context.ApplicationScoped
@@ -11,7 +12,8 @@ import java.io.InputStream
 
 @ApplicationScoped
 class ObjectStorageLogic(@param:ConfigProperty(name = "azure.storage.blob.container-name") val container: String,
-                         val blobServiceClient: BlobServiceClient) {
+                         val blobServiceClient: BlobServiceClient,
+                         val blobClientBuilder: BlobClientBuilder) {
 
     fun getByKey(key: String): ObjectEntry {
         val blobClient = blobServiceClient.getBlobContainerClient(container)
@@ -42,8 +44,6 @@ class ObjectStorageLogic(@param:ConfigProperty(name = "azure.storage.blob.contai
         blobClient.setHttpHeaders(BlobHttpHeaders().setContentType(objectEntry.contentType))
     }
 
-
-    /*
     fun getByUrl(presignedUrl: String): PresignedObjectEntry {
         val blobClient = blobClientBuilder
             .endpoint(presignedUrl)
@@ -60,14 +60,10 @@ class ObjectStorageLogic(@param:ConfigProperty(name = "azure.storage.blob.contai
         )
     }
 
-     */
-
 
     fun getPath(key: String): String {
         return "${UserContext.tenantId}\"$key"
     }
-
-
 
     data class ObjectEntry(
         val key: String,

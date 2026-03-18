@@ -1,4 +1,3 @@
-/*
 package org.goafabric.personservice.logic
 
 import com.azure.core.util.BinaryData
@@ -8,15 +7,10 @@ import com.azure.storage.blob.BlobContainerClient
 import com.azure.storage.blob.BlobServiceClient
 import com.azure.storage.blob.models.BlobProperties
 import com.azure.storage.blob.specialized.BlobInputStream
-import io.quarkus.test.junit.QuarkusTest
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import org.mockito.kotlin.any
-import org.mockito.kotlin.eq
-import org.mockito.kotlin.mock
-import org.mockito.kotlin.verify
-import org.mockito.kotlin.whenever
+import org.mockito.kotlin.*
 import java.io.ByteArrayInputStream
 
 class ObjectStorageLogicTest {
@@ -102,4 +96,4 @@ class ObjectStorageLogicTest {
         assertThat(objectStorageLogic.getPath("key")).isEqualTo("0/key")
     }
 
-}*/
+}
