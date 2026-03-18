@@ -13,8 +13,6 @@ import org.goafabric.personservice.logic.PersonLogic
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.util.function.Consumer
-import java.util.function.IntConsumer
-import java.util.stream.IntStream
 import kotlin.system.exitProcess
 
 @ApplicationScoped
@@ -56,26 +54,24 @@ class DemoDataImporter(
     }
 
     private fun insertData() {
-        IntStream.range(0, 1).forEach(IntConsumer { i: Int ->
-            personLogic.save(
-                Person(
-                    null, null, "Homer", "Simpson",
-                    listOf(createAddress("Evergreen Terrace No. $i"))
-                )
+        personLogic.save(
+            Person(
+                null, null, "Homer", "Simpson",
+                listOf(createAddress("Evergreen Terrace"))
             )
-            personLogic.save(
-                Person(
-                    null, null, "Bart", "Simpson",
-                    listOf(createAddress("Everblue Terrace No. $i"))
-                )
+        )
+        personLogic.save(
+            Person(
+                null, null, "Bart", "Simpson",
+                listOf(createAddress("Everblue Terrace"))
             )
-            personLogic.save(
-                Person(
-                    null, null, "Monty", "Burns",
-                    listOf(createAddress("Mammon Street No. 1000 on the corner of Croesus"))
-                )
+        )
+        personLogic.save(
+            Person(
+                null, null, "Monty", "Burns",
+                listOf(createAddress("Mammon Street No. 1000 on the corner of Croesus"))
             )
-        })
+        )
 
         if (blobEnabled) {
             objectStorageLogic.put(
@@ -87,7 +83,8 @@ class DemoDataImporter(
                 )
             )
 
-            //log.info("##blob: " + objectStorageLogic.getByKey("hello_world.txt").data.toString())
+            log.info("##blob: " + objectStorageLogic.getByKey("hello_world.txt")
+                .data.readAllBytes().toString(Charsets.UTF_8))
         }
     }
 

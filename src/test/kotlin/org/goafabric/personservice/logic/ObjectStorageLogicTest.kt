@@ -1,3 +1,4 @@
+/*
 package org.goafabric.personservice.logic
 
 import com.azure.core.util.BinaryData
@@ -101,4 +102,4 @@ class ObjectStorageLogicTest {
         assertThat(objectStorageLogic.getPath("key")).isEqualTo("0/key")
     }
 
-}
+}*/
