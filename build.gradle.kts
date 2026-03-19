@@ -28,6 +28,8 @@ dependencies {
 	constraints {
 		annotationProcessor("org.mapstruct:mapstruct-processor:1.6.3")
 		implementation("org.mapstruct:mapstruct:1.6.3")
+		implementation("io.quarkiverse.azureservices:quarkus-azure-storage-blob:1.2.2")
+
 		kapt("org.mapstruct:mapstruct-processor:1.6.3")
 		kapt("org.hibernate.orm:hibernate-processor:7.2.4.Final")
 
@@ -86,7 +88,7 @@ dependencies {
 	implementation("io.smallrye.reactive:smallrye-reactive-messaging-kafka")
 
 	//blob
-	implementation("io.quarkiverse.azureservices:quarkus-azure-storage-blob:1.2.2")
+	implementation("io.quarkiverse.azureservices:quarkus-azure-storage-blob")
 
 
 	//test
