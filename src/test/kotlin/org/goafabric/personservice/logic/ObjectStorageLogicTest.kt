@@ -43,6 +43,7 @@ class ObjectStorageLogicTest {
 
         val objectEntry = objectStorageLogic.getByKey("key")
         assertThat(objectEntry).isNotNull
+        assertThat(objectEntry.data.readAllBytes().toString(Charsets.UTF_8)).isEqualTo("test content")
         verify(blobClient).downloadContent()
     }
 
