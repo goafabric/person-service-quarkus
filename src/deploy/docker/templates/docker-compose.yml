@@ -56,8 +56,8 @@ services:
       azure.storage.blob.account-key: Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==
 
       #secrets
-      quarkus.datasource.username: "person-service"
-      quarkus.datasource.password: "person-service"
+      quarkus.datasource.username: ${spring.datasource.username} #"person-service"
+      quarkus.datasource.password:  ${spring.datasource.password} #"person-service"
       kafka.username: "admin"
       kafka.password: "supersecret"
 
