@@ -8,4 +8,4 @@ import kotlin.annotation.AnnotationTarget.FUNCTION
 @InterceptorBinding
 @Retention(RUNTIME)
 @Target(CLASS, FUNCTION)
-annotation class KafkaListener
+annotation class KafkaUserInterceptor
