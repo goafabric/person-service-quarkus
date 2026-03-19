@@ -72,12 +72,4 @@ class PersonControllerIT {
     }
 
 
-    /*
-    @Test
-    @Transactional
-    fun findByStreet() {
-        Assertions.assertThat<Person>(personLogic.findByStreet("Monty Mansion", 1, 3)).isNotNull().hasSize(1)
-    }
-
-     */
 }
