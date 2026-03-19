@@ -11,9 +11,9 @@ class ConfigTreeSourceFactory : ConfigSourceFactory {
 
     override fun getConfigSources(context: ConfigSourceContext): Iterable<ConfigSource> {
 
-        val path = context.getValue("quarkus.configtree.path")
-            ?.value
-            ?: return emptyList()
+        //val path = context.getValue("quarkus.configtree.path") ?.value ?: return emptyList()
+
+        val path = "./src/deploy/docker/templates/secrets"
 
         val dir = File(path)
 
@@ -21,7 +21,8 @@ class ConfigTreeSourceFactory : ConfigSourceFactory {
             return emptyList()
         }
 
-        return listOf(ConfigTreeSource(dir))
+        val secrets =  listOf(ConfigTreeSource(dir))
+        return secrets
     }
 
     override fun getPriority(): OptionalInt = OptionalInt.of(290)
