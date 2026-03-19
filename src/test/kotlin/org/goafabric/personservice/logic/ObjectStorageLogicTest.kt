@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test
 import org.mockito.kotlin.*
 import java.io.ByteArrayInputStream
 
-internal class ObjectStorageLogicTest {
+class ObjectStorageLogicTest {
     private val blobServiceClient = mock<BlobServiceClient>()
     private val containerClient = mock<BlobContainerClient>()
     private val blobClient = mock<BlobClient>()

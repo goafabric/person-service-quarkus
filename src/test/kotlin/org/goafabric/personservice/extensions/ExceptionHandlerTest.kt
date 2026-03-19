@@ -4,7 +4,7 @@ import jakarta.ws.rs.core.Response
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-internal class ExceptionHandlerTest {
+class ExceptionHandlerTest {
     private val exceptionHandler: ExceptionHandler = ExceptionHandler()
 
     @Test
