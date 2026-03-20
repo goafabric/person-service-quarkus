@@ -127,7 +127,7 @@ tasks.register<Exec>("dockerImageNative") { description = "native image"; group 
 		System.setProperty("quarkus.native.container-build", "true")
 		System.setProperty("quarkus.container-image.build", "true")
 
-		System.setProperty("quarkus.native.native-image-xmx", "7000m")
+		System.setProperty("quarkus.native.native-image-xmx", "8000m")
 		System.setProperty("quarkus.container-image.image", "${dockerRegistry}/${project.name}:${project.version}")
 
 		commandLine("/bin/sh", "-c", "docker push ${dockerRegistry}/${project.name}:${project.version}")

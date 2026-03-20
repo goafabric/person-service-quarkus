@@ -1,5 +1,6 @@
 package org.goafabric.personservice.extensions
 
+import io.quarkus.runtime.annotations.RegisterForReflection
 import io.quarkus.runtime.annotations.StaticInitSafe
 import io.smallrye.config.ConfigSourceContext
 import io.smallrye.config.ConfigSourceFactory
@@ -16,12 +17,16 @@ class ConfigTreeSourceFactory : ConfigSourceFactory {
     }
 
     private fun getConfig(directory: File): Iterable<ConfigSource> {
-        return if (!directory.name.equals("") && directory.exists() && directory.isDirectory) listOf(ConfigTreeSource(directory)) else emptyList()
+        return if (!directory.name.equals("") && directory.exists() && directory.isDirectory) listOf(ConfigTreeSource(directory)) else {
+            println("## directory is invalid!!")
+            emptyList()
+        }
     }
 
     override fun getPriority(): OptionalInt = OptionalInt.of(290)
 
     @StaticInitSafe
+    @RegisterForReflection(targets = [sun.security.provider.ConfigFile::class])
     class ConfigTreeSource(private val root: File) : ConfigSource {
 
         private val properties: Map<String, String> = load()
@@ -36,6 +41,7 @@ class ConfigTreeSourceFactory : ConfigSourceFactory {
                     val key = relative.replace(File.separatorChar, '.').replace(Regex("\\.+"), ".")
                     val value = Files.readString(file.toPath()).trim()
                     map[key] = value
+                    println("## got config value: $value")
                 }
 
             return map
