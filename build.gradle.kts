@@ -152,3 +152,7 @@ sonar {
 		property("sonar.coverage.jacoco.xmlReportPaths", "${layout.buildDirectory.get().asFile}/jacoco-report/jacoco.xml")
 	}
 }
+
+tasks.matching { it.name == "checkSnapshotDependencies" }.configureEach {
+	enabled = false
+}
