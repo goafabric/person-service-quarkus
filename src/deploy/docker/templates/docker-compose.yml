@@ -15,6 +15,7 @@ services:
     volumes:
       - tmp:/tmp
       - applogs:/usr/share/logs
+      - ./secrets:/mnt/secrets
     networks:
       - ${_Values_root_name}-net
     environment:
@@ -61,13 +62,14 @@ services:
       #kafka.username: "admin"
       #kafka.password: "supersecret"
 
-      quarkus.configtree.path: "./secrets"
+      quarkus.configtree.path: "/mnt/secrets"
 
       #log levels
       QUARKUS_LOG_LEVEL: "INFO"
       QUARKUS_LOG_CATEGORY__ORG_GOAFABRIC__LEVEL: "INFO"
       QUARKUS_LOG_CATEGORY__ORG_FLYWAYDB_CORE__LEVEL: "INFO"
       QUARKUS_LOG_CATEGORY__ORG_HIBERNATE__LEVEL: "INFO"
+
 
     depends_on:
       postgres:
