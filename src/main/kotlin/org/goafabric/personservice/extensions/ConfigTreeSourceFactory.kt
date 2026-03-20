@@ -21,8 +21,8 @@ class ConfigTreeSourceFactory : ConfigSourceFactory {
             return emptyList()
         }
 
-        val secrets =  listOf(ConfigTreeSource(dir))
-        return secrets
+        return listOf(ConfigTreeSource(dir))
+        
     }
 
     override fun getPriority(): OptionalInt = OptionalInt.of(290)
