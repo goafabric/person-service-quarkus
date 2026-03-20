@@ -10,19 +10,11 @@ import java.util.*
 class ConfigTreeSourceFactory : ConfigSourceFactory {
 
     override fun getConfigSources(context: ConfigSourceContext): Iterable<ConfigSource> {
+        return getConfig(File(context.getValue("quarkus.configtree.path") ?.value ?: ""))
+    }
 
-        //val path = context.getValue("quarkus.configtree.path") ?.value ?: return emptyList()
-
-        val path = "./src/deploy/docker/templates/secrets"
-
-        val dir = File(path)
-
-        if (!dir.exists() || !dir.isDirectory) {
-            return emptyList()
-        }
-
-        return listOf(ConfigTreeSource(dir))
-        
+    private fun getConfig(directory: File): Iterable<ConfigSource> {
+        return if (!directory.name.equals("") && directory.exists() && directory.isDirectory) listOf(ConfigTreeSource(directory)) else emptyList()
     }
 
     override fun getPriority(): OptionalInt = OptionalInt.of(290)

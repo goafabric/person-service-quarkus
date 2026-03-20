@@ -26,12 +26,8 @@ class ConfigTreeSource(private val root: File) : ConfigSource {
     }
 
     override fun getProperties(): MutableMap<String, String> = properties.toMutableMap()
-
     override fun getPropertyNames(): MutableSet<String> = properties.keys.toMutableSet()
-
     override fun getValue(propertyName: String?): String? = properties[propertyName]
-
     override fun getName(): String = "configtree:${root.absolutePath}"
-
     override fun getOrdinal(): Int = 350
 }
