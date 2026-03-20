@@ -15,7 +15,7 @@ import org.apache.kafka.common.header.Headers
 import org.slf4j.MDC
 import java.nio.charset.StandardCharsets
 
-@KafkaListener
+@KafkaUserInterceptor
 @Interceptor
 @Priority(Interceptor.Priority.APPLICATION)
 class KafkaInterceptor {
