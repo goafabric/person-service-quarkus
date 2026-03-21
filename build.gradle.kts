@@ -61,7 +61,6 @@ dependencies {
 	implementation("io.quarkus:quarkus-jdbc-h2")
 	implementation("io.quarkus:quarkus-flyway")
 	implementation("org.flywaydb:flyway-database-postgresql")
-	runtimeOnly("com.h2database:h2")
 
 	//jakarta data
 	implementation("io.quarkus:quarkus-hibernate-panache-next")
@@ -90,6 +89,8 @@ dependencies {
 	//blob
 	implementation("io.quarkiverse.azureservices:quarkus-azure-storage-blob")
 
+	//h2
+	runtimeOnly("com.h2database:h2")
 
 	//test
 	testImplementation("io.quarkus:quarkus-junit5")
