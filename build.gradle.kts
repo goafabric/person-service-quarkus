@@ -106,13 +106,18 @@ dependencies {
 }
 
 tasks.withType<Test> {
-	dependsOn("quarkusBuild")
 	useJUnitPlatform()
 	exclude("**/*NRIT*")
 	systemProperty("java.util.logging.manager", "org.jboss.logmanager.LogManager")
 	finalizedBy("jacocoTestReport")
 }
-tasks.jacocoTestReport { reports {csv.required.set(true); xml.required.set(true) } }
+
+tasks.jacocoTestReport {
+	executionData.setFrom(
+		fileTree(layout.buildDirectory.get()).include("jacoco/test.exec", "jacoco-quarkus.exec")
+	)
+	reports { xml.required.set(true); csv.required.set(true); html.required.set(true) }
+}
 
 tasks.register<Exec>("dockerImageNative") { description = "native image"; group = "build" ; dependsOn("quarkusBuild", "testNative")
 	if (gradle.startParameter.taskNames.contains("dockerImageNative")) {
@@ -147,11 +152,13 @@ allOpen {
 	annotation("io.quarkus.test.junit.QuarkusTest")
 }
 
+/*
 sonar {
 	properties {
-		property("sonar.coverage.jacoco.xmlReportPaths", "${layout.buildDirectory.get().asFile}/jacoco-report/jacoco.xml")
+		property("sonar.coverage.jacoco.xmlReportPaths", "${layout.buildDirectory.get().asFile}/reports/jacoco/test/jacocoTestReport.xml")
 	}
 }
+*/
 
 tasks.matching { it.name == "checkSnapshotDependencies" }.configureEach {
 	enabled = false
