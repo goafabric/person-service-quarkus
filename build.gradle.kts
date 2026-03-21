@@ -152,6 +152,12 @@ allOpen {
 	annotation("io.quarkus.test.junit.QuarkusTest")
 }
 
+sonarqube {
+	properties {
+		property("sonar.exclusions", "**/.github/workflows/**")
+	}
+}
+
 tasks.matching { it.name == "checkSnapshotDependencies" }.configureEach {
 	enabled = false
 }
