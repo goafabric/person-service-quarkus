@@ -6,13 +6,12 @@ import com.tngtech.archunit.junit.ArchTest
 import com.tngtech.archunit.lang.ArchRule
 import com.tngtech.archunit.lang.syntax.ArchRuleDefinition
 import com.tngtech.archunit.library.Architectures
-import jakarta.ws.rs.Path
 import jakarta.ws.rs.Produces
 import org.goafabric.personservice.Application
 
 
 @AnalyzeClasses(packagesOf = [Application::class], importOptions = [DoNotIncludeTests::class])
-internal object ControllerRulesTest {
+class ControllerRulesTest {
     @ArchTest
     val layerAreRespectedBasic: ArchRule = Architectures.layeredArchitecture()
         .consideringOnlyDependenciesInLayers()
