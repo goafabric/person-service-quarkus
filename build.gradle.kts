@@ -152,14 +152,6 @@ allOpen {
 	annotation("io.quarkus.test.junit.QuarkusTest")
 }
 
-/*
-sonar {
-	properties {
-		property("sonar.coverage.jacoco.xmlReportPaths", "${layout.buildDirectory.get().asFile}/reports/jacoco/test/jacocoTestReport.xml")
-	}
-}
-*/
-
 tasks.matching { it.name == "checkSnapshotDependencies" }.configureEach {
 	enabled = false
 }
