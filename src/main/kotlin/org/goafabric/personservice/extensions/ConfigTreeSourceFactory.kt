@@ -19,7 +19,7 @@ class ConfigTreeSourceFactory : ConfigSourceFactory {
     }
 
     fun getConfig(directory: File): Iterable<ConfigSource> {
-        return if (!directory.name.equals("") && directory.exists() && directory.isDirectory) listOf(ConfigTreeSource(directory)) else {
+        return if (directory.name != "" && directory.exists() && directory.isDirectory) listOf(ConfigTreeSource(directory)) else {
             log.info("quarkus.configtree.path not found")
             emptyList()
         }
