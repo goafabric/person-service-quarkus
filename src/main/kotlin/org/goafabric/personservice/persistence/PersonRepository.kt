@@ -32,7 +32,6 @@ interface PersonRepository : PanacheRepository.Managed<PersonEo, String> { //Cru
     ): Page<PersonEo>
 
     fun save(personEo: PersonEo): PersonEo {
-        persist(personEo)
-        return personEo
+        return session.merge(personEo)
     }
 }

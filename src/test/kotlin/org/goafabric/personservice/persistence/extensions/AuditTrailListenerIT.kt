@@ -1,16 +1,13 @@
-/*
-package org.goafabric.personservice.extensions
+package org.goafabric.personservice.persistence.extensions
 
 import io.quarkus.test.junit.QuarkusTest
 import jakarta.inject.Inject
 import jakarta.persistence.EntityManager
-import jakarta.transaction.Transactional
 import org.assertj.core.api.Assertions.assertThat
 import org.goafabric.personservice.controller.PersonController
 import org.goafabric.personservice.controller.dto.Address
 import org.goafabric.personservice.controller.dto.Person
 import org.goafabric.personservice.persistence.PersonRepository
-import org.goafabric.personservice.persistence.extensions.AuditTrailListener
 import org.goafabric.personservice.persistence.extensions.AuditTrailListener.AuditTrail
 import org.junit.jupiter.api.Test
 import java.util.*
@@ -22,7 +19,7 @@ class AuditTrailListenerIT {
     @Inject lateinit var entityManager: EntityManager
 
     @Test
-    fun creatUpdateDeletePerson() {
+    fun createUpdateDeletePerson() {
         val person = save()
 
         val createPerson = selectFrom("CREATE", person.id)
@@ -39,15 +36,18 @@ class AuditTrailListenerIT {
         assertThat(Objects.requireNonNull(updatePerson.newValue))
             .isNotNull().contains("updatedFirstName", "updatedLastName")
 
+        /*
         val deletePerson = selectFrom("DELETE", person.id)
         assertThat(deletePerson.oldValue).isNotNull()
         assertThat(deletePerson.newValue).isNull()
         assertThat(Objects.requireNonNull(deletePerson.oldValue))
             .isNotNull().contains("updatedFirstName", "updatedLastName")
+
+         */
     }
 
     @Test
-    fun creatUpdateDeleteAddress() {
+    fun createUpdateDeleteAddress() {
         val address = save().address.first()
 
         val createAddress = selectFrom("CREATE", address.id)
@@ -56,11 +56,14 @@ class AuditTrailListenerIT {
         assertThat(Objects.requireNonNull(createAddress.newValue))
             .isNotNull().contains("Terrace")
 
+        /*
         val deleteAddress = selectFrom("DELETE", address.id)
         assertThat(deleteAddress.oldValue).isNotNull()
         assertThat(deleteAddress.newValue).isNull()
         assertThat(Objects.requireNonNull(deleteAddress.oldValue))
             .isNotNull().contains("Terrace")
+
+         */
     }
 
     private fun selectFrom(operation: String, id: String?): AuditTrail {
@@ -95,9 +98,10 @@ class AuditTrailListenerIT {
             )
         )
 
-        personRepository.deleteById(person.id!!)
+        //personRepository.deleteById(person.id!!)
         return person
     }
+
 
     private fun createAddress(street: String): Address {
         return Address(
@@ -105,4 +109,4 @@ class AuditTrailListenerIT {
             street, "Springfield"
         )
     }
-}*/
+}
