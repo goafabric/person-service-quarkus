@@ -7,7 +7,7 @@ import org.assertj.core.api.Assertions.assertThat
 import org.goafabric.personservice.controller.PersonController
 import org.goafabric.personservice.controller.dto.Address
 import org.goafabric.personservice.controller.dto.Person
-import org.goafabric.personservice.persistence.PersonRepository
+import org.goafabric.personservice.logic.PersonLogic
 import org.goafabric.personservice.persistence.extensions.AuditTrailListener.AuditTrail
 import org.junit.jupiter.api.Test
 import java.util.*
@@ -15,7 +15,7 @@ import java.util.*
 @QuarkusTest
 class AuditTrailListenerIT {
     @Inject lateinit var personController: PersonController
-    @Inject lateinit var personRepository: PersonRepository
+    @Inject lateinit var personLogic: PersonLogic
     @Inject lateinit var entityManager: EntityManager
 
     @Test
@@ -36,14 +36,11 @@ class AuditTrailListenerIT {
         assertThat(Objects.requireNonNull(updatePerson.newValue))
             .isNotNull().contains("updatedFirstName", "updatedLastName")
 
-        /*
         val deletePerson = selectFrom("DELETE", person.id)
         assertThat(deletePerson.oldValue).isNotNull()
         assertThat(deletePerson.newValue).isNull()
         assertThat(Objects.requireNonNull(deletePerson.oldValue))
             .isNotNull().contains("updatedFirstName", "updatedLastName")
-
-         */
     }
 
     @Test
@@ -56,14 +53,11 @@ class AuditTrailListenerIT {
         assertThat(Objects.requireNonNull(createAddress.newValue))
             .isNotNull().contains("Terrace")
 
-        /*
         val deleteAddress = selectFrom("DELETE", address.id)
         assertThat(deleteAddress.oldValue).isNotNull()
         assertThat(deleteAddress.newValue).isNull()
         assertThat(Objects.requireNonNull(deleteAddress.oldValue))
             .isNotNull().contains("Terrace")
-
-         */
     }
 
     private fun selectFrom(operation: String, id: String?): AuditTrail {
@@ -98,7 +92,7 @@ class AuditTrailListenerIT {
             )
         )
 
-        //personRepository.deleteById(person.id!!)
+        personLogic.delete(person.id!!)
         return person
     }
 

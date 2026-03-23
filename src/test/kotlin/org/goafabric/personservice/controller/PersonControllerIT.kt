@@ -3,6 +3,7 @@ package org.goafabric.personservice.controller
 import io.quarkus.test.junit.QuarkusTest
 import jakarta.inject.Inject
 import org.assertj.core.api.Assertions
+import org.assertj.core.api.Assertions.assertThat
 import org.goafabric.personservice.controller.dto.Address
 import org.goafabric.personservice.controller.dto.Person
 import org.goafabric.personservice.controller.dto.PersonSearch
@@ -60,8 +61,26 @@ class PersonControllerIT {
             )
         )
 
-        Assertions.assertThat(person).isNotNull()
-        personLogic.delete(person.id!!)
+        assertThat(person).isNotNull()
+
+        val person2: Person = personController.getById(person.id!!)
+        assertThat(person2).isNotNull()
+        assertThat(person2.address).hasSize(1)
+        assertThat(person.version).isEqualTo(0)
+
+        //update
+        personController.save(Person(person.id, person.version, firstName = person.firstName, "updated", person.address))
+
+        //we have to load the entity again to get the updated version, if we just use the save returned it will be incorrect
+        val personUpdated = personController.find(PersonSearch("Homer", "updated"), 1, 3).first()
+        assertThat(personUpdated.version).isEqualTo(1)
+
+        assertThat(personUpdated.id).isEqualTo(person.id)
+        assertThat(personUpdated.version).isEqualTo(1)
+
+        assertThat(personUpdated.lastName).isEqualTo("updated")
+
+        personLogic.delete(person.id)
     }
 
     private fun createAddress(street: String): Address {
