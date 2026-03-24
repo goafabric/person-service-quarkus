@@ -5,6 +5,7 @@ import com.azure.storage.blob.BlobServiceClient
 import com.azure.storage.blob.models.BlobHttpHeaders
 import jakarta.enterprise.context.ApplicationScoped
 import jakarta.enterprise.inject.Produces
+import jakarta.transaction.Transactional
 import org.eclipse.microprofile.config.inject.ConfigProperty
 import org.goafabric.personservice.extensions.UserContext
 import java.io.Closeable
@@ -12,6 +13,7 @@ import java.io.InputStream
 
 
 @ApplicationScoped
+@Transactional
 class ObjectStorageLogic(@param:ConfigProperty(name = "azure.storage.blob.container-name") val container: String,
                          val blobServiceClient: BlobServiceClient,
                          val blobClientBuilder: BlobClientBuilder) {
