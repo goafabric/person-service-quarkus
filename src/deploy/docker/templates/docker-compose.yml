@@ -32,7 +32,7 @@ services:
       quarkus.datasource.jdbc.url: "jdbc:postgresql://postgres:5432/person"
       quarkus.datasource.jdbc.max-size: "10"
 
-      database.provisioning.goals: "-import-demo-data"
+      database.provisioning.goals: "-migrate -import-demo-data"
 
       #adapter
       adapter.calleeservice.url: "http://host.docker.internal:50900"
