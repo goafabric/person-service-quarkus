@@ -31,7 +31,7 @@ dependencies {
 		implementation("io.quarkiverse.azureservices:quarkus-azure-storage-blob:1.2.2")
 
 		kapt("org.mapstruct:mapstruct-processor:1.6.3")
-		kapt("org.hibernate.orm:hibernate-processor:7.2.4.Final")
+		kapt("org.hibernate.orm:hibernate-processor:7.2.8.Final")
 
 		testImplementation("org.assertj:assertj-core:3.27.7")
 		testImplementation("com.tngtech.archunit:archunit-junit5:1.4.1")
