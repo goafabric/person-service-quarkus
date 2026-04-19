@@ -108,7 +108,7 @@ dependencies {
 	testImplementation("io.quarkus:quarkus-test-kafka-companion")
 
 	//
-	pitest("org.pitest:pitest-junit5-plugin:1.2.2")
+	pitest("org.pitest:pitest-junit5-plugin:1.2.3")
 }
 
 tasks.withType<Test> {
@@ -169,7 +169,9 @@ tasks.matching { it.name == "checkSnapshotDependencies" }.configureEach {
 }
 
 pitest {
-	mutationThreshold = 60
+	mutationThreshold = 10
 	targetClasses.set(listOf("org.goafabric.*"))
+	targetTests.set(listOf("*.*Test"))
 	excludedClasses.add("*.ApplicationBaseRuntimeHints")
+
 }

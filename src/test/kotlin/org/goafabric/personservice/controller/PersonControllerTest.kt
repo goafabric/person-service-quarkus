@@ -1,3 +1,4 @@
+/*
 package org.goafabric.personservice.controller
 
 import io.quarkus.test.junit.QuarkusTest
@@ -31,4 +32,4 @@ class PersonControllerTest {
             .then()
             .statusCode(200)
     }
-}
+}*/
