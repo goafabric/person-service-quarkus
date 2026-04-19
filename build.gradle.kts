@@ -169,9 +169,8 @@ tasks.matching { it.name == "checkSnapshotDependencies" }.configureEach {
 }
 
 pitest {
-	mutationThreshold = 10
+	testStrengthThreshold = 60
 	targetClasses.set(listOf("org.goafabric.*"))
 	targetTests.set(listOf("*.*Test"))
 	excludedClasses.add("*.ApplicationBaseRuntimeHints")
-
 }
