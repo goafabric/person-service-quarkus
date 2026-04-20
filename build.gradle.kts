@@ -171,5 +171,4 @@ pitest {
 	testStrengthThreshold = 60
 	targetClasses.set(listOf("org.goafabric.*"))
 	targetTests.set(listOf("*.*Test"))
-	excludedClasses.add("*.ApplicationBaseRuntimeHints")
 }
