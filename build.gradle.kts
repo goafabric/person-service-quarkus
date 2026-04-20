@@ -32,14 +32,13 @@ dependencies {
 		implementation("io.quarkiverse.azureservices:quarkus-azure-storage-blob:1.2.2")
 
 		kapt("org.mapstruct:mapstruct-processor:1.6.3")
-		kapt("org.hibernate.orm:hibernate-processor:7.3.1.Final")
 
 		testImplementation("org.assertj:assertj-core:3.27.7")
 		testImplementation("com.tngtech.archunit:archunit-junit5:1.4.1")
 		testImplementation("org.mockito.kotlin:mockito-kotlin:6.3.0")
 	}
 
-	//kapt(enforcedPlatform("io.quarkus:quarkus-bom:3.34.1"))
+	kapt(enforcedPlatform("io.quarkus:quarkus-bom:3.34.3"))
 	implementation(enforcedPlatform("io.quarkus:quarkus-bom:3.34.3"))
 }
 dependencies {
