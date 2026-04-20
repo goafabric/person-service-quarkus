@@ -3,10 +3,9 @@ package org.goafabric.personservice.controller
 import io.quarkus.test.junit.QuarkusTest
 import io.restassured.RestAssured
 import org.junit.jupiter.api.Test
-import java.util.*
 
 @QuarkusTest
-class PersonControllerTest {
+class PersonControllerRestIT {
     @Test
     fun findAll() {
         RestAssured.given()

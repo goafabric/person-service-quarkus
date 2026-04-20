@@ -10,9 +10,10 @@ val dockerRegistry = "goafabric"
 plugins {
 	java
 	jacoco
-	id("io.quarkus") version "3.34.5"
+	id("io.quarkus") version "3.34.3"
 	id("net.researchgate.release") version "3.1.0"
 	id("org.sonarqube") version "7.2.3.7755"
+	id("info.solidsoft.pitest") version "1.19.0"
 
 	kotlin("jvm") version "2.3.20"
 	kotlin("plugin.jpa") version "2.3.20"
@@ -31,15 +32,14 @@ dependencies {
 		implementation("io.quarkiverse.azureservices:quarkus-azure-storage-blob:1.2.2")
 
 		kapt("org.mapstruct:mapstruct-processor:1.6.3")
-		kapt("org.hibernate.orm:hibernate-processor:7.3.1.Final")
 
 		testImplementation("org.assertj:assertj-core:3.27.7")
-		testImplementation("com.tngtech.archunit:archunit-junit5:1.4.2")
+		testImplementation("com.tngtech.archunit:archunit-junit5:1.4.1")
 		testImplementation("org.mockito.kotlin:mockito-kotlin:6.3.0")
 	}
 
-	//kapt(enforcedPlatform("io.quarkus:quarkus-bom:3.34.1"))
-	implementation(enforcedPlatform("io.quarkus:quarkus-bom:3.34.5"))
+	kapt(enforcedPlatform("io.quarkus:quarkus-bom:3.34.3"))
+	implementation(enforcedPlatform("io.quarkus:quarkus-bom:3.34.3"))
 }
 dependencies {
 	//web
@@ -105,6 +105,9 @@ dependencies {
 	testImplementation("io.quarkus:quarkus-junit-mockito")
 
 	testImplementation("io.quarkus:quarkus-test-kafka-companion")
+
+	//
+	pitest("org.pitest:pitest-junit5-plugin:1.2.3")
 }
 
 tasks.withType<Test> {
@@ -162,4 +165,11 @@ sonarqube {
 
 tasks.matching { it.name == "checkSnapshotDependencies" }.configureEach {
 	enabled = false
+}
+
+pitest {
+	testStrengthThreshold = 60
+	targetClasses.set(listOf("org.goafabric.*"))
+	targetTests.set(listOf("*.*Test"))
+	excludedClasses.add("*.ApplicationBaseRuntimeHints")
 }
