@@ -106,7 +106,7 @@ dependencies {
 
 	testImplementation("io.quarkus:quarkus-test-kafka-companion")
 
-	//
+	//pitest
 	pitest("org.pitest:pitest-junit5-plugin:1.2.3")
 }
 
