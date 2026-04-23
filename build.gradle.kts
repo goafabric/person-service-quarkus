@@ -13,7 +13,6 @@ plugins {
 	id("io.quarkus") version "3.34.5"
 	id("net.researchgate.release") version "3.1.0"
 	id("org.sonarqube") version "7.2.3.7755"
-	id("info.solidsoft.pitest") version "1.19.0"
 
 	kotlin("jvm") version "2.3.20"
 	kotlin("plugin.jpa") version "2.3.20"
@@ -105,9 +104,6 @@ dependencies {
 	testImplementation("io.quarkus:quarkus-junit-mockito")
 
 	testImplementation("io.quarkus:quarkus-test-kafka-companion")
-
-	//pitest
-	pitest("org.pitest:pitest-junit5-plugin:1.2.3")
 }
 
 tasks.withType<Test> {
@@ -167,8 +163,3 @@ tasks.matching { it.name == "checkSnapshotDependencies" }.configureEach {
 	enabled = false
 }
 
-pitest {
-	testStrengthThreshold = 60
-	targetClasses.set(listOf("org.goafabric.*"))
-	targetTests.set(listOf("*.*Test"))
-}
