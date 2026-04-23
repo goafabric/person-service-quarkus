@@ -13,6 +13,7 @@ plugins {
 	id("io.quarkus") version "3.34.3"
 	id("net.researchgate.release") version "3.1.0"
 	id("org.sonarqube") version "7.2.3.7755"
+	id("info.solidsoft.pitest") version "1.19.0"
 
 	kotlin("jvm") version "2.3.20"
 	kotlin("plugin.jpa") version "2.3.20"
