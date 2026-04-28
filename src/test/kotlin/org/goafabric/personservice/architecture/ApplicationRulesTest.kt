@@ -60,7 +60,8 @@ class ApplicationRulesTest {
             "org.eclipse.microprofile..",
             "io.mcarle.konvert..",
             "io.smallrye..", "org.apache.kafka..",
-            "com.azure.core.."
+            "com.azure.core..",
+            "io.quarkiverse.mcp.."
         )
         .because("Only core and allowed libraries should be used to avoid unnecessary third-party dependencies")
 
