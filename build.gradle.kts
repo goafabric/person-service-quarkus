@@ -89,6 +89,9 @@ dependencies {
 	//blob
 	implementation("io.quarkiverse.azureservices:quarkus-azure-storage-blob")
 
+	//mcp
+	implementation("io.quarkiverse.mcp:quarkus-mcp-server-http:1.12.0") //https://docs.quarkiverse.io/quarkus-mcp-server/dev/guides-implementing-tools.html
+
 	//h2
 	runtimeOnly("com.h2database:h2")
 
