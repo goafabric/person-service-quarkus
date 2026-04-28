@@ -1,4 +1,4 @@
-package org.goafabric.calleeservice.architecture
+package org.goafabric.personservice.architecture
 
 import com.tngtech.archunit.core.importer.ImportOption
 import com.tngtech.archunit.core.importer.ImportOption.DoNotIncludeTests
@@ -10,38 +10,7 @@ import com.tngtech.archunit.lang.syntax.ArchRuleDefinition
 import org.goafabric.personservice.Application
 
 @AnalyzeClasses(packagesOf = [Application::class], importOptions = [DoNotIncludeTests::class, ApplicationRulesTest.IgnoreCglib::class])
-object ApplicationRulesTest {
-    /*
-    @ArchTest
-    val reflectionShouldBeAvoided: ArchRule = ArchRuleDefinition.noClasses()
-        .that()
-        .areNotAnnotatedWith(Configuration::class.java)
-        .and()
-        .doNotImplement(RuntimeHintsRegistrar::class.java)
-        .and()
-        .haveSimpleNameNotContaining("AuditTrailListener").and().resideOutsideOfPackage("..persistence.entity..")
-        .should()
-        .dependOnClassesThat()
-        .resideInAPackage("java.lang.reflect")
-        .orShould()
-        .callMethod(Class::class.java, "forName", String::class.java)
-        .orShould()
-        .dependOnClassesThat()
-        .haveFullyQualifiedName("org.springframework.util.ReflectionUtils")
-        .orShould()
-        .dependOnClassesThat()
-        .haveFullyQualifiedName("org.springframework.beans.BeanWrapperImpl")
-        .orShould()
-        .dependOnClassesThat()
-        .haveFullyQualifiedName("jakarta.validation.ConstraintValidator")
-        .orShould()
-        .dependOnClassesThat()
-        .areAnnotatedWith(ConditionalOnProperty::class.java)
-        .because("Reflection breaks native image support");
-
-     */
-
-
+class ApplicationRulesTest {
     @ArchTest
     val librariesThatAreBanished: ArchRule = ArchRuleDefinition.noClasses()
         .should()
@@ -90,7 +59,8 @@ object ApplicationRulesTest {
 
             "org.eclipse.microprofile..",
             "io.mcarle.konvert..",
-            "io.smallrye..", "org.apache.kafka.."
+            "io.smallrye..", "org.apache.kafka..",
+            "com.azure.core.."
         )
         .because("Only core and allowed libraries should be used to avoid unnecessary third-party dependencies")
 

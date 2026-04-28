@@ -1,16 +1,13 @@
-/*
-package org.goafabric.personservice.extensions
+package org.goafabric.personservice.persistence.extensions
 
 import io.quarkus.test.junit.QuarkusTest
 import jakarta.inject.Inject
 import jakarta.persistence.EntityManager
-import jakarta.transaction.Transactional
 import org.assertj.core.api.Assertions.assertThat
 import org.goafabric.personservice.controller.PersonController
 import org.goafabric.personservice.controller.dto.Address
 import org.goafabric.personservice.controller.dto.Person
-import org.goafabric.personservice.persistence.PersonRepository
-import org.goafabric.personservice.persistence.extensions.AuditTrailListener
+import org.goafabric.personservice.logic.PersonLogic
 import org.goafabric.personservice.persistence.extensions.AuditTrailListener.AuditTrail
 import org.junit.jupiter.api.Test
 import java.util.*
@@ -18,11 +15,11 @@ import java.util.*
 @QuarkusTest
 class AuditTrailListenerIT {
     @Inject lateinit var personController: PersonController
-    @Inject lateinit var personRepository: PersonRepository
+    @Inject lateinit var personLogic: PersonLogic
     @Inject lateinit var entityManager: EntityManager
 
     @Test
-    fun creatUpdateDeletePerson() {
+    fun createUpdateDeletePerson() {
         val person = save()
 
         val createPerson = selectFrom("CREATE", person.id)
@@ -47,7 +44,7 @@ class AuditTrailListenerIT {
     }
 
     @Test
-    fun creatUpdateDeleteAddress() {
+    fun createUpdateDeleteAddress() {
         val address = save().address.first()
 
         val createAddress = selectFrom("CREATE", address.id)
@@ -95,9 +92,10 @@ class AuditTrailListenerIT {
             )
         )
 
-        personRepository.deleteById(person.id!!)
+        personLogic.delete(person.id!!)
         return person
     }
+
 
     private fun createAddress(street: String): Address {
         return Address(
@@ -105,4 +103,4 @@ class AuditTrailListenerIT {
             street, "Springfield"
         )
     }
-}*/
+}

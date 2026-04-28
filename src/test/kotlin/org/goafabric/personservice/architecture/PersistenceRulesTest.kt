@@ -11,10 +11,11 @@ import com.tngtech.archunit.lang.ArchRule
 import com.tngtech.archunit.lang.ConditionEvents
 import com.tngtech.archunit.lang.syntax.ArchRuleDefinition
 import com.tngtech.archunit.library.Architectures
+import io.quarkus.hibernate.panache.PanacheRepository
 import org.goafabric.personservice.Application
 
 @AnalyzeClasses(packagesOf = [Application::class], importOptions = [DoNotIncludeTests::class])
-object PersistenceRulesTest {
+class PersistenceRulesTest {
     @ArchTest
     val layerAreRespectedWithPersistence: ArchRule = Architectures.layeredArchitecture()
         .consideringOnlyDependenciesInLayers()
@@ -34,20 +35,20 @@ object PersistenceRulesTest {
 
     @ArchTest
     val classesExtendingRepositoryShouldEndWithRepository: ArchRule = ArchRuleDefinition.classes()
-        .that().areAssignableTo("org.springframework.data.repository.Repository")
-        .should().haveSimpleNameEndingWith("Repository")
+        .that().areAssignableTo(PanacheRepository.Managed::class.java)
+        .should().haveNameMatching(".*Repository_?$")
         .because("all classes extending Repository should end with 'Repository' in their name")
         .allowEmptyShould(true)
 
 
     @ArchTest
     val logicAnnotatedWithTransactional: ArchRule = ArchRuleDefinition.classes()
-        .that().areAssignableTo("org.springframework.data.repository.Repository")
+        .that().areAssignableTo(PanacheRepository.Managed::class.java)
         .should(object : ArchCondition<JavaClass?>("Repository used") {
             override fun check(item: JavaClass?, events: ConditionEvents) {
                 ArchRuleDefinition.classes()
                     .that().haveSimpleNameEndingWith("Logic")
-                    .should().beAnnotatedWith("org.springframework.transaction.annotation.Transactional")
+                    .should().beAnnotatedWith(jakarta.transaction.Transactional::class.java)
                     .because("Logic Classes should be annotated with @Transactional")
                     .check(ClassFileImporter().importPackagesOf(Application::class.java))
             }

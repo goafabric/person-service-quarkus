@@ -1,9 +1,10 @@
-package org.goafabric.personservice.extensions
+package org.goafabric.personservice.persistence.extensions
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import io.quarkus.test.junit.QuarkusTest
 import jakarta.inject.Inject
 import org.assertj.core.api.Assertions
+import org.goafabric.personservice.consumer.PersonConsumer
 import org.goafabric.personservice.controller.dto.Address
 import org.goafabric.personservice.controller.dto.Person
 import org.goafabric.personservice.logic.PersonLogic

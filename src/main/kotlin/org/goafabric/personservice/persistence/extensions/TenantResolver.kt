@@ -1,7 +1,6 @@
 package org.goafabric.personservice.persistence.extensions
 
 import io.quarkus.hibernate.orm.PersistenceUnitExtension
-import io.quarkus.hibernate.orm.runtime.tenant.TenantResolver
 import jakarta.enterprise.context.ApplicationScoped
 import jakarta.enterprise.context.RequestScoped
 import jakarta.enterprise.inject.spi.CDI
@@ -33,7 +32,7 @@ class TenantResolver: io.quarkus.hibernate.orm.runtime.tenant.TenantResolver {
     @ApplicationScoped
     internal class FlywayConfig() {
         init {
-            if (ConfigProvider.getConfig().getValue("multi-tenancy.migration.enabled", Boolean::class.java)) {
+            if (ConfigProvider.getConfig().getValue("database.provisioning.goals", String::class.java).contains("-migrate")) {
                 val flyway = CDI.current().select(Flyway::class.java).get()
                 val schemas = ConfigProvider.getConfig().getValue("multi-tenancy.tenants", String::class.java)
                 val schemaPrefix =

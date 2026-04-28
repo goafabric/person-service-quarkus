@@ -17,7 +17,7 @@ class ExceptionHandler : ExceptionMapper<Exception> {
         } else if (e is IllegalStateException) {
             status = Response.Status.PRECONDITION_FAILED
         } else {
-            status = Response.Status.INTERNAL_SERVER_ERROR
+            status = Response.Status.BAD_REQUEST
         }
 
         log.error(e.message, e)

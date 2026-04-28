@@ -6,6 +6,8 @@ import jakarta.enterprise.inject.Instance
 import jakarta.persistence.PostPersist
 import jakarta.persistence.PostRemove
 import jakarta.persistence.PostUpdate
+import jakarta.transaction.Synchronization
+import jakarta.transaction.TransactionManager
 import org.apache.kafka.common.header.internals.RecordHeaders
 import org.eclipse.microprofile.config.inject.ConfigProperty
 import org.eclipse.microprofile.reactive.messaging.Channel
@@ -24,6 +26,7 @@ import java.nio.charset.StandardCharsets
 class KafkaPublisher(
     @param:ConfigProperty(name = "mp.messaging.outgoing.general.enabled") private val kafkaEnabled: Boolean,
     @param:Channel("general") private val personEmitter: Instance<Emitter<Any>>,
+    private val transactionManager: TransactionManager,
     private val personMapper: PersonMapper
 ) {
     private val log: Logger = LoggerFactory.getLogger(this.javaClass)
@@ -72,7 +75,18 @@ class KafkaPublisher(
             .withHeaders(headers)
             .build()
 
-        personEmitter.get().send(Message.of(payload).addMetadata(metadata))
+        transactionManager.transaction.registerSynchronization(object : Synchronization {
+            override fun beforeCompletion() {
+                //not implemented
+            }
+
+            override fun afterCompletion(status: Int) {
+                if (status == jakarta.transaction.Status.STATUS_COMMITTED)   {
+                    personEmitter.get().send(Message.of(payload).addMetadata(metadata))
+                }
+            }
+        })
+
     }
 
 }

@@ -192,7 +192,7 @@
   },
   "info" : {
     "title" : "person-service API",
-    "version" : "3.24.4-SNAPSHOT"
+    "version" : "3.32.2-SNAPSHOT"
   },
   "servers" : [ {
     "url" : "http://localhost:50800",

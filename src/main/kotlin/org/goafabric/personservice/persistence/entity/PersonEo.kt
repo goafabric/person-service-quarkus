@@ -19,7 +19,7 @@ class PersonEo (
 
     @OneToMany(cascade = [CascadeType.ALL])
     @JoinColumn(name = "person_id")
-    var address: List<AddressEo>?,
+    var address: MutableList<AddressEo> = mutableListOf(),
 
     @Version //optimistic locking
     var version: Long

@@ -1,5 +1,6 @@
 package org.goafabric.personservice.adapter
 
+import jakarta.enterprise.context.ApplicationScoped
 import jakarta.ws.rs.GET
 import jakarta.ws.rs.Path
 import jakarta.ws.rs.PathParam
@@ -14,6 +15,7 @@ import org.eclipse.microprofile.rest.client.inject.RegisterRestClient
 @Timeout
 @CircuitBreaker
 @RegisterClientHeaders(AdapterConfiguration::class)
+@ApplicationScoped
 interface CalleeServiceAdapter {
     @GET
     @Path("sayMyName")
