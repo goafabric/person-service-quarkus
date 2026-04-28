@@ -10,7 +10,7 @@ val dockerRegistry = "goafabric"
 plugins {
 	java
 	jacoco
-	id("io.quarkus") version "3.34.6"
+	id("io.quarkus") version "3.35.0"
 	id("net.researchgate.release") version "3.1.0"
 	id("org.sonarqube") version "7.2.3.7755"
 
