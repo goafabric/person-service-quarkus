@@ -29,6 +29,7 @@ dependencies {
 		annotationProcessor("org.mapstruct:mapstruct-processor:1.6.3")
 		implementation("org.mapstruct:mapstruct:1.6.3")
 		implementation("io.quarkiverse.azureservices:quarkus-azure-storage-blob:1.2.2")
+		implementation("io.quarkiverse.mcp:quarkus-mcp-server-http:1.12.0")
 
 		kapt("org.mapstruct:mapstruct-processor:1.6.3")
 
@@ -90,7 +91,7 @@ dependencies {
 	implementation("io.quarkiverse.azureservices:quarkus-azure-storage-blob")
 
 	//mcp
-	implementation("io.quarkiverse.mcp:quarkus-mcp-server-http:1.12.0") //https://docs.quarkiverse.io/quarkus-mcp-server/dev/guides-implementing-tools.html
+	implementation("io.quarkiverse.mcp:quarkus-mcp-server-http") //https://docs.quarkiverse.io/quarkus-mcp-server/dev/guides-implementing-tools.html
 
 	//h2
 	runtimeOnly("com.h2database:h2")
