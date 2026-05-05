@@ -21,7 +21,7 @@ class PersonControllerIT {
 
     @Test
     fun findById() {
-        val persons: List<Person> = personController.find(PersonSearch(null, null), 1, 3)
+        val persons: List<Person> = personController.find(PersonSearch(null, null), 0, 3)
         Assertions.assertThat(persons).isNotNull().hasSize(3)
 
         val person = personController.getById(persons.first().id!!)
@@ -32,12 +32,12 @@ class PersonControllerIT {
 
     @Test
     fun findAll() {
-        Assertions.assertThat(personController.find(PersonSearch(null, null), 1, 3)).isNotNull().hasSize(3)
+        Assertions.assertThat(personController.find(PersonSearch(null, null), 0, 3)).isNotNull().hasSize(3)
     }
 
     @Test
     fun findByFirstName() {
-        val persons: List<Person> = personController.find(PersonSearch("Monty", null), 1, 3)
+        val persons: List<Person> = personController.find(PersonSearch("Monty", null), 0, 3)
         Assertions.assertThat(persons).isNotNull().hasSize(1)
         Assertions.assertThat(persons.first().firstName).isEqualTo("Monty")
         Assertions.assertThat(persons.first().lastName).isEqualTo("Burns")
@@ -45,7 +45,7 @@ class PersonControllerIT {
 
     @Test
     fun findByLastName() {
-        val persons: List<Person> = personController.find(PersonSearch(null, "Simpson"), 1, 3)
+        val persons: List<Person> = personController.find(PersonSearch(null, "Simpson"), 0, 3)
         Assertions.assertThat(persons).isNotNull().hasSize(2)
         Assertions.assertThat(persons.first().lastName).isEqualTo("Simpson")
     }
@@ -72,7 +72,7 @@ class PersonControllerIT {
         personController.save(Person(person.id, person.version, firstName = person.firstName, "updated", person.address))
 
         //we have to load the entity again to get the updated version, if we just use the save returned it will be incorrect
-        val personUpdated = personController.find(PersonSearch("Homer", "updated"), 1, 3).first()
+        val personUpdated = personController.find(PersonSearch("Homer", "updated"), 0, 3).first()
         assertThat(personUpdated.version).isEqualTo(1)
 
         assertThat(personUpdated.id).isEqualTo(person.id)

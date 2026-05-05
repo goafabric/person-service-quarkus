@@ -24,7 +24,7 @@ class PersonLogic(
 
     fun search(personSearch: PersonSearch, page: Int, size: Int): List<Person> {
         val persons = personRepository.search(personSearch.firstName, personSearch.lastName, UserContext.organizationId,
-            PageRequest.ofPage(page.toLong(), size, true))
+            PageRequest.ofPage(page.toLong() + 1, size, true))
         return personMapper.map(persons)
     }
 
