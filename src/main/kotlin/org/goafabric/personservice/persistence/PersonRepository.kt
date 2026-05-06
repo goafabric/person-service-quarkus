@@ -3,9 +3,9 @@ package org.goafabric.personservice.persistence
 import io.quarkus.hibernate.panache.PanacheRepository
 import jakarta.data.page.Page
 import jakarta.data.page.PageRequest
+import jakarta.data.repository.Find
+import jakarta.data.repository.Query
 import org.goafabric.personservice.persistence.entity.PersonEo
-import org.hibernate.annotations.processing.Find
-import org.hibernate.annotations.processing.HQL
 
 interface PersonRepository : PanacheRepository.Managed<PersonEo, String> { //CrudRepository<PersonEo, String> {
     @Find
@@ -15,7 +15,7 @@ interface PersonRepository : PanacheRepository.Managed<PersonEo, String> { //Cru
         pageable: PageRequest
     ): Page<PersonEo>
 
-    @HQL(
+    @Query(
         ("SELECT p FROM PersonEo p WHERE p.organizationId = :organizationId " +
                 "AND (:firstName IS NULL OR p.firstName = :firstName) " +
                 "AND (:lastName IS NULL OR p.lastName = :lastName)")
