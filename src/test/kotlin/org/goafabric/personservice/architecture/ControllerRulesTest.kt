@@ -27,4 +27,12 @@ class ControllerRulesTest {
         .that().areAnnotatedWith(Produces::class.java)
         .should().haveSimpleNameEndingWith("Controller")
 
+    @ArchTest
+    val controllerClassesShouldNotEndWithDtoResultResponse: ArchRule = ArchRuleDefinition.classes()
+        .that().resideInAPackage("..controller..")
+        .should().haveSimpleNameNotEndingWith("Dto")
+        .andShould().haveSimpleNameNotEndingWith("DTO")
+        .andShould().haveSimpleNameNotEndingWith("Result")
+        .andShould().haveSimpleNameNotEndingWith("Response")
+
 }
