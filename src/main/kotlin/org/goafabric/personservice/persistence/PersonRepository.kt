@@ -9,21 +9,19 @@ import org.goafabric.personservice.persistence.entity.PersonEo
 
 interface PersonRepository : PanacheRepository.Managed<PersonEo, String> { //CrudRepository<PersonEo, String> {
     @Find
-    fun findByLastNameAndOrganizationId(
+    fun findByLastName(
         lastName: String,
-        organizationId: String,
         pageable: PageRequest
     ): Page<PersonEo>
 
     @Query(
-        ("SELECT p FROM PersonEo p WHERE p.organizationId = :organizationId " +
-                "AND (:firstName IS NULL OR p.firstName = :firstName) " +
+        ("SELECT p FROM PersonEo p " +
+                "WHERE (:firstName IS NULL OR p.firstName = :firstName) " +
                 "AND (:lastName IS NULL OR p.lastName = :lastName)")
     )
     fun search(
         firstName: String?,
         lastName: String?,
-        organizationId: String,
         pageable: PageRequest
     ): Page<PersonEo>
 
