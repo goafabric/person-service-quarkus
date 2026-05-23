@@ -79,7 +79,7 @@ services:
 
   postgres:
     container_name: ${_Values_root_name}-postgres
-    image: postgres:17.4
+    image: postgres:18.3
     restart: 'no'
     ports:
       - 50810:5432
@@ -103,7 +103,7 @@ services:
 
   nginx:
     container_name: ${_Values_root_name}-nginx
-    image: nginx:1.22.1
+    image: nginx:1.28-alpine3.21
     restart: 'no'
     ports:
       - 8080:80
@@ -118,7 +118,7 @@ services:
         condition: service_started
 
   kafka:
-    image: apache/kafka:4.1.0
+    image: apache/kafka:4.2.0
     container_name: ${_Values_root_name}-kafka
     ports:
       - "9092:9092"
