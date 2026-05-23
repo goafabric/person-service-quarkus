@@ -23,7 +23,7 @@ class PersonLogic(
     }
 
     fun search(personSearch: PersonSearch, page: Int, size: Int): List<Person> {
-        val persons = personRepository.search(personSearch.firstName, personSearch.lastName, UserContext.organizationId,
+        val persons = personRepository.search(personSearch.firstName, personSearch.lastName,
             PageRequest.ofPage(page.toLong() + 1, size, true))
         return personMapper.map(persons)
     }
@@ -31,7 +31,7 @@ class PersonLogic(
     fun save(person: Person): Person {
         return personMapper.map(
             personRepository.save(
-                personMapper.map(person).apply { organizationId = UserContext.organizationId }))
+                personMapper.map(person)))
     }
 
     fun delete(id: String) {
