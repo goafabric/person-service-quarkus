@@ -4,11 +4,15 @@ create table person
 		constraint pk_person
 			primary key,
 
+    tenant_id varchar(36) not null,
+
 	first_name varchar(255),
 	last_name varchar(255),
 
     version bigint default 0
 );
+
+create index idx_person_tenant_id on person(tenant_id);
 
 create index idx_person_first_name on person(first_name);
 

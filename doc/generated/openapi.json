@@ -1,0 +1,204 @@
+{
+  "openapi" : "3.1.0",
+  "components" : {
+    "schemas" : {
+      "Address" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : [ "string", "null" ]
+          },
+          "version" : {
+            "type" : [ "integer", "null" ],
+            "format" : "int64"
+          },
+          "street" : {
+            "type" : "string",
+            "pattern" : "[a-zA-Z0-9.\\s]*",
+            "minLength" : 3,
+            "maxLength" : 255
+          },
+          "city" : {
+            "type" : "string",
+            "minLength" : 3,
+            "maxLength" : 255
+          }
+        },
+        "required" : [ "street", "city" ]
+      },
+      "Person" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : [ "string", "null" ]
+          },
+          "version" : {
+            "type" : [ "integer", "null" ],
+            "format" : "int64"
+          },
+          "firstName" : {
+            "type" : "string",
+            "minLength" : 3,
+            "maxLength" : 255
+          },
+          "lastName" : {
+            "type" : "string",
+            "minLength" : 3,
+            "maxLength" : 255
+          },
+          "address" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/Address"
+            }
+          }
+        },
+        "required" : [ "firstName", "lastName", "address" ]
+      }
+    }
+  },
+  "paths" : {
+    "/persons" : {
+      "post" : {
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Person"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Person"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad Request"
+          }
+        },
+        "summary" : "Save",
+        "tags" : [ "Person Controller" ]
+      },
+      "get" : {
+        "parameters" : [ {
+          "name" : "firstName",
+          "in" : "query",
+          "schema" : {
+            "type" : [ "string", "null" ]
+          }
+        }, {
+          "name" : "lastName",
+          "in" : "query",
+          "schema" : {
+            "type" : [ "string", "null" ]
+          }
+        }, {
+          "name" : "page",
+          "in" : "query",
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "required" : true
+        }, {
+          "name" : "size",
+          "in" : "query",
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "required" : true
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Person"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary" : "Find",
+        "tags" : [ "Person Controller" ]
+      }
+    },
+    "/persons/name" : {
+      "get" : {
+        "parameters" : [ {
+          "name" : "name",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          },
+          "required" : true
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Person"
+                }
+              }
+            }
+          }
+        },
+        "summary" : "Say My Name",
+        "tags" : [ "Person Controller" ]
+      }
+    },
+    "/persons/{id}" : {
+      "get" : {
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Person"
+                }
+              }
+            }
+          }
+        },
+        "summary" : "Get By Id",
+        "tags" : [ "Person Controller" ]
+      }
+    }
+  },
+  "info" : {
+    "title" : "person-service API",
+    "version" : "3.32.2-SNAPSHOT"
+  },
+  "servers" : [ {
+    "url" : "http://localhost:50800",
+    "description" : "Auto generated value"
+  }, {
+    "url" : "http://0.0.0.0:50800",
+    "description" : "Auto generated value"
+  } ]
+}

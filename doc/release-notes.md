@@ -1,3 +1,6 @@
+# 3.24.4
+- Upgrade of Quarkus
+
 # 3.24.3
 - Upgrade of Quarkus
 

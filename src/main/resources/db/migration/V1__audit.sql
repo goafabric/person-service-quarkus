@@ -4,7 +4,6 @@ create table audit_trail
 		constraint pk_audit
 			primary key,
 
-    organization_id varchar(36),
     object_type varchar(255),
 
     object_id varchar(255),
@@ -13,8 +12,6 @@ create table audit_trail
     created_at date,
     modified_by varchar(255),
     modified_at date,
-    oldvalue TEXT,
-    newvalue TEXT
+    old_value TEXT,
+    new_value TEXT
 );
-
-create index idx_audit_organization_id on audit_trail(organization_id);
