@@ -151,7 +151,7 @@ paths:
       - Person Controller
 info:
   title: person-service API
-  version: 3.32.2-SNAPSHOT
+  version: 3.32.2
 servers:
 - url: http://localhost:50800
   description: Auto generated value
