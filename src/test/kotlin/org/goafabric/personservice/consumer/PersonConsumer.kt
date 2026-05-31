@@ -2,6 +2,7 @@ package org.goafabric.personservice.consumer
 
 import jakarta.enterprise.context.ApplicationScoped
 import org.apache.kafka.clients.consumer.ConsumerRecord
+import org.eclipse.microprofile.faulttolerance.Retry
 import org.eclipse.microprofile.reactive.messaging.Incoming
 import org.goafabric.personservice.controller.dto.Address
 import org.goafabric.personservice.controller.dto.Person
@@ -18,6 +19,7 @@ class PersonConsumer {
     val addressLatch: CountDownLatch = CountDownLatch(1)
 
     @Incoming("person")
+    @Retry(maxRetries = 3, delay = 1000)
     @KafkaUserInterceptor
     fun consumePerson(consumerRecord: ConsumerRecord<String, Person>)  {
         log.info("loopback event for person {} {}",
@@ -27,6 +29,7 @@ class PersonConsumer {
 
     //For Quarkus we can only have a 1:1 relation between Topic:Entity, Custom KafkaListener for Intercepting the JWT
     @Incoming("address")
+    @Retry(maxRetries = 3, delay = 1000)
     @KafkaUserInterceptor
     fun consumeAddress(consumerRecord: ConsumerRecord<String, Address>)  {
         log.info("loopback event for address {} {}",
