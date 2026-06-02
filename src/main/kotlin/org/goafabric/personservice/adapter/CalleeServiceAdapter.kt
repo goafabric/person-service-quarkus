@@ -14,6 +14,7 @@ import org.eclipse.microprofile.rest.client.inject.RegisterRestClient
 @Timeout
 @CircuitBreaker
 @RegisterClientHeaders(AdapterConfiguration::class)
+//@ApplicationScoped
 interface CalleeServiceAdapter {
     @GET
     @Path("sayMyName")
