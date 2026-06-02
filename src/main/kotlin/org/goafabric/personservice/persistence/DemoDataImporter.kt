@@ -1,5 +1,6 @@
 package org.goafabric.personservice.persistence
 
+import io.quarkus.runtime.Quarkus
 import io.quarkus.runtime.StartupEvent
 import jakarta.enterprise.context.ApplicationScoped
 import jakarta.enterprise.event.Observes
@@ -13,7 +14,6 @@ import org.goafabric.personservice.logic.PersonLogic
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.util.function.Consumer
-import kotlin.system.exitProcess
 
 @ApplicationScoped
 class DemoDataImporter(
@@ -38,7 +38,7 @@ class DemoDataImporter(
 
         if (goals.contains("-terminate")) {
             log.info("Terminating app ...")
-            exitProcess(0)
+            Quarkus.asyncExit()
         }
     }
 
