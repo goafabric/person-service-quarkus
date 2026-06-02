@@ -56,7 +56,7 @@ class ObjectStorageLogicTest {
     @Test
     fun put() {
         objectStorageLogic.put(ObjectStorageLogic.ObjectEntry("", 0L, "", "".toByteArray().inputStream()))
-        verify(blobClient).upload(any<ByteArrayInputStream>(), eq(0L))
+        verify(blobClient).upload(any<ByteArrayInputStream>(), eq(0L), eq(true))
     }
 
     @Test
