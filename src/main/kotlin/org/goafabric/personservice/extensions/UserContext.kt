@@ -1,8 +1,9 @@
 package org.goafabric.personservice.extensions
 
-import com.fasterxml.jackson.databind.json.JsonMapper
-import com.fasterxml.jackson.module.kotlin.readValue
-import jakarta.ws.rs.container.ContainerRequestContext
+import jakarta.servlet.http.HttpServletRequest
+import tools.jackson.databind.json.JsonMapper
+import tools.jackson.module.kotlin.jacksonMapperBuilder
+import tools.jackson.module.kotlin.readValue
 import java.util.*
 
 object UserContext {
@@ -16,15 +17,15 @@ object UserContext {
         }
     }
 
-    private val jsonMapper : JsonMapper = JsonMapper()
+    private val jsonMapper : JsonMapper = jacksonMapperBuilder().build()
 
     private val CONTEXT: ThreadLocal<UserContextRecord> =
         ThreadLocal.withInitial { UserContextRecord("0", "0", "anonymous") }
 
-    fun setContext(request: ContainerRequestContext) {
+    fun setContext(request: HttpServletRequest) {
         setContext(
-            request.getHeaderString("X-TenantId"), request.getHeaderString("X-OrganizationId"),
-            request.getHeaderString("X-Auth-Request-Preferred-Username"), request.getHeaderString("X-UserInfo")
+            request.getHeader("X-TenantId"), request.getHeader("X-OrganizationId"),
+            request.getHeader("X-Auth-Request-Preferred-Username"), request.getHeader("X-UserInfo")
         )
     }
 
