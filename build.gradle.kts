@@ -109,9 +109,7 @@ dependencies {
 
 	testImplementation("io.quarkus:quarkus-test-kafka-companion")
 
-	integrationTestImplementation("io.quarkus:quarkus-junit5")
-	integrationTestImplementation("io.rest-assured:rest-assured")
-	integrationTestImplementation("org.testcontainers:testcontainers-postgresql")
+	testImplementation("org.testcontainers:testcontainers-postgresql")
 }
 
 tasks.withType<Test> {
