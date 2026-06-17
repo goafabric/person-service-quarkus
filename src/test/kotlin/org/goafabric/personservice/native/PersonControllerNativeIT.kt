@@ -3,25 +3,25 @@ package org.goafabric.personservice.native
 import io.quarkus.test.common.QuarkusTestResource
 import io.quarkus.test.junit.QuarkusIntegrationTest
 import io.restassured.RestAssured
-import org.junit.jupiter.api.Assumptions
-import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.extension.ConditionEvaluationResult
+import org.junit.jupiter.api.extension.ExecutionCondition
+import org.junit.jupiter.api.extension.ExtendWith
+import org.junit.jupiter.api.extension.ExtensionContext
 import org.testcontainers.DockerClientFactory
 
+class DockerAvailableCondition : ExecutionCondition {
+    override fun evaluateExecutionCondition(context: ExtensionContext): ConditionEvaluationResult =
+        if (DockerClientFactory.instance().isDockerAvailable)
+            ConditionEvaluationResult.enabled("Docker is available")
+        else
+            ConditionEvaluationResult.disabled("Docker is not available, skipping")
+}
+
 @QuarkusIntegrationTest
+@ExtendWith(DockerAvailableCondition::class)
 @QuarkusTestResource(value = NativeTestResource::class, restrictToAnnotatedClass = true)
 class PersonControllerNativeIT {
-    companion object {
-        @JvmStatic
-        @BeforeAll
-        fun checkDocker() {
-            Assumptions.assumeTrue(
-                DockerClientFactory.instance().isDockerAvailable,
-                "Docker is not running, skipping test"
-            )
-        }
-    }
-
 
     @Test
     fun findAll() {
