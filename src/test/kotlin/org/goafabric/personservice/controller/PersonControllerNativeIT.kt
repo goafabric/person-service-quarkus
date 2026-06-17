@@ -6,8 +6,8 @@ import io.restassured.RestAssured
 import org.junit.jupiter.api.Test
 
 @QuarkusIntegrationTest
-@QuarkusTestResource(PostgreSQLTestResource::class)
-class PersonControllerRestIT {
+@QuarkusTestResource(value = PostgreSQLTestResource::class, restrictToAnnotatedClass = true)
+class PersonControllerNativeIT {
 
     @Test
     fun findAll() {
