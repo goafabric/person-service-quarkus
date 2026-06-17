@@ -3,11 +3,25 @@ package org.goafabric.personservice.native
 import io.quarkus.test.common.QuarkusTestResource
 import io.quarkus.test.junit.QuarkusIntegrationTest
 import io.restassured.RestAssured
+import org.junit.jupiter.api.Assumptions
+import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
+import org.testcontainers.DockerClientFactory
 
 @QuarkusIntegrationTest
 @QuarkusTestResource(value = NativeTestResource::class, restrictToAnnotatedClass = true)
 class PersonControllerNativeIT {
+    companion object {
+        @JvmStatic
+        @BeforeAll
+        fun checkDocker() {
+            Assumptions.assumeTrue(
+                DockerClientFactory.instance().isDockerAvailable,
+                "Docker is not running, skipping test"
+            )
+        }
+    }
+
 
     @Test
     fun findAll() {
