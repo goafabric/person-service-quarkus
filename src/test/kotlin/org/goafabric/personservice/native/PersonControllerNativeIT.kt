@@ -1,4 +1,4 @@
-package org.goafabric.personservice.controller
+package org.goafabric.personservice.native
 
 import io.quarkus.test.common.QuarkusTestResource
 import io.quarkus.test.junit.QuarkusIntegrationTest
@@ -6,7 +6,7 @@ import io.restassured.RestAssured
 import org.junit.jupiter.api.Test
 
 @QuarkusIntegrationTest
-@QuarkusTestResource(value = PostgreSQLTestResource::class, restrictToAnnotatedClass = true)
+@QuarkusTestResource(value = NativeTestResource::class, restrictToAnnotatedClass = true)
 class PersonControllerNativeIT {
 
     @Test
