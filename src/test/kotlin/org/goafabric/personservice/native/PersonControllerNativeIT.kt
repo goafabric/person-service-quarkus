@@ -13,9 +13,7 @@ import org.testcontainers.DockerClientFactory
 class DockerAvailableCondition : ExecutionCondition {
     override fun evaluateExecutionCondition(context: ExtensionContext): ConditionEvaluationResult =
         if (DockerClientFactory.instance().isDockerAvailable)
-            ConditionEvaluationResult.enabled("Docker is available")
-        else
-            ConditionEvaluationResult.disabled("Docker is not available, skipping")
+            ConditionEvaluationResult.enabled("Docker is av") else ConditionEvaluationResult.disabled("Docker n/a")
 }
 
 @QuarkusIntegrationTest
