@@ -14,8 +14,6 @@ import org.junit.jupiter.api.Test
 import org.testcontainers.DockerClientFactory
 import java.util.concurrent.TimeUnit
 
-
-// When Docker is running, Kafka Broker will be automatically started for test, if not running, test will be skipped for now
 @QuarkusTest
 class KafkaPublisherIT {
     @Inject
@@ -30,12 +28,8 @@ class KafkaPublisherIT {
     companion object {
         @JvmStatic
         @BeforeAll
-        fun checkDocker(): Unit {
-            Assumptions.assumeTrue(
-                DockerClientFactory.instance().isDockerAvailable,
-                "Docker is not running, skipping test"
-            )
-        }
+        fun checkDocker() =
+            Assumptions.assumeTrue(DockerClientFactory.instance().isDockerAvailable, "Docker is not running, skipping test")
     }
 
     @Test

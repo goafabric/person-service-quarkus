@@ -108,6 +108,8 @@ dependencies {
 	testImplementation("io.quarkus:quarkus-junit-mockito")
 
 	testImplementation("io.quarkus:quarkus-test-kafka-companion")
+
+	testImplementation("org.testcontainers:testcontainers-postgresql")
 }
 
 tasks.withType<Test> {
@@ -116,6 +118,7 @@ tasks.withType<Test> {
 	systemProperty("java.util.logging.manager", "org.jboss.logmanager.LogManager")
 	finalizedBy("jacocoTestReport")
 }
+
 
 tasks.jacocoTestReport {
 	executionData.setFrom(
