@@ -38,7 +38,7 @@ dependencies {
 		testImplementation("org.mockito.kotlin:mockito-kotlin:6.3.0")
 	}
 
-	kapt(enforcedPlatform("io.quarkus:quarkus-bom:3.36.2"))
+	kapt(enforcedPlatform("io.quarkus:quarkus-bom:3.37.0"))
 	implementation(enforcedPlatform("io.quarkus:quarkus-bom:3.37.0"))
 }
 dependencies {
