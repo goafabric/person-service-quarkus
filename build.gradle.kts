@@ -10,7 +10,7 @@ val dockerRegistry = "goafabric"
 plugins {
 	java
 	jacoco
-	id("io.quarkus") version "3.36.2"
+	id("io.quarkus") version "3.37.0"
 	id("net.researchgate.release") version "3.1.0"
 	id("org.sonarqube") version "7.3.1.8318"
 
@@ -39,7 +39,7 @@ dependencies {
 	}
 
 	kapt(enforcedPlatform("io.quarkus:quarkus-bom:3.36.2"))
-	implementation(enforcedPlatform("io.quarkus:quarkus-bom:3.36.2"))
+	implementation(enforcedPlatform("io.quarkus:quarkus-bom:3.37.0"))
 }
 dependencies {
 	//web
@@ -64,7 +64,7 @@ dependencies {
 	implementation("org.flywaydb:flyway-database-postgresql")
 
 	//jakarta data
-	implementation("io.quarkus:quarkus-hibernate-panache-next")
+	implementation("io.quarkus:quarkus-data-hibernate")
 	implementation("jakarta.data:jakarta.data-api")
 	kapt("org.hibernate.orm:hibernate-processor")
 
