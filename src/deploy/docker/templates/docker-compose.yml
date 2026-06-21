@@ -30,7 +30,7 @@ services:
 
       #persistence
 #      quarkus.datasource.jdbc.url: "jdbc:postgresql://postgres:5432/person"
-      quarkus.datasource.jdbc.url: "jdbc:postgresql://person-service-postgres:5432/person"
+      quarkus.datasource.jdbc.url: "jdbc:postgresql://host.docker.internal:5432/person"
       quarkus.datasource.jdbc.max-size: "10"
 
       database.provisioning.goals: "-migrate -import-demo-data"
@@ -84,7 +84,7 @@ services:
     image: postgres:18.3
     restart: 'no'
     ports:
-      - 50810:5432
+      - 5432:5432
     environment:
       TZ: "Europe/Berlin"
       #secrets
