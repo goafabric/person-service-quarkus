@@ -1,5 +1,5 @@
 #!/bin/bash
-#socktainer &
+socktainer &
 export DOCKER_HOST=unix://$HOME/.socktainer/container.sock
 ./stack $1 $2 $3 $4
-#killall socktainer
+killall socktainer
