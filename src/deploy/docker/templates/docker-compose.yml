@@ -25,23 +25,23 @@ services:
       quarkus.http.io-threads: "20"
 
       #tracing
-      quarkus.otel.exporter.otlp.traces.endpoint: "http://host.docker.internal:4317"
+      quarkus.otel.exporter.otlp.traces.endpoint: "http://${_Values_host_docker_internal}:4317"
       quarkus.application.name: "person-service"
 
       #persistence
 #      quarkus.datasource.jdbc.url: "jdbc:postgresql://postgres:5432/person"
-      quarkus.datasource.jdbc.url: "jdbc:postgresql://host.docker.internal:5432/person"
+      quarkus.datasource.jdbc.url: "jdbc:postgresql://${_Values_host_docker_internal}:5432/person"
       quarkus.datasource.jdbc.max-size: "10"
 
       database.provisioning.goals: "-migrate -import-demo-data"
 
       #adapter
-      adapter.calleeservice.url: "http://host.docker.internal:50900"
+      adapter.calleeservice.url: "http://${_Values_host_docker_internal}:50900"
       adapter.timeout: "10000"
       adapter.circuitBreaker.enabled: "true"
 
       #kafka
-      kafka.bootstrap.servers: "host.docker.internal:9093"
+      kafka.bootstrap.servers: "${_Values_host_docker_internal}:9093"
       mp.messaging.outgoing.general.enabled: "true"
 
       mp.messaging.connector.smallrye-kafka.security.protocol: "SASL_PLAINTEXT"
@@ -52,7 +52,7 @@ services:
       quarkus.azure.storage.blob.enabled: "true"
       azure.storage.blob.container-name: "person"
 #      quarkus.azure.storage.blob.connection-string: DefaultEndpointsProtocol=http;AccountName=$${azure.storage.blob.account-name};AccountKey=$${azure.storage.blob.account-key};BlobEndpoint=http://azurite:10000/$${azure.storage.blob.account-name}
-      quarkus.azure.storage.blob.connection-string: DefaultEndpointsProtocol=http;AccountName=$${azure.storage.blob.account-name};AccountKey=$${azure.storage.blob.account-key};BlobEndpoint=http://host.docker.internal:10000/$${azure.storage.blob.account-name}
+      quarkus.azure.storage.blob.connection-string: DefaultEndpointsProtocol=http;AccountName=$${azure.storage.blob.account-name};AccountKey=$${azure.storage.blob.account-key};BlobEndpoint=http://${_Values_host_docker_internal}:10000/$${azure.storage.blob.account-name}
       #quarkus.azure.storage.blob.connection-string=DefaultEndpointsProtocol=https;AccountName=$${azure.storage.blob.account-name};AccountKey=$${azure.storage.blob.account-key};EndpointSuffix=core.windows.net
 
       azure.storage.blob.account-name: devstoreaccount1
@@ -137,7 +137,7 @@ services:
       KAFKA_NUM_PARTITIONS: 3
 
       KAFKA_LISTENERS: SASL_PLAINTEXT://0.0.0.0:9092,SASL_PLAINTEXT_EXTERNAL://0.0.0.0:9093,CONTROLLER://localhost:9094
-      KAFKA_ADVERTISED_LISTENERS: SASL_PLAINTEXT://kafka:9092,SASL_PLAINTEXT_EXTERNAL://host.docker.internal:9093
+      KAFKA_ADVERTISED_LISTENERS: SASL_PLAINTEXT://kafka:9092,SASL_PLAINTEXT_EXTERNAL://${_Values_host_docker_internal}:9093
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,SASL_PLAINTEXT:SASL_PLAINTEXT,SASL_PLAINTEXT_EXTERNAL:SASL_PLAINTEXT
       KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
       KAFKA_SASL_ENABLED_MECHANISMS: PLAIN
