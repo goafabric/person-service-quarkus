@@ -3,7 +3,6 @@ source .values
 export COMMAND=$1
 export OPTION=$2
 export _Values_image_tag=$(grep '^version=' ../../../gradle.properties | cut -d'=' -f2)
-export _Values_host_docker_internal=host.docker.internal
 
 function func_compose {
     echo Going $1 ...
