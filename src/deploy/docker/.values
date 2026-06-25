@@ -5,5 +5,4 @@ _Values_image_repository=goafabric/person-service-quarkus
 _Values_service_port=50800
 _Values_resources_requests_memory=32M
 
-_Values_host_docker_internal=host.docker.internal
-#_Values_host_docker_internal=203.0.113.113
+#_Values_host_docker_internal=host.docker.internal
