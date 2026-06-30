@@ -44,7 +44,7 @@ dependencies {
 dependencies {
 	//web
 	implementation("io.quarkus:quarkus-arc")
-	implementation("io.quarkus:quarkus-resteasy-jackson")
+	implementation("io.quarkus:quarkus-rest-jackson")
 	implementation("org.jboss.logmanager:log4j2-jboss-logmanager")
 
 	//monitoring
