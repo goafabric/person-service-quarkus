@@ -9,7 +9,7 @@ import io.quarkus.hibernate.panache.PanacheRepository
 import org.goafabric.personservice.Application
 
 @AnalyzeClasses(packagesOf = [Application::class], importOptions = [ImportOption.DoNotIncludeTests::class])
-class MaperRulesTest {
+class MapperRulesTest {
     @ArchTest
     val mappersMustNotDependOnRepositories: ArchRule = ArchRuleDefinition.noClasses()
         .that().haveSimpleNameContaining("Mapper")
