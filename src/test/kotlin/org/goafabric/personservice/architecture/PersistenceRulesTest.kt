@@ -2,6 +2,7 @@ package org.goafabric.personservice.architecture
 
 import com.tngtech.archunit.base.DescribedPredicate
 import com.tngtech.archunit.core.domain.JavaClass
+import com.tngtech.archunit.core.domain.JavaMethod
 import com.tngtech.archunit.core.importer.ClassFileImporter
 import com.tngtech.archunit.core.importer.ImportOption.DoNotIncludeTests
 import com.tngtech.archunit.junit.AnalyzeClasses
@@ -9,9 +10,13 @@ import com.tngtech.archunit.junit.ArchTest
 import com.tngtech.archunit.lang.ArchCondition
 import com.tngtech.archunit.lang.ArchRule
 import com.tngtech.archunit.lang.ConditionEvents
+import com.tngtech.archunit.lang.SimpleConditionEvent
 import com.tngtech.archunit.lang.syntax.ArchRuleDefinition
+import com.tngtech.archunit.lang.syntax.ArchRuleDefinition.methods
+import com.tngtech.archunit.lang.syntax.ArchRuleDefinition.noClasses
 import com.tngtech.archunit.library.Architectures
 import io.quarkus.hibernate.panache.PanacheRepository
+import jakarta.persistence.EntityManager
 import org.goafabric.personservice.Application
 
 @AnalyzeClasses(packagesOf = [Application::class], importOptions = [DoNotIncludeTests::class])
@@ -54,4 +59,17 @@ class PersistenceRulesTest {
             }
         }
         ).allowEmptyShould(true)
+
+    @ArchTest
+    val noEntityManagerNativeQueries: ArchRule =
+        noClasses().should()
+            .callMethodWhere(
+                object : DescribedPredicate<com.tngtech.archunit.core.domain.JavaMethodCall>(
+                    "call EntityManager.createNativeQuery"
+                ) {
+                    override fun test(call: com.tngtech.archunit.core.domain.JavaMethodCall): Boolean {
+                        return call.target.owner.isEquivalentTo(EntityManager::class.java) && call.target.name == "createNativeQuery"
+                    }
+                }
+            ).because("native queries break jpa abstraction in general, as well as hibernate filters and jpa listeners")
 }
