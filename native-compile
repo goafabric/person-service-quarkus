@@ -1,0 +1,3 @@
+#!/bin/bash
+./gradlew clean buildNative
+./build/person-service-quarkus-*-runner -Dquarkus.datasource.jdbc.url=jdbc:postgresql://localhost:5432/postgres -Dquarkus.datasource.username=postgres -Dquarkus.datasource.password=postgres
