@@ -10,7 +10,7 @@ val dockerRegistry = "goafabric"
 plugins {
 	java
 	jacoco
-	id("io.quarkus") version "3.37.3"
+	id("io.quarkus") version "3.37.4"
 	id("net.researchgate.release") version "3.1.0"
 	id("org.sonarqube") version "7.3.1.8318"
 
@@ -28,7 +28,7 @@ dependencies {
 	constraints {
 		annotationProcessor("org.mapstruct:mapstruct-processor:1.6.3")
 		implementation("org.mapstruct:mapstruct:1.6.3")
-		implementation("io.quarkiverse.azureservices:quarkus-azure-storage-blob:1.2.4")
+		implementation("io.quarkiverse.azureservices:quarkus-azure-storage-blob:1.2.5")
 		implementation("io.quarkiverse.mcp:quarkus-mcp-server-http:1.13.1")
 
 		kapt("org.mapstruct:mapstruct-processor:1.6.3")
@@ -38,8 +38,8 @@ dependencies {
 		testImplementation("org.mockito.kotlin:mockito-kotlin:6.3.0")
 	}
 
-	kapt(enforcedPlatform("io.quarkus:quarkus-bom:3.37.3"))
-	implementation(enforcedPlatform("io.quarkus:quarkus-bom:3.37.3"))
+	kapt(enforcedPlatform("io.quarkus:quarkus-bom:3.38.0"))
+	implementation(enforcedPlatform("io.quarkus:quarkus-bom:3.38.0"))
 }
 dependencies {
 	//web
