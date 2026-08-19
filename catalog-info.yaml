@@ -6,12 +6,12 @@ metadata:
   description: |
     The Person Service for managing person-related data
     
-    [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=org.goafabric%3Aperson-service-quarkus&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=org.goafabric%3Aperson-service-quarkus)
-    [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=org.goafabric%3Aperson-service-quarkus&metric=coverage)](https://sonarcloud.io/summary/new_code?id=org.goafabric%3Aperson-service-quarkus)
+    [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=org.goafabric%3Aperson-service-quarkus&metric=alert_status&token=441d3bb5f2828536cb0a6d464f684a46c48ed2b6)](https://sonarcloud.io/summary/new_code?id=org.goafabric%3Aperson-service-quarkus)
+    [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=org.goafabric%3Aperson-service-quarkus&metric=coverage&token=441d3bb5f2828536cb0a6d464f684a46c48ed2b6)](https://sonarcloud.io/summary/new_code?id=org.goafabric%3Aperson-service-quarkus)
 
-    [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=org.goafabric%3Aperson-service-quarkus&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=org.goafabric%3Aperson-service-quarkus)
-    [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=org.goafabric%3Aperson-service-quarkus&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=org.goafabric%3Aperson-service-quarkus)
-    [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=org.goafabric%3Aperson-service-quarkus&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=org.goafabric%3Aperson-service-quarkus)
+    [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=org.goafabric%3Aperson-service-quarkus&metric=security_rating&token=441d3bb5f2828536cb0a6d464f684a46c48ed2b6)](https://sonarcloud.io/summary/new_code?id=org.goafabric%3Aperson-service-quarkus)
+    [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=org.goafabric%3Aperson-service-quarkus&metric=reliability_rating&token=441d3bb5f2828536cb0a6d464f684a46c48ed2b6)](https://sonarcloud.io/summary/new_code?id=org.goafabric%3Aperson-service-quarkus)
+    [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=org.goafabric%3Aperson-service-quarkus&metric=sqale_rating&token=441d3bb5f2828536cb0a6d464f684a46c48ed2b6)](https://sonarcloud.io/summary/new_code?id=org.goafabric%3Aperson-service-quarkus)
   tags:
     - spring-boot
     - microservice
