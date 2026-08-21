@@ -13,7 +13,6 @@ import jakarta.ws.rs.container.ContainerRequestFilter
 import jakarta.ws.rs.container.ContainerResponseContext
 import jakarta.ws.rs.container.ContainerResponseFilter
 import jakarta.ws.rs.ext.Provider
-import org.jboss.resteasy.reactive.server.jaxrs.ContainerRequestContextImpl
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.slf4j.MDC
@@ -28,9 +27,7 @@ class HttpInterceptor : ContainerRequestFilter, ContainerResponseFilter, ToolFil
     override fun filter(request: ContainerRequestContext) {
         UserContext.setContext(request)
         configureLogsAndTracing()
-        if (request is ContainerRequestContextImpl && !request.isPreMatch) {
-            log.info("{} {} http call for user {} ", request.method, request.uriInfo.path, UserContext.userName)
-        }
+        log.info("{} {} http call for user {} ", request.method, request.uriInfo.path, UserContext.userName)
     }
 
     @Throws(IOException::class)
