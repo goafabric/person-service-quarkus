@@ -69,7 +69,7 @@ dependencies {
 	kapt("org.hibernate.orm:hibernate-processor")
 
 	//adapter
-	implementation("io.quarkus:quarkus-resteasy-client-jackson")
+	implementation("io.quarkus:quarkus-rest-client-jackson")
 	implementation("io.quarkus:quarkus-smallrye-fault-tolerance")
 
 	//jib
@@ -99,7 +99,7 @@ dependencies {
 	//test
 	testImplementation("io.quarkus:quarkus-junit5")
 	testImplementation("io.rest-assured:rest-assured")
-	testImplementation("io.quarkus:quarkus-resteasy-client-jackson")
+	testImplementation("io.quarkus:quarkus-rest-client-jackson")
 	testImplementation("io.quarkus:quarkus-jacoco")
 	testImplementation("org.assertj:assertj-core")
 	testImplementation("com.tngtech.archunit:archunit-junit5")
