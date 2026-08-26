@@ -1,3 +1,9 @@
+# 3.38.2
+- upgrade to latest Quarkus
+- quarkus.observability.lgtm.enabled=false, to avoid APP Startup crash without Docker
+- Replacement of all quarkus-reasteasy dependencies with quarks-rest (https://quarkus.io/guides/rest-migration/)
+- Removal and Rewrite of HTTPInterceptor and AdapterConfiguration, to remove JBoss imports (yuck)
+
 # 3.24.4
 - Upgrade of Quarkus
 
