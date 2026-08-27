@@ -2,7 +2,6 @@ package org.goafabric.personservice.architecture
 
 import com.tngtech.archunit.base.DescribedPredicate
 import com.tngtech.archunit.core.domain.JavaClass
-import com.tngtech.archunit.core.domain.JavaMethod
 import com.tngtech.archunit.core.importer.ClassFileImporter
 import com.tngtech.archunit.core.importer.ImportOption.DoNotIncludeTests
 import com.tngtech.archunit.junit.AnalyzeClasses
@@ -10,12 +9,10 @@ import com.tngtech.archunit.junit.ArchTest
 import com.tngtech.archunit.lang.ArchCondition
 import com.tngtech.archunit.lang.ArchRule
 import com.tngtech.archunit.lang.ConditionEvents
-import com.tngtech.archunit.lang.SimpleConditionEvent
 import com.tngtech.archunit.lang.syntax.ArchRuleDefinition
-import com.tngtech.archunit.lang.syntax.ArchRuleDefinition.methods
 import com.tngtech.archunit.lang.syntax.ArchRuleDefinition.noClasses
 import com.tngtech.archunit.library.Architectures
-import io.quarkus.hibernate.panache.PanacheRepository
+import io.quarkus.data.hibernate.ManagedRepository
 import jakarta.persistence.EntityManager
 import org.goafabric.personservice.Application
 
@@ -40,7 +37,7 @@ class PersistenceRulesTest {
 
     @ArchTest
     val classesExtendingRepositoryShouldEndWithRepository: ArchRule = ArchRuleDefinition.classes()
-        .that().areAssignableTo(PanacheRepository.Managed::class.java)
+        .that().areAssignableTo(ManagedRepository::class.java)
         .should().haveNameMatching(".*Repository_?$")
         .because("all classes extending Repository should end with 'Repository' in their name")
         .allowEmptyShould(true)
@@ -48,7 +45,7 @@ class PersistenceRulesTest {
 
     @ArchTest
     val logicAnnotatedWithTransactional: ArchRule = ArchRuleDefinition.classes()
-        .that().areAssignableTo(PanacheRepository.Managed::class.java)
+        .that().areAssignableTo(ManagedRepository::class.java)
         .should(object : ArchCondition<JavaClass?>("Repository used") {
             override fun check(item: JavaClass?, events: ConditionEvents) {
                 ArchRuleDefinition.classes()

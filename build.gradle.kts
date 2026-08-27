@@ -66,7 +66,7 @@ dependencies {
 	//jakarta data
 	implementation("io.quarkus:quarkus-data-hibernate")
 	implementation("jakarta.data:jakarta.data-api")
-	kapt("org.hibernate.orm:hibernate-processor")
+	kapt("io.quarkus:quarkus-data-processor")
 
 	//adapter
 	implementation("io.quarkus:quarkus-rest-client-jackson")

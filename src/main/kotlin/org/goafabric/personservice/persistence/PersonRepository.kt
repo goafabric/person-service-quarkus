@@ -1,13 +1,13 @@
 package org.goafabric.personservice.persistence
 
-import io.quarkus.hibernate.panache.PanacheRepository
+import io.quarkus.data.hibernate.ManagedRepository
 import jakarta.data.page.Page
 import jakarta.data.page.PageRequest
 import jakarta.data.repository.Find
 import jakarta.data.repository.Query
 import org.goafabric.personservice.persistence.entity.PersonEo
 
-interface PersonRepository : PanacheRepository.Managed<PersonEo, String> { //CrudRepository<PersonEo, String> {
+interface PersonRepository : ManagedRepository.CustomId<PersonEo, String> {
     @Find
     fun findByLastName(
         lastName: String,
