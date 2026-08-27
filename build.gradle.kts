@@ -10,7 +10,7 @@ val dockerRegistry = "goafabric"
 plugins {
 	java
 	jacoco
-	id("io.quarkus") version "3.38.3"
+	id("io.quarkus") version "3.39.1"
 	id("net.researchgate.release") version "3.1.0"
 	id("org.sonarqube") version "7.4.0.8496"
 
@@ -29,7 +29,7 @@ dependencies {
 		annotationProcessor("org.mapstruct:mapstruct-processor:1.6.3")
 		implementation("org.mapstruct:mapstruct:1.6.3")
 		implementation("io.quarkiverse.azureservices:quarkus-azure-storage-blob:1.2.5")
-		implementation("io.quarkiverse.mcp:quarkus-mcp-server-http:1.13.1")
+		implementation("io.quarkiverse.mcp:quarkus-mcp-server-http:1.13.2")
 
 		kapt("org.mapstruct:mapstruct-processor:1.6.3")
 
@@ -38,8 +38,8 @@ dependencies {
 		testImplementation("org.mockito.kotlin:mockito-kotlin:6.3.0")
 	}
 
-	kapt(enforcedPlatform("io.quarkus:quarkus-bom:3.39.0"))
-	implementation(enforcedPlatform("io.quarkus:quarkus-bom:3.39.0"))
+	kapt(enforcedPlatform("io.quarkus:quarkus-bom:3.39.1"))
+	implementation(enforcedPlatform("io.quarkus:quarkus-bom:3.39.1"))
 }
 dependencies {
 	//web
@@ -69,7 +69,7 @@ dependencies {
 	kapt("org.hibernate.orm:hibernate-processor")
 
 	//adapter
-	implementation("io.quarkus:quarkus-resteasy-client-jackson")
+	implementation("io.quarkus:quarkus-rest-client-jackson")
 	implementation("io.quarkus:quarkus-smallrye-fault-tolerance")
 
 	//jib
@@ -99,7 +99,7 @@ dependencies {
 	//test
 	testImplementation("io.quarkus:quarkus-junit5")
 	testImplementation("io.rest-assured:rest-assured")
-	testImplementation("io.quarkus:quarkus-resteasy-client-jackson")
+	testImplementation("io.quarkus:quarkus-rest-client-jackson")
 	testImplementation("io.quarkus:quarkus-jacoco")
 	testImplementation("org.assertj:assertj-core")
 	testImplementation("com.tngtech.archunit:archunit-junit5")

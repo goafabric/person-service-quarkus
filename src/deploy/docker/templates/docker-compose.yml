@@ -26,6 +26,7 @@ services:
 
       #tracing
       quarkus.otel.exporter.otlp.traces.endpoint: "http://${_Values_host_docker_internal}:4317"
+      quarkus.otel.exporter.otlp.metrics.endpoint: "http://${_Values_host_docker_internal}:4317"
       quarkus.application.name: "person-service"
 
       #persistence
@@ -59,14 +60,14 @@ services:
       azure.storage.blob.account-key: Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==
 
       #secrets
-      #quarkus.datasource.username: "person-service"
-      #quarkus.datasource.password: "person-service"
-      #kafka.username: "admin"
-      #kafka.password: "supersecret"
+      quarkus.datasource.username: "person-service"
+      quarkus.datasource.password: "person-service"
+      kafka.username: "admin"
+      kafka.password: "supersecret"
 
-      quarkus.configtree.path: "/mnt/secrets"
-      quarkus.datasource.username: $${spring.datasource.username}
-      quarkus.datasource.password: $${spring.datasource.password}
+      #quarkus.configtree.path: "/mnt/secrets"
+      #quarkus.datasource.username: $${spring.datasource.username}
+      #quarkus.datasource.password: $${spring.datasource.password}
 
       #log levels
       QUARKUS_LOG_LEVEL: "INFO"
@@ -81,7 +82,7 @@ services:
 
   postgres:
     container_name: ${_Values_root_name}-postgres
-    image: postgres:18.3
+    image: postgres:18.6
     restart: 'no'
     ports:
       - 5432:5432
@@ -98,8 +99,8 @@ services:
       interval: 2s
       timeout: 5s
       retries: 5
-#    volumes:
-#      - pgdata_quarkus:/var/lib/postgresql/data
+    volumes:
+      - pgdata_quarkus:/var/lib/postgresql
     networks:
       - ${_Values_root_name}-net
 
@@ -120,7 +121,7 @@ services:
         condition: service_started
 
   kafka:
-    image: apache/kafka:4.2.0
+    image: apache/kafka:4.3.1
     container_name: ${_Values_root_name}-kafka
     ports:
       - "9092:9092"
