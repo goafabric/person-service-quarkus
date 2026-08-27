@@ -1,5 +1,5 @@
 # 3.39.1
-- breaking changes in Repository fixed, because this is still tagged as experimental https://quarkus.io/guides/quarkus-data-hibernate
+- breaking changes in Repository fixed, still tagged as experimental https://quarkus.io/guides/quarkus-data-hibernate
   - kapt("org.hibernate.orm:hibernate-processor") => kapt("io.quarkus:quarkus-data-processor")
   - PanacheRepository.Managed<> => ManagedRepository.CustomId<>
   - Fixed multiple Archunit Tests
