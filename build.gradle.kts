@@ -147,6 +147,13 @@ tasks.register<Exec>("dockerImageNative") { description = "native image"; group 
 	}
 }
 
+tasks.register<Exec>("dockerImageJvm") { description = "jvm image"; group = "build" ; dependsOn("quarkusBuild", "test")
+	System.setProperty("quarkus.container-image.build", "true")
+	System.setProperty("quarkus.container-image.image", "${dockerRegistry}/${project.name}-jvm:${project.version}")
+	commandLine("/bin/sh", "-c", "docker push ${dockerRegistry}/${project.name}-jvm:${project.version}")
+}
+
+
 configure<net.researchgate.release.ReleaseExtension> {
 	buildTasks.set(listOf("build", "test", "dockerImageNative"))
 	tagTemplate.set("v${version}".replace("-SNAPSHOT", ""))
