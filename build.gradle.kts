@@ -149,6 +149,7 @@ tasks.register<Exec>("dockerImageNative") { description = "native image"; group 
 
 tasks.register<Exec>("dockerImageJvm") { description = "jvm image"; group = "build" ; dependsOn("quarkusBuild")
 	System.setProperty("quarkus.container-image.build", "true")
+	System.setProperty("quarkus.jib.base-jvm-image", "registry.access.redhat.com/ubi9/openjdk-25-runtime:1.24")
 	System.setProperty("quarkus.container-image.image", "${dockerRegistry}/${project.name}-jvm:${project.version}")
 	commandLine("/bin/sh", "-c", "docker push ${dockerRegistry}/${project.name}-jvm:${project.version}")
 }
