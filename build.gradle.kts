@@ -9,7 +9,7 @@ val dockerRegistry = "goafabric"
 
 plugins {
 	java
-	jacoco
+	//jacoco
 	id("io.quarkus") version "3.39.2"
 	id("net.researchgate.release") version "3.1.0"
 	id("org.sonarqube") version "7.5.0.8588"
@@ -100,7 +100,7 @@ dependencies {
 	testImplementation("io.quarkus:quarkus-junit5")
 	testImplementation("io.rest-assured:rest-assured")
 	testImplementation("io.quarkus:quarkus-rest-client-jackson")
-	testImplementation("io.quarkus:quarkus-jacoco")
+	//testImplementation("io.quarkus:quarkus-jacoco")
 	testImplementation("org.assertj:assertj-core")
 	testImplementation("com.tngtech.archunit:archunit-junit5")
 
@@ -116,16 +116,18 @@ tasks.withType<Test> {
 	useJUnitPlatform()
 	exclude("**/*NRIT*")
 	systemProperty("java.util.logging.manager", "org.jboss.logmanager.LogManager")
-	finalizedBy("jacocoTestReport")
+	//finalizedBy("jacocoTestReport")
 }
 
 
+/*
 tasks.jacocoTestReport {
 	executionData.setFrom(
 		fileTree(layout.buildDirectory.get()).include("jacoco/test.exec", "jacoco-quarkus.exec")
 	)
 	reports { xml.required.set(true); csv.required.set(true); html.required.set(true) }
 }
+*/
 
 tasks.register<Exec>("dockerImageNative") { description = "native image"; group = "build" ; dependsOn("quarkusBuild", "testNative")
 	if (gradle.startParameter.taskNames.contains("dockerImageNative")) {
