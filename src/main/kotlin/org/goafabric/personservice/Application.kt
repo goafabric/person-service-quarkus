@@ -10,11 +10,9 @@ import org.jboss.logging.Logger
 @ApplicationScoped
 @QuarkusMain
 class Application {
-    private val log = Logger.getLogger(Application::class.java)
+    fun onStart(@Observes event: StartupEvent) =
+        Logger.getLogger(Application::class.java).info("Running on Java ${System.getProperty("java.version")} " + "(${System.getProperty("java.vendor")}, ${System.getProperty("java.vm.name")})")
 
-    fun onStart(@Observes event: StartupEvent) {
-        log.info("Running on Java ${System.getProperty("java.version")} " + "(${System.getProperty("java.vendor")}, ${System.getProperty("java.vm.name")})")
-    }
 }
 
 fun main(args: Array<String>) {
