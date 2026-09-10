@@ -20,7 +20,7 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v6
         with:
-          gradle-version: 9.7.1
+          gradle-version: 9.8.0-rc-1
 
       - name: Test
         run: gradle build test
@@ -50,10 +50,10 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v6
         with:
-          gradle-version: 9.7.1
+          gradle-version: 9.8.0-rc-1
 
       - name: Container Images
-        run: gradle dockerImageNative
+        run: gradle dockerImageJvm
 
   release:
     runs-on: ubuntu-24.04-arm
@@ -78,7 +78,7 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v6
         with:
-          gradle-version: 9.7.1
+          gradle-version: 9.8.0-rc-1
 
       - name: Setup git config
         run: |
