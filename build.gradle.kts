@@ -29,7 +29,7 @@ dependencies {
 		annotationProcessor("org.mapstruct:mapstruct-processor:1.6.3")
 		implementation("org.mapstruct:mapstruct:1.6.3")
 		implementation("io.quarkiverse.azureservices:quarkus-azure-storage-blob:1.2.5")
-		implementation("io.quarkiverse.mcp:quarkus-mcp-server-http:2.0.0")
+		implementation("io.quarkiverse.mcp:quarkus-mcp-server-http:2.0.1")
 
 		kapt("org.mapstruct:mapstruct-processor:1.6.3")
 
