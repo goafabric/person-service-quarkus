@@ -10,7 +10,7 @@ val dockerRegistry = "goafabric"
 plugins {
 	java
 	jacoco
-	id("io.quarkus") version "3.40.1"
+	id("io.quarkus") version "4.0.0.Beta1"
 	id("net.researchgate.release") version "3.2.0"
 	id("org.sonarqube") version "7.5.0.8588"
 
@@ -38,8 +38,8 @@ dependencies {
 		testImplementation("org.mockito.kotlin:mockito-kotlin:6.4.0")
 	}
 
-	kapt(enforcedPlatform("io.quarkus:quarkus-bom:3.40.1"))
-	implementation(enforcedPlatform("io.quarkus:quarkus-bom:3.40.1"))
+	kapt(enforcedPlatform("io.quarkus:quarkus-bom:4.0.0.Beta1"))
+	implementation(enforcedPlatform("io.quarkus:quarkus-bom:4.0.0.Beta1"))
 }
 dependencies {
 	//web
@@ -88,10 +88,10 @@ dependencies {
 	implementation("io.smallrye.reactive:smallrye-reactive-messaging-kafka")
 
 	//blob
-	implementation("io.quarkiverse.azureservices:quarkus-azure-storage-blob")
+	//implementation("io.quarkiverse.azureservices:quarkus-azure-storage-blob")
 
 	//mcp
-	implementation("io.quarkiverse.mcp:quarkus-mcp-server-http") //https://docs.quarkiverse.io/quarkus-mcp-server/dev/guides-implementing-tools.html
+	//implementation("io.quarkiverse.mcp:quarkus-mcp-server-http") //https://docs.quarkiverse.io/quarkus-mcp-server/dev/guides-implementing-tools.html
 
 	//h2
 	runtimeOnly("com.h2database:h2")

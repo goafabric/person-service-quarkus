@@ -2,11 +2,10 @@ package org.goafabric.personservice.persistence.entity
 
 import jakarta.persistence.*
 import org.goafabric.personservice.persistence.extensions.AuditTrailListener
-import org.goafabric.personservice.persistence.extensions.KafkaPublisher
 
 @Entity
 @Table(name = "person")
-@EntityListeners(AuditTrailListener::class, KafkaPublisher::class)
+@EntityListeners(AuditTrailListener::class)
 class PersonEo (
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

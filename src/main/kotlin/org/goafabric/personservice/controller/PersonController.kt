@@ -1,6 +1,5 @@
 package org.goafabric.personservice.controller
 
-import io.quarkiverse.mcp.server.Tool
 import jakarta.validation.Valid
 import jakarta.ws.rs.*
 import jakarta.ws.rs.core.MediaType
@@ -13,7 +12,7 @@ import org.goafabric.personservice.logic.PersonLogic
 class PersonController(private val personLogic: PersonLogic) {
     @GET
     @Path("/{id}")
-    @Tool(description = "get person by id")
+    //@Tool(description = "get person by id")
     fun getById(@PathParam("id") id: String): Person {
         return personLogic.getById(id)
     }
@@ -21,7 +20,7 @@ class PersonController(private val personLogic: PersonLogic) {
 
     @GET
     @Path("")
-    @Tool(description = "find person")
+    //@Tool(description = "find person")
     fun find(
         @BeanParam personSearch: PersonSearch,
         @QueryParam("page") page: Int,
@@ -33,7 +32,7 @@ class PersonController(private val personLogic: PersonLogic) {
     @POST
     @Path("")
     @Consumes(MediaType.APPLICATION_JSON)
-    @Tool(description = "save person")
+    //@Tool(description = "save person")
     fun save(@Valid person: @Valid Person): Person {
         return personLogic.save(person)
     }

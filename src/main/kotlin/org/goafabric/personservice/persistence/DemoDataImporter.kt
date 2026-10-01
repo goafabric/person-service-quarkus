@@ -9,7 +9,6 @@ import org.goafabric.personservice.controller.dto.Address
 import org.goafabric.personservice.controller.dto.Person
 import org.goafabric.personservice.controller.dto.PersonSearch
 import org.goafabric.personservice.extensions.UserContext
-import org.goafabric.personservice.logic.ObjectStorageLogic
 import org.goafabric.personservice.logic.PersonLogic
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -21,7 +20,7 @@ class DemoDataImporter(
     @param:ConfigProperty(name = "multi-tenancy.tenants") private val tenants: String,
     @param:ConfigProperty(name = "quarkus.azure.storage.blob.enabled") private val blobEnabled: Boolean,
     private val personLogic: PersonLogic,
-    private val objectStorageLogic: ObjectStorageLogic
+    //private val objectStorageLogic: ObjectStorageLogic
 ) {
     private val log: Logger = LoggerFactory.getLogger(this.javaClass)
 
@@ -73,6 +72,7 @@ class DemoDataImporter(
             )
         )
 
+        /*
         if (blobEnabled) {
             objectStorageLogic.put(
                 ObjectStorageLogic.ObjectEntry(
@@ -86,6 +86,8 @@ class DemoDataImporter(
             log.info("##blob: " + objectStorageLogic.getByKey("hello_world.txt")
                 .data.readAllBytes().toString(Charsets.UTF_8))
         }
+        
+         */
     }
 
     private fun createAddress(street: String): Address {

@@ -2,9 +2,6 @@ package org.goafabric.personservice.extensions
 
 import io.opentelemetry.api.trace.Span
 import io.opentelemetry.context.Context
-import io.quarkiverse.mcp.server.McpConnection
-import io.quarkiverse.mcp.server.ToolFilter
-import io.quarkiverse.mcp.server.ToolManager.ToolInfo
 import io.vertx.core.http.HttpServerRequest
 import jakarta.enterprise.context.ApplicationScoped
 import jakarta.inject.Inject
@@ -20,7 +17,7 @@ import java.io.IOException
 
 @Provider
 @ApplicationScoped
-class HttpInterceptor : ContainerRequestFilter, ContainerResponseFilter, ToolFilter {
+class HttpInterceptor : ContainerRequestFilter, ContainerResponseFilter {
     private val log: Logger = LoggerFactory.getLogger("HttpInterceptor")
 
     @Throws(IOException::class)
@@ -42,12 +39,15 @@ class HttpInterceptor : ContainerRequestFilter, ContainerResponseFilter, ToolFil
     @Inject
     lateinit var serverRequest: HttpServerRequest
 
+    /*
     override fun test(tool: ToolInfo, connection: McpConnection): Boolean {
         UserContext.setContext(serverRequest)
         configureLogsAndTracing()
         log.info("{} mcp call for user {} ", tool.name(), UserContext.userName)
         return true
     }
+
+     */
 
     private fun configureLogsAndTracing() {
         MDC.put("tenantId", UserContext.tenantId)

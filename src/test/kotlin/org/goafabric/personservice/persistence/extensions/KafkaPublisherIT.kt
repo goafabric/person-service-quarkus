@@ -1,3 +1,4 @@
+/*
 package org.goafabric.personservice.persistence.extensions
 
 import com.fasterxml.jackson.databind.ObjectMapper
@@ -58,4 +59,4 @@ class KafkaPublisherIT {
     }
 
 
-}
+}*/
