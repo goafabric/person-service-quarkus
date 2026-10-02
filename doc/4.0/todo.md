@@ -3,5 +3,3 @@ https://github.com/quarkusio/quarkus/wiki/Migration-Guide-4.0#jackson
             
 - mcp server, objectstorage: https://github.com/quarkusio/quarkus/issues/57102#issuecomment-5948029323
 - hibernate / search bug
-
-- Objectmapper in KafkaPublisher + Interceptor
