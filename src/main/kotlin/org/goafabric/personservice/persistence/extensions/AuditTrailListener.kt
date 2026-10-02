@@ -1,6 +1,5 @@
 package org.goafabric.personservice.persistence.extensions
 
-import com.fasterxml.jackson.databind.json.JsonMapper
 import io.quarkus.arc.Unremovable
 import jakarta.enterprise.context.ApplicationScoped
 import jakarta.enterprise.inject.spi.CDI
@@ -8,13 +7,15 @@ import jakarta.persistence.*
 import jakarta.transaction.Transactional
 import org.goafabric.personservice.extensions.UserContext
 import org.slf4j.LoggerFactory
+import tools.jackson.databind.json.JsonMapper
+import tools.jackson.module.kotlin.jacksonMapperBuilder
 import java.util.*
 import kotlin.reflect.KClass
 
 // Simple Audittrail that fulfills the requirements of logging content changes + user + aot support, could be db independant
 class AuditTrailListener {
     private val log = LoggerFactory.getLogger(this.javaClass)
-    private val jsonMapper: JsonMapper = JsonMapper()
+    private val jsonMapper : JsonMapper = jacksonMapperBuilder().build()
 
     enum class DbOperation {  CREATE, UPDATE, DELETE }
 

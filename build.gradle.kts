@@ -81,8 +81,8 @@ dependencies {
 
 	//kotlin
 	implementation("io.quarkus:quarkus-kotlin")
-	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-
+	implementation("tools.jackson.module:jackson-module-kotlin")
+	
 	//kafka
 	implementation("io.quarkus:quarkus-messaging-kafka")
 	implementation("io.smallrye.reactive:smallrye-reactive-messaging-kafka")
