@@ -7,6 +7,7 @@ import jakarta.enterprise.event.Observes
 import org.eclipse.microprofile.config.inject.ConfigProperty
 import org.goafabric.personservice.controller.dto.Address
 import org.goafabric.personservice.controller.dto.Person
+import org.goafabric.personservice.controller.dto.PersonSearch
 import org.goafabric.personservice.extensions.UserContext
 import org.goafabric.personservice.logic.PersonLogic
 import org.slf4j.Logger
@@ -44,9 +45,9 @@ class DemoDataImporter(
         listOf(*tenants.split(",".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()).forEach(
             Consumer { tenant: String ->
                 UserContext.tenantId = tenant
-                //if (personLogic.search(PersonSearch(null, null), 1, 10).isEmpty()) {
+                if (personLogic.search(PersonSearch(null, null), 1, 10).isEmpty()) {
                     insertData()
-                //}
+                }
             })
         UserContext.tenantId = "0"
     }

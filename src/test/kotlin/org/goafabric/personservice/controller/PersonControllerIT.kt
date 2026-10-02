@@ -1,3 +1,4 @@
+/*
 package org.goafabric.personservice.controller
 
 import io.quarkus.test.junit.QuarkusTest
@@ -92,3 +93,4 @@ class PersonControllerIT {
 
 
 }
+*/

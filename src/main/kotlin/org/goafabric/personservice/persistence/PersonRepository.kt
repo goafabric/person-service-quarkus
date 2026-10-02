@@ -9,6 +9,12 @@ import org.goafabric.personservice.persistence.entity.PersonEo
 
 interface PersonRepository : ManagedRepository.CustomId<PersonEo, String> {
     @Find
+    fun findByFirstName(
+        firstName: String,
+        pageable: PageRequest
+    ): Page<PersonEo>
+
+    @Find
     fun findByLastName(
         lastName: String,
         pageable: PageRequest

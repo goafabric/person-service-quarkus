@@ -7,7 +7,6 @@ import org.eclipse.microprofile.rest.client.inject.RestClient
 import org.goafabric.personservice.adapter.CalleeServiceAdapter
 import org.goafabric.personservice.controller.dto.Person
 import org.goafabric.personservice.controller.dto.PersonSearch
-import org.goafabric.personservice.extensions.UserContext
 import org.goafabric.personservice.logic.mapper.PersonMapper
 import org.goafabric.personservice.persistence.PersonRepository
 
@@ -23,9 +22,19 @@ class PersonLogic(
     }
 
     fun search(personSearch: PersonSearch, page: Int, size: Int): List<Person> {
+        /*
         val persons = personRepository.search(personSearch.firstName, personSearch.lastName,
             PageRequest.ofPage(page.toLong() + 1, size, true))
         return personMapper.map(persons)
+
+         */
+        if (personSearch.firstName != null) {
+            return personMapper.map(personRepository.findByFirstName(personSearch.firstName!!, PageRequest.ofPage(page.toLong() + 1, size, true)))
+        }
+        if (personSearch.lastName != null) {
+            return personMapper.map(personRepository.findByLastName(personSearch.lastName!!, PageRequest.ofPage(page.toLong() + 1, size, true)))
+        }
+        return emptyList()
     }
 
     fun save(person: Person): Person {
