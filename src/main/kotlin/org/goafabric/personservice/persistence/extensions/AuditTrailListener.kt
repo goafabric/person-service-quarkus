@@ -88,7 +88,7 @@ class AuditTrailListener {
     internal class AuditDao(@PersistenceContext var entityManager: EntityManager) {
         private val jsonMapper: JsonMapper = JsonMapper()
         @Transactional(Transactional.TxType.REQUIRES_NEW) @SuppressWarnings("kotlin:S6619") //new transaction helps us to retrieve the old value still inside the db
-        fun <T> findOldObject(clazz: Class<T>?, id: String?): T {
+        fun <T> findOldObject(clazz: Class<T>, id: String): T {
             val e = entityManager.find(clazz, id)
             return jsonMapper.readValue(jsonMapper.writeValueAsBytes(e), clazz) //create deep copy to avoid lazy problem
         }

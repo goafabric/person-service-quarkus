@@ -1,6 +1,5 @@
 package org.goafabric.personservice.persistence.extensions
 
-import com.fasterxml.jackson.databind.ObjectMapper
 import io.quarkus.test.junit.QuarkusTest
 import jakarta.inject.Inject
 import org.assertj.core.api.Assertions
@@ -22,9 +21,6 @@ class KafkaPublisherIT {
     @Inject
     lateinit var personConsumer: PersonConsumer
 
-    @Inject
-    lateinit var objectMapper: ObjectMapper
-
     companion object {
         @JvmStatic
         @BeforeAll
@@ -34,8 +30,6 @@ class KafkaPublisherIT {
 
     @Test
     fun save() {
-        println(objectMapper.registeredModuleIds)
-
         val person = personLogic.save(
             Person(
                 null, null,
