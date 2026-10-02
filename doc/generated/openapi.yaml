@@ -151,4 +151,4 @@ paths:
       - Person Controller
 info:
   title: person-service API
-  version: 3.39.1-SNAPSHOT
+  version: 4.0.0-SNAPSHOT
