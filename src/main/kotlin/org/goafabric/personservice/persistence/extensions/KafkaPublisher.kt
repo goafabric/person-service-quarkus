@@ -1,4 +1,3 @@
-/*
 package org.goafabric.personservice.persistence.extensions
 
 import io.smallrye.reactive.messaging.kafka.api.OutgoingKafkaRecordMetadata
@@ -91,4 +90,3 @@ class KafkaPublisher(
     }
 
 }
-*/
