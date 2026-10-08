@@ -3,6 +3,7 @@ package org.goafabric.personservice.persistence.extensions
 import io.quarkus.test.junit.QuarkusTest
 import jakarta.inject.Inject
 import org.assertj.core.api.Assertions
+import org.eclipse.microprofile.config.ConfigProvider
 import org.goafabric.personservice.consumer.PersonConsumer
 import org.goafabric.personservice.controller.dto.Address
 import org.goafabric.personservice.controller.dto.Person
@@ -10,7 +11,6 @@ import org.goafabric.personservice.logic.PersonLogic
 import org.junit.jupiter.api.Assumptions
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
-import org.testcontainers.DockerClientFactory
 import java.util.concurrent.TimeUnit
 
 @QuarkusTest
@@ -24,8 +24,8 @@ class KafkaPublisherIT {
     companion object {
         @JvmStatic
         @BeforeAll
-        fun checkDocker() =
-            Assumptions.assumeTrue(DockerClientFactory.instance().isDockerAvailable, "Docker is not running, skipping test")
+        fun checkDevServices() =
+            Assumptions.assumeTrue(ConfigProvider.getConfig().getValue("quarkus.devservices.enabled", Boolean::class.java), "Docker is not running, skipping test")
     }
 
     @Test

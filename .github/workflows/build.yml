@@ -23,7 +23,7 @@ jobs:
           gradle-version: 9.8.1
 
       - name: Test
-        run: gradle build test
+        run: gradle build test -Dquarkus.devservices.enabled=true
 
       - name: Sonar
         continue-on-error: true

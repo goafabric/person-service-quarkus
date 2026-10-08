@@ -3,7 +3,7 @@ package org.goafabric.personservice.native
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager
 import org.testcontainers.postgresql.PostgreSQLContainer
 
-class NativeTestResource : QuarkusTestResourceLifecycleManager {
+class PostgresNativeTestResource : QuarkusTestResourceLifecycleManager {
 
     private val container = PostgreSQLContainer("postgres:18.3")
     private val qd = "quarkus.datasource"
