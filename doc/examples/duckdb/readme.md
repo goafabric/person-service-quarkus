@@ -9,7 +9,7 @@ https://www.datablist.com/learn/csv/download-sample-csv-files
 # imdb
 https://www.kaggle.com/datasets
 
-CREATE TABLE imdb AS SELECT * FROM read_csv('~/Downloads/imdb.csv');
+CREATE TABLE imdb AS SELECT * FROM read_csv('/Downloads/imdb.csv');
 
 from imdb where vote_average > 8 and spoken_languages = 'English';
 
