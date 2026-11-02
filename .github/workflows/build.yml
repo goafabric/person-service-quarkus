@@ -29,6 +29,12 @@ jobs:
         continue-on-error: true
         run: gradle sonar -Dsonar.plugins.downloadOnlyRequired=true -Dsonar.host.url=https://sonarcloud.io -Dsonar.organization=goafabric -Dsonar.token=${{ secrets.SONAR_USER_TOKEN }}
 
+      - name: Archive SBOM
+        uses: actions/upload-artifact@v7
+        with:
+          name: SBOM
+          path: build/quarkus-run-cyclonedx.json
+
   snapshot:
     runs-on: ubuntu-26.04-arm
     needs: test

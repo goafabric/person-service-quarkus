@@ -93,6 +93,9 @@ dependencies {
 	//mcp
 	implementation("io.quarkiverse.mcp:quarkus-mcp-server-http") //https://docs.quarkiverse.io/quarkus-mcp-server/dev/guides-implementing-tools.html
 
+	//sbom
+	implementation("io.quarkus:quarkus-cyclonedx")
+
 	//h2
 	runtimeOnly("com.h2database:h2")
 
