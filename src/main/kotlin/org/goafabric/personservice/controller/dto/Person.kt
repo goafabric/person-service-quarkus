@@ -7,5 +7,6 @@ data class Person (
     val version:  Long? = null,
     @field:Size(min = 3, max = 255) val firstName: String,
     @field:Size(min = 3, max = 255) val lastName: String,
-    val address: List<Address>
+    val address: List<Address>,
+    //val nickname: String? = null
 )
