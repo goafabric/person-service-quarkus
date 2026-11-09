@@ -1,0 +1,77 @@
+# Kafka + Confluent Schema Registry for local development
+# ./stack up (or ./cstack up)   ->   kafka: localhost:9092, schema registry: http://localhost:8081/subjects
+# the schemas inside ../schemas are registered on startup by the schema-registrar, this is the single source of truth for the event contract
+# uses the same ports as the kafka of the main stack (9092), so don't run both at the same time
+services:
+  kafka:
+    image: apache/kafka:4.4.0
+    container_name: kafka
+    restart: 'no'
+    mem_limit: 1g
+    ports:
+      - "9092:9092"
+    environment:
+      TZ: Europe/Berlin
+      KAFKA_HEAP_OPTS: -Xmx256m -Xms256m
+      KAFKA_NODE_ID: 1
+      KAFKA_PROCESS_ROLES: broker,controller
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@localhost:9094
+
+      #single node, the default of 50 partitions makes the group coordinator very slow to start in small containers
+      KAFKA_OFFSETS_TOPIC_NUM_PARTITIONS: 1
+      KAFKA_TRANSACTION_STATE_LOG_NUM_PARTITIONS: 1
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      KAFKA_NUM_PARTITIONS: 3
+
+      #kafka:29092 for the containers, localhost:9092 for the host
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:29092,PLAINTEXT_HOST://0.0.0.0:9092,CONTROLLER://localhost:9094
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092,PLAINTEXT_HOST://localhost:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+    healthcheck:
+      test: ["CMD-SHELL", "/opt/kafka/bin/kafka-broker-api-versions.sh --bootstrap-server localhost:29092 > /dev/null 2>&1 || exit 1"]
+      interval: 10s
+      timeout: 10s
+      retries: 10
+
+  schema-registry:
+    image: confluentinc/cp-schema-registry:8.4.0
+    container_name: schema-registry
+    restart: 'no'
+    mem_limit: 1g
+    ports:
+      - "8081:8081"
+    environment:
+      TZ: Europe/Berlin
+      SCHEMA_REGISTRY_HOST_NAME: schema-registry
+      SCHEMA_REGISTRY_LISTENERS: http://0.0.0.0:8081
+
+      #the schemas are stored inside the kafka topic _schemas
+      SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: kafka:29092
+      SCHEMA_REGISTRY_KAFKASTORE_TOPIC_REPLICATION_FACTOR: 1
+    healthcheck:
+      #the image has no curl
+      test: ["CMD-SHELL", "python3 -c \"import urllib.request; urllib.request.urlopen('http://localhost:8081/subjects')\" || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    depends_on:
+      kafka:
+        condition: service_healthy
+
+  schema-registrar:
+    image: curlimages/curl:8.23.0
+    container_name: schema-registrar
+    restart: 'no'
+    entrypoint: ["/bin/sh", "/registry/register-schemas.sh"]
+    environment:
+      SCHEMA_REGISTRY_URL: http://schema-registry:8081
+    volumes:
+      - ../:/registry:ro
+    depends_on:
+      schema-registry:
+        condition: service_healthy

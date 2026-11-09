@@ -22,6 +22,9 @@ plugins {
 
 repositories {
 	mavenCentral()
+	maven("https://packages.confluent.io/maven/") {
+		content { includeGroupByRegex("io\\.confluent.*") }
+	}
 }
 
 dependencies {
@@ -30,6 +33,7 @@ dependencies {
 		implementation("org.mapstruct:mapstruct:1.6.3")
 		implementation("io.quarkiverse.azureservices:quarkus-azure-storage-blob:1.2.5")
 		implementation("io.quarkiverse.mcp:quarkus-mcp-server-http:2.0.4")
+		implementation("io.confluent:kafka-json-schema-serializer:8.4.0")
 
 		kapt("org.mapstruct:mapstruct-processor:1.6.3")
 
@@ -86,6 +90,7 @@ dependencies {
 	//kafka
 	implementation("io.quarkus:quarkus-messaging-kafka")
 	implementation("io.smallrye.reactive:smallrye-reactive-messaging-kafka")
+	implementation("io.confluent:kafka-json-schema-serializer")
 
 	//blob
 	implementation("io.quarkiverse.azureservices:quarkus-azure-storage-blob")

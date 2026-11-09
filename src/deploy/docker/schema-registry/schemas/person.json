@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Person",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "id": { "type": ["string", "null"] },
+    "version": { "type": ["integer", "null"] },
+    "firstName": { "type": "string", "minLength": 3, "maxLength": 255 },
+    "lastName": { "type": "string", "minLength": 3, "maxLength": 255 },
+    "address": { "type": "array", "items": { "$ref": "#/definitions/Address" } }
+  },
+  "required": ["firstName", "lastName", "address"],
+  "definitions": {
+    "Address": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": ["string", "null"] },
+        "version": { "type": ["integer", "null"] },
+        "street": { "type": "string", "minLength": 3, "maxLength": 255, "pattern": "^[a-zA-Z0-9.\\s]*$" },
+        "city": { "type": "string", "minLength": 3, "maxLength": 255 }
+      },
+      "required": ["street", "city"]
+    }
+  }
+}
