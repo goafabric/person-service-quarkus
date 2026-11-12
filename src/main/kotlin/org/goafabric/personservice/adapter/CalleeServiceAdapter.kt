@@ -1,5 +1,6 @@
 package org.goafabric.personservice.adapter
 
+import io.quarkus.cache.CacheResult
 import jakarta.enterprise.context.ApplicationScoped
 import jakarta.ws.rs.GET
 import jakarta.ws.rs.Path
@@ -19,6 +20,7 @@ import org.eclipse.microprofile.rest.client.inject.RegisterRestClient
 interface CalleeServiceAdapter {
     @GET
     @Path("sayMyName")
+    @CacheResult(cacheName = "conditionAdapter", keyGenerator = MyCacheConfiguration::class)
     fun sayMyName(@QueryParam("name") name: String): Callee
 
     @GET

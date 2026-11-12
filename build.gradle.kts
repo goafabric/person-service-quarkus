@@ -110,6 +110,8 @@ dependencies {
 	testImplementation("io.quarkus:quarkus-test-kafka-companion")
 
 	testImplementation("org.testcontainers:testcontainers-postgresql")
+
+	implementation("io.quarkus:quarkus-cache")
 }
 
 tasks.withType<Test> {
