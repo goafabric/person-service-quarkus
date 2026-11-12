@@ -3,8 +3,8 @@ package org.goafabric.personservice.persistence.extensions
 import io.confluent.kafka.schemaregistry.json.JsonSchema
 import io.confluent.kafka.schemaregistry.testutil.MockSchemaRegistry
 import io.confluent.kafka.serializers.json.KafkaJsonSchemaDeserializer
-import io.confluent.kafka.serializers.json.KafkaJsonSchemaSerializer
 import org.assertj.core.api.Assertions.assertThat
+import org.apache.kafka.common.header.internals.RecordHeaders
 import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.goafabric.personservice.controller.dto.Address
 import org.goafabric.personservice.controller.dto.Person
@@ -21,20 +21,37 @@ class KafkaJsonSchemaSerdeTest {
     private val scope = "kafka-json-schema-serde-test"
     private val registryConfig = mapOf("schema.registry.url" to "mock://$scope")
 
-    private val serializer = KafkaJsonSchemaSerializer<Any>()
+    private val serializer = ContractJsonSchemaSerializer<Any>()
 
     @BeforeEach
     fun setUp() {
         val client = MockSchemaRegistry.getClientForScope(scope)
         client.register("person-value", JsonSchema(schemaFile("person.json")))
         client.register("address-value", JsonSchema(schemaFile("address.json")))
+        client.register("person-headers", JsonSchema(schemaFile("headers.json")))
+        client.register("address-headers", JsonSchema(schemaFile("headers.json")))
 
-        serializer.configure(registryConfig + mapOf(
-            "auto.register.schemas" to false,
-            "use.latest.version" to true,
-            "latest.compatibility.strict" to false,
-            "json.fail.invalid.schema" to true), false)
+        serializer.configure(producerConfig("fail"), false)
     }
+
+    private fun producerConfig(violation: String) = registryConfig + mapOf(
+        "auto.register.schemas" to false,
+        "use.latest.version" to true,
+        "latest.compatibility.strict" to false,
+        "json.fail.invalid.schema" to true,
+        "contract.violation" to violation)
+
+    private fun headers(vararg overrides: Pair<String, String?>): RecordHeaders {
+        val values = mapOf(
+            "operation" to "CREATE", "X-TenantId" to "0", "X-OrganizationId" to "0",
+            "X-Auth-Request-Preferred-Username" to "anonymous", "traceparent" to "00-abc-def-01") + overrides
+        return RecordHeaders().apply {
+            values.forEach { (key, value) -> if (value != null) add(key, value.toByteArray()) }
+        }
+    }
+
+    private val invalidAddress = Address(null, null, "x", "Springfield")
+    private val validAddress = Address(null, null, "Evergreen Terrace", "Springfield")
 
     @AfterEach
     fun tearDown() = MockSchemaRegistry.dropScope(scope)
@@ -64,6 +81,47 @@ class KafkaJsonSchemaSerdeTest {
             .hasRootCauseInstanceOf(org.everit.json.schema.ValidationException::class.java)
         assertThatThrownBy { serializer.serialize("person", Person(null, null, "Homer", "Simpson", listOf(Address(null, null, "Evergreen !", "Springfield")))) }
             .hasRootCauseInstanceOf(org.everit.json.schema.ValidationException::class.java)
+    }
+
+    @Test
+    fun `payload violation is only logged when contract violation is set to warn`() {
+        serializer.configure(producerConfig("warn"), false)
+
+        val bytes = serializer.serialize("address", invalidAddress)
+
+        assertThat(bytes[0]).isEqualTo(0.toByte())
+        assertThat(deserializer(Address::class.java).deserialize("address", bytes)).isEqualTo(invalidAddress)
+    }
+
+    @Test
+    fun `headers conforming to the header contract are accepted, additional headers are allowed`() {
+        assertThat(serializer.serialize("address", headers(), validAddress)).isNotEmpty()
+    }
+
+    @Test
+    fun `missing or invalid headers are rejected`() {
+        assertThatThrownBy { serializer.serialize("address", headers("X-TenantId" to null), validAddress) }
+            .isInstanceOf(org.apache.kafka.common.errors.SerializationException::class.java)
+            .hasMessageContaining("headers do not match")
+        assertThatThrownBy { serializer.serialize("address", headers("operation" to "MERGE"), validAddress) }
+            .hasMessageContaining("headers do not match")
+    }
+
+    @Test
+    fun `header violation is only logged when contract violation is set to warn`() {
+        serializer.configure(producerConfig("warn"), false)
+
+        assertThat(serializer.serialize("address", headers("X-TenantId" to null), validAddress)).isNotEmpty()
+    }
+
+    @Test
+    fun `topic without a header contract is rejected`() {
+        val client = MockSchemaRegistry.getClientForScope(scope)
+        client.deleteSubject("address-headers")
+        client.deleteSubject("address-headers", true)
+
+        assertThatThrownBy { serializer.serialize("address", headers(), validAddress) }
+            .hasMessageContaining("no header contract address-headers")
     }
 
     @Test

@@ -1,5 +1,5 @@
 #!/bin/sh
-# registers the json schemas of this folder as <topic>-value, a new version is only created if the schema has changed
+# registers the json schemas of this folder as <topic>-value (payload) and <topic>-headers (kafka headers), a new version is only created if the schema has changed
 # inside compose: runs automatically, on the host: SCHEMA_REGISTRY_URL=http://localhost:8081 ./register-schemas.sh
 set -e
 
@@ -17,3 +17,5 @@ register() {
 
 register address-value "$DIR/address.json"
 register person-value "$DIR/person.json"
+register address-headers "$DIR/headers.json"
+register person-headers "$DIR/headers.json"

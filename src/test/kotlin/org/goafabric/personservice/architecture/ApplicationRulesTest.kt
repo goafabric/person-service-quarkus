@@ -59,7 +59,7 @@ class ApplicationRulesTest {
 
             "org.eclipse.microprofile..",
             "io.mcarle.konvert..",
-            "io.smallrye..", "org.apache.kafka..",
+            "io.smallrye..", "org.apache.kafka..", "io.confluent..",
             "com.azure.core..",
             "io.quarkiverse.mcp..",
             "io.vertx.core.http.."
