@@ -12,7 +12,7 @@ plugins {
 	jacoco
 	id("io.quarkus") version "3.40.1.2"
 	id("net.researchgate.release") version "3.2.0"
-	id("org.sonarqube") version "7.5.0.8588"
+	id("org.sonarqube") version "7.6.0.18749"
 
 	kotlin("jvm") version "2.4.21"
 	kotlin("plugin.jpa") version "2.4.21"
