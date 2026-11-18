@@ -1,3 +1,4 @@
+/*
 package org.goafabric.personservice.logic
 
 import com.azure.core.util.BinaryData
@@ -98,3 +99,4 @@ class ObjectStorageLogicTest {
     }
 
 }
+*/

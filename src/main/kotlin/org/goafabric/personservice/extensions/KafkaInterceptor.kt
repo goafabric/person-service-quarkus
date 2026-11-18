@@ -1,10 +1,8 @@
 package org.goafabric.personservice.extensions
 
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.module.kotlin.KotlinModule
 import io.opentelemetry.api.trace.Span
 import io.opentelemetry.context.Context
-import io.quarkus.jackson.ObjectMapperCustomizer
+import io.quarkus.jackson.JsonMapperBuilderCustomizer
 import jakarta.annotation.Priority
 import jakarta.inject.Singleton
 import jakarta.interceptor.AroundInvoke
@@ -13,7 +11,10 @@ import jakarta.interceptor.InvocationContext
 import org.apache.kafka.clients.consumer.ConsumerRecord
 import org.apache.kafka.common.header.Headers
 import org.slf4j.MDC
+import tools.jackson.databind.json.JsonMapper
+import tools.jackson.module.kotlin.KotlinModule
 import java.nio.charset.StandardCharsets
+
 
 @KafkaUserInterceptor
 @Interceptor
@@ -61,8 +62,8 @@ fun ConsumerRecord<*,*>.operation(): String {
 
 //required for Kafka Deserializer to work with Data Classes + Kafka Consumer
 @Singleton
-class KotlinModuleCustomizer : ObjectMapperCustomizer {
-    override fun customize(objectMapper: ObjectMapper) {
-        objectMapper.registerModule(KotlinModule.Builder().build())
+class KotlinModuleCustomizer : JsonMapperBuilderCustomizer {
+    override fun customize(builder: JsonMapper.Builder) {
+        builder.addModule(KotlinModule.Builder().build())
     }
 }

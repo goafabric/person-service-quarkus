@@ -1,3 +1,4 @@
+/*
 package org.goafabric.personservice.logic
 
 import com.azure.storage.blob.BlobClientBuilder
@@ -90,3 +91,4 @@ class ObjectStorageLogic(@param:ConfigProperty(name = "azure.storage.blob.contai
     ) : Closeable by data
 }
 
+*/

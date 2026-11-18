@@ -10,7 +10,7 @@ val dockerRegistry = "goafabric"
 plugins {
 	java
 	jacoco
-	id("io.quarkus") version "3.40.1.2"
+	id("io.quarkus") version "4.0.0.CR1"
 	id("net.researchgate.release") version "3.2.0"
 	id("org.sonarqube") version "7.6.0.18749"
 
@@ -38,8 +38,8 @@ dependencies {
 		testImplementation("org.mockito.kotlin:mockito-kotlin:6.4.0")
 	}
 
-	kapt(enforcedPlatform("io.quarkus:quarkus-bom:3.40.1.2"))
-	implementation(enforcedPlatform("io.quarkus:quarkus-bom:3.40.1.2"))
+	kapt(enforcedPlatform("io.quarkus:quarkus-bom:4.0.0.CR1"))
+	implementation(enforcedPlatform("io.quarkus:quarkus-bom:4.0.0.CR1"))
 }
 dependencies {
 	//web
@@ -81,17 +81,17 @@ dependencies {
 
 	//kotlin
 	implementation("io.quarkus:quarkus-kotlin")
-	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+	implementation("tools.jackson.module:jackson-module-kotlin")
 
 	//kafka
 	implementation("io.quarkus:quarkus-messaging-kafka")
 	implementation("io.smallrye.reactive:smallrye-reactive-messaging-kafka")
 
 	//blob
-	implementation("io.quarkiverse.azureservices:quarkus-azure-storage-blob")
+	//implementation("io.quarkiverse.azureservices:quarkus-azure-storage-blob")
 
 	//mcp
-	implementation("io.quarkiverse.mcp:quarkus-mcp-server-http") //https://docs.quarkiverse.io/quarkus-mcp-server/dev/guides-implementing-tools.html
+	//implementation("io.quarkiverse.mcp:quarkus-mcp-server-http") //https://docs.quarkiverse.io/quarkus-mcp-server/dev/guides-implementing-tools.html
 
 	//sbom
 	implementation("io.quarkus:quarkus-cyclonedx")
