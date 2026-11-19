@@ -38,8 +38,8 @@ dependencies {
 		testImplementation("org.mockito.kotlin:mockito-kotlin:6.4.0")
 	}
 
-	kapt(enforcedPlatform("io.quarkus:quarkus-bom:3.40.1.2"))
-	implementation(enforcedPlatform("io.quarkus:quarkus-bom:3.40.1.2"))
+	kapt(enforcedPlatform("io.quarkus:quarkus-bom:4.0.0"))
+	implementation(enforcedPlatform("io.quarkus:quarkus-bom:4.0.0"))
 }
 dependencies {
 	//web
