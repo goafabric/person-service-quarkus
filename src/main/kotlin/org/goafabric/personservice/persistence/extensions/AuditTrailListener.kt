@@ -1,6 +1,5 @@
 package org.goafabric.personservice.persistence.extensions
 
-import com.fasterxml.jackson.databind.json.JsonMapper
 import io.quarkus.arc.Unremovable
 import jakarta.enterprise.context.ApplicationScoped
 import jakarta.enterprise.inject.spi.CDI
@@ -8,6 +7,7 @@ import jakarta.persistence.*
 import jakarta.transaction.Transactional
 import org.goafabric.personservice.extensions.UserContext
 import org.slf4j.LoggerFactory
+import tools.jackson.databind.json.JsonMapper
 import java.util.*
 import kotlin.reflect.KClass
 
