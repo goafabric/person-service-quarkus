@@ -20,6 +20,14 @@ plugins {
 	kotlin("kapt") version "2.4.21"
 }
 
+// AArch64 native-image workaround: with Mandrel 25.0.x the single callsite inliner (enabled by default since Quarkus 4.0)
+// can inline call chains that make a method overflow the 1 MiB reach of AArch64's ADR jump table, failing the build with
+// "Immediate has to be 21bit signed number. Got value ..." (https://github.com/quarkusio/quarkus/issues/57390).
+// The fix (graalvm/graalvm-community-jdk25u#163) is not released in the builder images yet, so disable the inliner on AArch64.
+if (System.getProperty("os.arch").equals("aarch64") && System.getProperty("quarkus.native.additional-build-args-append") == null) {
+	System.setProperty("quarkus.native.additional-build-args-append", "-H:-AOTSingleCallsiteInline")
+}
+
 repositories {
 	mavenCentral()
 }
